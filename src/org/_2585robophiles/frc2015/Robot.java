@@ -1,4 +1,3 @@
-
 package org._2585robophiles.frc2015;
 
 import org._2585robophiles.lib2585.ExecuterBasedRobot;
@@ -11,13 +10,15 @@ import org._2585robophiles.lib2585.ExecuterBasedRobot;
  * directory.
  */
 public class Robot extends ExecuterBasedRobot {
+	
+	private Environment environment;
     
 	/* (non-Javadoc)
      * @see edu.wpi.first.wpilibj.IterativeRobot#robotInit()
      */
 	@Override
     public void robotInit() {
-		
+		environment = new Environment(this);
     }
     
 }

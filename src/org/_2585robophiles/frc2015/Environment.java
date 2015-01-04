@@ -1,14 +1,7 @@
-/**
- * 
- */
 package org._2585robophiles.frc2015;
 
 import org._2585robophiles.lib2585.RobotEnvironment;
 
-/**
- * @author michael
- *
- */
 public class Environment extends RobotEnvironment {
 	
 	/**
