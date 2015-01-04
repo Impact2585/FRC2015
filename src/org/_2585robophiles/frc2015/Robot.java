@@ -11,6 +11,8 @@ import org._2585robophiles.lib2585.ExecuterBasedRobot;
  */
 public class Robot extends ExecuterBasedRobot {
 	
+	private static final long serialVersionUID = -4946955294002768824L;
+	
 	private Environment environment;
     
 	/* (non-Javadoc)

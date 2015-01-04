@@ -5,6 +5,8 @@ import org._2585robophiles.lib2585.RobotEnvironment;
 
 public class Environment extends RobotEnvironment {
 	
+	private static final long serialVersionUID = 8684301017988652791L;
+	
 	private WheelSystem wheelSystem;
 	
 	/**
