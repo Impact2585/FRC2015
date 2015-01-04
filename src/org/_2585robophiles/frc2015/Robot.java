@@ -20,5 +20,35 @@ public class Robot extends ExecuterBasedRobot {
     public void robotInit() {
 		environment = new Environment(this);
     }
+
+	/* (non-Javadoc)
+	 * @see edu.wpi.first.wpilibj.IterativeRobot#autonomousInit()
+	 */
+	@Override
+	public void autonomousInit() {
+		
+	}
+
+	/* (non-Javadoc)
+	 * @see edu.wpi.first.wpilibj.IterativeRobot#teleopInit()
+	 */
+	@Override
+	public void teleopInit() {
+		setExecuter(new TeleopExecuter(environment));
+	}
+	
+	/**
+	 * @return the environment
+	 */
+	public synchronized Environment getEnvironment() {
+		return environment;
+	}
+
+	/**
+	 * @param environment the environment to set
+	 */
+	public synchronized void setEnvironment(Environment environment) {
+		this.environment = environment;
+	}
     
 }
