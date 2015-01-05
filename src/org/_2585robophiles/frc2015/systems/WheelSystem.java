@@ -14,8 +14,6 @@ import edu.wpi.first.wpilibj.SpeedController;
  */
 public class WheelSystem implements RobotSystem, Runnable {
 	
-	public static final double FORWARD_RAMPING = 1;
-	
 	private RobotDrive drivetrain;
 	private SpeedController sidewaysMotor;
 	private InputMethod input;
