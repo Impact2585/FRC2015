@@ -14,9 +14,12 @@ import edu.wpi.first.wpilibj.SpeedController;
  */
 public class WheelSystem implements RobotSystem, Runnable {
 	
+	public static final double FORWARD_RAMPING = 1;
+	
 	private RobotDrive drivetrain;
 	private SpeedController sidewaysMotor;
 	private InputMethod input;
+	private double previousNormalMovement;
 
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.Initializable#init(org._2585robophiles.frc2015.Environment)
@@ -45,6 +48,48 @@ public class WheelSystem implements RobotSystem, Runnable {
 	@Override
 	public void run() {
 		drive(input.forwardMovement(), input.sidewaysMovement(), input.rotation());
+	}
+
+	/**
+	 * @return the previousNormalMovement
+	 */
+	public synchronized double getPreviousNormalMovement() {
+		return previousNormalMovement;
+	}
+
+	/**
+	 * @param previousNormalMovement the previousNormalMovement to set
+	 */
+	protected synchronized void setPreviousNormalMovement(double currentNormalMovement) {
+		this.previousNormalMovement = currentNormalMovement;
+	}
+	
+	/**
+	 * @return the sidewaysMotor
+	 */
+	public synchronized SpeedController getSidewaysMotor() {
+		return sidewaysMotor;
+	}
+
+	/**
+	 * @param sidewaysMotor the sidewaysMotor to set
+	 */
+	protected synchronized void setSidewaysMotor(SpeedController sidewaysMotor) {
+		this.sidewaysMotor = sidewaysMotor;
+	}
+
+	/**
+	 * @return the input
+	 */
+	public synchronized InputMethod getInput() {
+		return input;
+	}
+
+	/**
+	 * @param input the input to set
+	 */
+	protected synchronized void setInput(InputMethod input) {
+		this.input = input;
 	}
 
 	/* (non-Javadoc)
