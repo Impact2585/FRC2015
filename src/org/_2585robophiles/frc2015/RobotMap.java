@@ -1,7 +1,7 @@
 package org._2585robophiles.frc2015;
 
 /**
- * This interface contains the constants such as port numbers
+ * This interface contains the constants
  */
 public interface RobotMap {
 
