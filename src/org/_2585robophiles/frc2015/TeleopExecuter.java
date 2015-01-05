@@ -31,12 +31,4 @@ public class TeleopExecuter extends RunnableExecuter implements Initializable {
 		getRunnables().add(environment.getWheelSystem());
 	}
 
-	/* (non-Javadoc)
-	 * @see org._2585robophiles.lib2585.Executer#execute()
-	 */
-	@Override
-	public void execute() {
-		
-	}
-
 }

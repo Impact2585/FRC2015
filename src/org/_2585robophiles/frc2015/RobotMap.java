@@ -12,4 +12,6 @@ public interface RobotMap {
 	public static final int REAR_LEFT_DRIVE = -3;
 	
 	public static final int REAR_RIGHT_DRIVE = -3;
+	
+	public static final int SIDEWAYS_DRIVE = -3;
 }
