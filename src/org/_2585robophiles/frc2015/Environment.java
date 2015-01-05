@@ -1,13 +1,19 @@
 package org._2585robophiles.frc2015;
 
+import org._2585robophiles.frc2015.input.InputMethod;
+import org._2585robophiles.frc2015.input.XboxInput;
 import org._2585robophiles.frc2015.systems.WheelSystem;
 import org._2585robophiles.lib2585.RobotEnvironment;
 
+/**
+ * This class contains the robot's systems and input
+ */
 public class Environment extends RobotEnvironment {
 	
 	private static final long serialVersionUID = 8684301017988652791L;
 	
 	private WheelSystem wheelSystem;
+	private InputMethod input;
 	
 	/**
 	 * Just a default constructor
@@ -25,6 +31,8 @@ public class Environment extends RobotEnvironment {
 		
 		wheelSystem = new WheelSystem();
 		wheelSystem.init(this);
+		
+		input = new XboxInput();
 	}
 
 	/**
@@ -41,12 +49,26 @@ public class Environment extends RobotEnvironment {
 		this.wheelSystem = wheelSystem;
 	}
 
+	/**
+	 * @return the input
+	 */
+	public synchronized InputMethod getInput() {
+		return input;
+	}
+
+	/**
+	 * @param input the input to set
+	 */
+	protected synchronized void setInput(InputMethod input) {
+		this.input = input;
+	}
+
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.lib2585.Destroyable#destroy()
 	 */
 	@Override
 	public void destroy() {
-		
+		wheelSystem.destroy();
 	}
 
 }
