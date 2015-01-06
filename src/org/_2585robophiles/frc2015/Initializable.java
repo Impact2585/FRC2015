@@ -3,7 +3,7 @@ package org._2585robophiles.frc2015;
 /**
  * SAM interface with an init method
  */
-public @FunctionalInterface interface Initializable {
+public interface Initializable {
 	
 	/**
 	 * Initialize object
