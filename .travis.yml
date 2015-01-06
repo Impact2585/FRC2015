@@ -1,2 +1,2 @@
 language: java
-script: ant test -file testbuild.xml
+script: ant test -file testbuild.xml -verbose
