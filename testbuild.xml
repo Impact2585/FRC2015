@@ -51,7 +51,7 @@
             <classpath refid="FRC2015.classpath"/>
         </junit>
     </target>
-    <target depends="WheelSystemTest" name="test"/>
+    <target depends="build-project,WheelSystemTest" name="test"/>
     <target name="junitreport">
         <junitreport todir="${junit.output.dir}">
             <fileset dir="${junit.output.dir}">
