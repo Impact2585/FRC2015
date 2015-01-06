@@ -3,10 +3,11 @@
               Any modifications will be overwritten.
               To include a user specific buildfile here, simply create one in the same
               directory with the processing instruction <?eclipse.ant.import?>
-              as the first entry and export the buildfile again. --><project basedir="." default="build" name="FRC2015">
+              as the first entry and export the buildfile again. -->
+<project basedir="." default="build" name="FRC2015">
     <property environment="env"/>
-    <property name="wpilib" value="../../wpilib/java/current/lib/WPILib.jar"/>
-    <property name="networktables" value="../../wpilib/java/current/lib/NetworkTables.jar"/>
+    <property name="wpilib" value="lib/WPILib.jar"/>
+    <property name="networktables" value="lib/NetworkTables.jar"/>
     <property name="ECLIPSE_HOME" value="${user.home}/eclipse"/>
     <property name="junit.output.dir" value="junit"/>
     <property name="debuglevel" value="source,lines,vars"/>
