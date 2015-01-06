@@ -7,7 +7,7 @@
     <property environment="env"/>
     <property name="wpilib" value="../../wpilib/java/current/lib/WPILib.jar"/>
     <property name="networktables" value="../../wpilib/java/current/lib/NetworkTables.jar"/>
-    <property name="ECLIPSE_HOME" value="/home/michael/eclipse"/>
+    <property name="ECLIPSE_HOME" value="${user.home}/eclipse"/>
     <property name="junit.output.dir" value="junit"/>
     <property name="debuglevel" value="source,lines,vars"/>
     <property name="target" value="1.8"/>
@@ -51,7 +51,7 @@
         </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-    <target name="WheelSystemTest (1)">
+    <target name="WheelSystemTest">
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
@@ -59,6 +59,7 @@
             <classpath refid="FRC2015.classpath"/>
         </junit>
     </target>
+    <target depends="WheelSystemTest" name="test"/>
     <target name="junitreport">
         <junitreport todir="${junit.output.dir}">
             <fileset dir="${junit.output.dir}">
