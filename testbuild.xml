@@ -5,8 +5,8 @@
     <property name="networktables" value="lib/NetworkTables.jar"/>
     <property name="junit.output.dir" value="junit"/>
     <property name="debuglevel" value="source,lines,vars"/>
-    <property name="target" value="1.8"/>
-    <property name="source" value="1.8"/>
+    <property name="target" value="1.7"/>
+    <property name="source" value="1.7"/>
     <path id="FRC2015.classpath">
         <pathelement location="bin"/>
         <pathelement location="${wpilib}"/>
@@ -14,7 +14,6 @@
         <pathelement location="lib/Lib2585.jar"/>
     	<pathelement location="lib/junit-4.12.jar"/>
     	<pathelement location="lib/hamcrest-core-1.3.jar"/>
-    	<pathelement location="${ant.home}/lib/ant-junit4.jar"/>
     </path>
     <target name="init">
         <mkdir dir="bin"/>
