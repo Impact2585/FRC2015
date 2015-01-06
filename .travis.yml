@@ -1,4 +1,4 @@
 language: java
-install: ./frcsim-installer.sh
+install: sudo ./frcsim-installer.sh INSTALLER
 script: ant test -file testbuild.xml
 
