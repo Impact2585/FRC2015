@@ -16,12 +16,12 @@ public class Robot extends ExecuterBasedRobot {
 	private Environment environment;
     
 	/* (non-Javadoc)
-     * @see edu.wpi.first.wpilibj.IterativeRobot#robotInit()
-     */
+	 * @see edu.wpi.first.wpilibj.IterativeRobot#robotInit()
+	 */
 	@Override
-    public void robotInit() {
+	public void robotInit() {
 		environment = new Environment(this);
-    }
+	}
 
 	/* (non-Javadoc)
 	 * @see edu.wpi.first.wpilibj.IterativeRobot#autonomousInit()
