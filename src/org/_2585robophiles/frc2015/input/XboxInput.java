@@ -50,4 +50,9 @@ public class XboxInput implements InputMethod {
 		return controller.getRawAxis(XboxConstants.RIGHT_X_AXIS);
 	}
 
+	@Override
+	public Joystick[] joysticks() {
+		return new Joystick[]{controller};
+	}
+
 }

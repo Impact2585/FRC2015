@@ -79,7 +79,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 	/**
 	 * @return the input
 	 */
-	public synchronized InputMethod getInput() {
+	protected InputMethod getInput() {
 		return input;
 	}
 
