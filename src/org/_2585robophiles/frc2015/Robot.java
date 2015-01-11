@@ -39,6 +39,14 @@ public class Robot extends ExecuterBasedRobot {
 		setExecuter(new TeleopExecuter(environment));
 	}
 	
+	/* (non-Javadoc)
+	 * @see edu.wpi.first.wpilibj.IterativeRobot#testInit()
+	 */
+	@Override
+	public void testInit() {
+		setExecuter(new TestExecuter(environment));
+	}
+
 	/**
 	 * @return the environment
 	 */

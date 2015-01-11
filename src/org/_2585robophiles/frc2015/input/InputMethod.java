@@ -1,5 +1,7 @@
 package org._2585robophiles.frc2015.input;
 
+import edu.wpi.first.wpilibj.Joystick;
+
 /**
  * Input for the robot
  */
@@ -20,4 +22,10 @@ public interface InputMethod {
 	 * @return turning value of robot from -1 to 1
 	 */
 	public abstract double rotation();
+	
+	/**
+	 * @return an array of joysticks used for input
+	 */
+	public abstract Joystick[] joysticks();
+	
 }

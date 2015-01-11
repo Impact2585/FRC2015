@@ -7,6 +7,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import edu.wpi.first.wpilibj.Joystick;
+
 /**
  * Unit test for the WheelSystem class
  */
@@ -50,6 +52,11 @@ public class WheelSystemTest {
 			public double forwardMovement() {
 				return 1;
 			}
+
+			@Override
+			public Joystick[] joysticks() {
+				return null;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertEquals(0, currentRotation, 0);
@@ -70,6 +77,11 @@ public class WheelSystemTest {
 			@Override
 			public double forwardMovement() {
 				return -1;
+			}
+
+			@Override
+			public Joystick[] joysticks() {
+				return null;
 			}
 		});
 		wheelSystem.run();
