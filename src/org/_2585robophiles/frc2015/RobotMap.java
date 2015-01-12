@@ -11,5 +11,7 @@ public interface RobotMap {
 							REAR_RIGHT_DRIVE = 4,
 							SIDEWAYS_DRIVE = 5;
 	
-	public static final double FORWARD_RAMPING = 1;
+	public static final double FORWARD_RAMPING = .8;
+	public static final double SIDEWAYS_RAMPING = .8;
+	
 }

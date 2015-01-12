@@ -18,6 +18,8 @@ public class WheelSystem implements RobotSystem, Runnable {
 	private SpeedController sidewaysMotor;
 	private InputMethod input;
 	private double previousNormalMovement;
+	private double currentRampForward;
+	private double currentRampSideways;
 
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.Initializable#init(org._2585robophiles.frc2015.Environment)
@@ -35,8 +37,8 @@ public class WheelSystem implements RobotSystem, Runnable {
 	 * @param sidewaysMovement left right move value
 	 * @param rotation turn value
 	 */
-	public void drive(double normalMovement, double sidewaysMovement, double rotation){
-		drivetrain.arcadeDrive(normalMovement, rotation);
+	public void drive(double forwardMovement, double sidewaysMovement, double rotation){
+		drivetrain.arcadeDrive(forwardMovement, rotation);
 		sidewaysMotor.set(sidewaysMovement);
 	}
 	
@@ -45,7 +47,9 @@ public class WheelSystem implements RobotSystem, Runnable {
 	 */
 	@Override
 	public void run() {
-		drive(input.forwardMovement(), input.sidewaysMovement(), input.rotation());
+		currentRampForward += (input.forwardMovement()-currentRampForward) * RobotMap.FORWARD_RAMPING;
+		currentRampSideways += (input.sidewaysMovement()-currentRampSideways) * RobotMap.SIDEWAYS_RAMPING;
+		drive(currentRampForward, currentRampSideways, input.rotation());
 	}
 
 	/**
