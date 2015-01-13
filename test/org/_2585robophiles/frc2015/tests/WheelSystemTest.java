@@ -88,6 +88,56 @@ public class WheelSystemTest {
 		Assert.assertEquals(0, currentRotation, 0);
 		Assert.assertEquals(0, currentSidewaysMovement, 0);
 		Assert.assertEquals(RobotMap.FORWARD_RAMPING + (-1 - RobotMap.FORWARD_RAMPING) * RobotMap.FORWARD_RAMPING, currentNormalMovement , 0);
+		
+		// test squared rotation
+		wheelSystem.setInput(new InputMethod() {
+			
+			@Override
+			public double sidewaysMovement() {
+				return 0;
+			}
+			
+			@Override
+			public double rotation() {
+				return -1;
+			}
+			
+			@Override
+			public Joystick[] joysticks() {
+				return null;
+			}
+			
+			@Override
+			public double forwardMovement() {
+				return 0;
+			}
+		});
+		wheelSystem.run();
+		Assert.assertEquals(-1, currentRotation, 0);
+		wheelSystem.setInput(new InputMethod() {
+			
+			@Override
+			public double sidewaysMovement() {
+				return 0.5;
+			}
+			
+			@Override
+			public double rotation() {
+				return 0;
+			}
+			
+			@Override
+			public Joystick[] joysticks() {
+				return null;
+			}
+			
+			@Override
+			public double forwardMovement() {
+				return 0;
+			}
+		});
+		wheelSystem.run();
+		Assert.assertEquals(0.25, currentRotation, 0);
 	}
 
 	/**
