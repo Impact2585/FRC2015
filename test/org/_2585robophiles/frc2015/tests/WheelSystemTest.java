@@ -118,12 +118,12 @@ public class WheelSystemTest {
 			
 			@Override
 			public double sidewaysMovement() {
-				return 0.5;
+				return 0;
 			}
 			
 			@Override
 			public double rotation() {
-				return 0;
+				return 0.5;
 			}
 			
 			@Override
