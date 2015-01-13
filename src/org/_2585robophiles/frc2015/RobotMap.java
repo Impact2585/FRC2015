@@ -13,5 +13,7 @@ public interface RobotMap {
 	
 	public static final int GYRO = 1;
 	
-	public static final double FORWARD_RAMPING = 1;
+	public static final double FORWARD_RAMPING = .8;
+	public static final double SIDEWAYS_RAMPING = .8;
+	
 }
