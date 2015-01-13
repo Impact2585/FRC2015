@@ -20,6 +20,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 	private double previousNormalMovement;
 	private double currentRampForward;
 	private double currentRampSideways;
+	private double rotationValue;
 
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.Initializable#init(org._2585robophiles.frc2015.Environment)
@@ -49,7 +50,12 @@ public class WheelSystem implements RobotSystem, Runnable {
 	public void run() {
 		currentRampForward += (input.forwardMovement()-currentRampForward) * RobotMap.FORWARD_RAMPING;
 		currentRampSideways += (input.sidewaysMovement()-currentRampSideways) * RobotMap.SIDEWAYS_RAMPING;
-		drive(currentRampForward, currentRampSideways, input.rotation());
+		if(input.rotation() < 0){
+			rotationValue = Math.pow(input.rotation(),2) * -1.0; // keeps the negative value
+		}else{
+			rotationValue = Math.pow(input.rotation(),2);
+		}
+		drive(currentRampForward, currentRampSideways, rotationValue);
 	}
 
 	/**
