@@ -53,13 +53,13 @@
     </target>
     <target name="AccelerometerTest">
         <mkdir dir="${junit.output.dir}"/>
-        <junit fork="yes" printsummary="withOutAndErr">
+        <junit fork="yes" haltonerror="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
             <test name="org._2585robophiles.frc2015.tests.AccelerometerTest" todir="${junit.output.dir}"/>
             <classpath refid="FRC2015.classpath"/>
         </junit>
     </target>
-    <target depends="build-project,WheelSystemTest" name="test"/>
+    <target depends="build-project, WheelSystemTest, AccelerometerTest" name="test"/>
     <target name="junitreport">
         <junitreport todir="${junit.output.dir}">
             <fileset dir="${junit.output.dir}">

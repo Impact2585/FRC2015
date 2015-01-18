@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 public class AccelerometerSystem implements RobotSystem, Runnable {
 	
 	public static final double GRAVITATIONAL_ACCELERATION = 9.80665;
+	public static final double METER_TO_FEET = 3.2808399;
 	
 	private ADXL345_I2C accelerometer;
 	private long lastUpdate;
@@ -51,7 +52,9 @@ public class AccelerometerSystem implements RobotSystem, Runnable {
 	 */
 	@Override
 	public void run() {
-		
+		if(lastUpdate != 0)
+			speed += accelerationX() * (System.currentTimeMillis() - lastUpdate) / 1000;
+		lastUpdate = System.currentTimeMillis();
 	}
 
 
@@ -70,6 +73,7 @@ public class AccelerometerSystem implements RobotSystem, Runnable {
 	}
 
 	/**
+	 * Speed in meters per second
 	 * @return the speed
 	 */
 	public double getSpeed() {
@@ -77,10 +81,19 @@ public class AccelerometerSystem implements RobotSystem, Runnable {
 	}
 
 	/**
+	 * Set meters per second speed
 	 * @param speed the speed to set
 	 */
 	protected void setSpeed(double speed) {
 		this.speed = speed;
+	}
+	
+	/**
+	 * Speed in feet per second
+	 * @return speed
+	 */
+	public double getSpeedInFPS(){
+		return speed * METER_TO_FEET;
 	}
 
 	/* (non-Javadoc)

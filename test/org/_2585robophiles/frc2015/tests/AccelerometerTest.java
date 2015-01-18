@@ -19,8 +19,6 @@ public class AccelerometerTest {
 	@Before
 	public void setUp() {
 		accelerometer = new TestAccelerometerSystem();
-		
-		
 	}
 
 	/**
@@ -29,12 +27,12 @@ public class AccelerometerTest {
 	@Test
 	public void test() {
 		// we just started so speed should be 0
-		accelerationX = AccelerometerSystem.GRAVITATIONAL_ACCELERATION;
 		accelerometer.setLastUpdate(System.currentTimeMillis());
 		accelerometer.run();
 		Assert.assertEquals(0, accelerometer.getSpeed(), 0.001);
 		
 		// accelerate forward to half of acceleration due to gravity
+		accelerationX = AccelerometerSystem.GRAVITATIONAL_ACCELERATION;
 		accelerometer.setLastUpdate(System.currentTimeMillis() - 500);
 		accelerometer.run();
 		Assert.assertEquals(AccelerometerSystem.GRAVITATIONAL_ACCELERATION / 2, accelerometer.getSpeed(), 0.001);
