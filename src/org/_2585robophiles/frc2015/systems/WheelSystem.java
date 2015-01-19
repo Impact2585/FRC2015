@@ -50,6 +50,10 @@ public class WheelSystem implements RobotSystem, Runnable {
 	public void run() {
 		currentRampForward += (input.forwardMovement()-currentRampForward) * RobotMap.FORWARD_RAMPING;
 		currentRampSideways += (input.sidewaysMovement()-currentRampSideways) * RobotMap.SIDEWAYS_RAMPING;
+		if(currentRampForward < .15 && currentRampForward > -.15)
+			currentRampForward = 0.0;
+		if(currentRampSideways < .15 && currentRampSideways > -.15)
+			currentRampSideways = 0.0;
 		if(input.rotation() < 0){
 			rotationValue = Math.pow(input.rotation(),2) * -1.0; // keeps the negative value
 		}else{
