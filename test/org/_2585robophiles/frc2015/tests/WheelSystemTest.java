@@ -195,7 +195,7 @@ public class WheelSystemTest {
 			}
 		});
 		wheelSystem.run();
-		Assert.assertEquals(0.25, currentRotation, 0);
+		Assert.assertEquals(Math.pow(0.5, RobotMap.ROTATION_EXPONENT), currentRotation, 0);
 		
 		// test deadzone
 		wheelSystem.setInput(new InputMethod() {
