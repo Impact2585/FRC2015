@@ -1,6 +1,7 @@
 package org._2585robophiles.frc2015.systems;
 
 import org._2585robophiles.frc2015.Environment;
+import org._2585robophiles.frc2015.RobotMap;
 
 import edu.wpi.first.wpilibj.Gyro;
 
@@ -13,7 +14,7 @@ public class GyroSystem implements RobotSystem {
 	 */
 	@Override
 	public void init(Environment environment) {
-		gyro = new Gyro(3);
+		gyro = new Gyro(RobotMap.GYRO);
 		gyro.initGyro();
 	}
 	
@@ -22,7 +23,10 @@ public class GyroSystem implements RobotSystem {
 	 * @return the heading of the gyro in degrees
 	 */
 	public double heading(){
-		return angle();
+		if(angle() < 0){
+			return 360 + (angle() % 360);
+		}
+		return angle() % 360;
 	}
 	
 	/**
