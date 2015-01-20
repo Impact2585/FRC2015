@@ -25,32 +25,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 	private double distanceDriven;
 	private long lastDistanceUpdate;
 	
-	private PIDSubsystem distancePID = new PIDSubsystem(0.3, 0.3, 0.3) {
-		
-		/* (non-Javadoc)
-		 * @see edu.wpi.first.wpilibj.command.Subsystem#initDefaultCommand()
-		 */
-		@Override
-		protected void initDefaultCommand() {
-			
-		}
-		
-		/* (non-Javadoc)
-		 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#usePIDOutput(double)
-		 */
-		@Override
-		protected void usePIDOutput(double output) {
-			drive(output, 0, 0);
-		}
-		
-		/* (non-Javadoc)
-		 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#returnPIDInput()
-		 */
-		@Override
-		protected double returnPIDInput() {
-			return distanceDriven;
-		}
-	};
+	private PIDSubsystem distancePID;
 
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.Initializable#init(org._2585robophiles.frc2015.Environment)
@@ -60,6 +35,33 @@ public class WheelSystem implements RobotSystem, Runnable {
 		drivetrain = new RobotDrive(RobotMap.FRONT_LEFT_DRIVE, RobotMap.REAR_LEFT_DRIVE, RobotMap.FRONT_RIGHT_DRIVE, RobotMap.REAR_RIGHT_DRIVE);
 		sidewaysMotor = new Jaguar(RobotMap.SIDEWAYS_DRIVE);
 		input = environment.getInput();
+		
+		distancePID = new PIDSubsystem(0.3, 0.3, 0.3) {
+				
+				/* (non-Javadoc)
+				 * @see edu.wpi.first.wpilibj.command.Subsystem#initDefaultCommand()
+				 */
+				@Override
+				protected void initDefaultCommand() {
+					
+				}
+				
+				/* (non-Javadoc)
+				 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#usePIDOutput(double)
+				 */
+				@Override
+				protected void usePIDOutput(double output) {
+					drive(output, 0, 0);
+				}
+				
+				/* (non-Javadoc)
+				 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#returnPIDInput()
+				 */
+				@Override
+				protected double returnPIDInput() {
+					return distanceDriven;
+				}
+			};
 	}
 	
 	/**
