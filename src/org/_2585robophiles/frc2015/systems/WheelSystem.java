@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SensorBase;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
  * This system controls the movement of the robot
@@ -21,6 +22,35 @@ public class WheelSystem implements RobotSystem, Runnable {
 	private double currentRampForward;
 	private double currentRampSideways;
 	private double rotationValue;
+	private double distanceDriven;
+	private long lastDistanceUpdate;
+	
+	private PIDSubsystem distancePID = new PIDSubsystem(0.3, 0.3, 0.3) {
+		
+		/* (non-Javadoc)
+		 * @see edu.wpi.first.wpilibj.command.Subsystem#initDefaultCommand()
+		 */
+		@Override
+		protected void initDefaultCommand() {
+			
+		}
+		
+		/* (non-Javadoc)
+		 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#usePIDOutput(double)
+		 */
+		@Override
+		protected void usePIDOutput(double output) {
+			drive(output, 0, 0);
+		}
+		
+		/* (non-Javadoc)
+		 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#returnPIDInput()
+		 */
+		@Override
+		protected double returnPIDInput() {
+			return distanceDriven;
+		}
+	};
 
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.Initializable#init(org._2585robophiles.frc2015.Environment)
@@ -41,6 +71,27 @@ public class WheelSystem implements RobotSystem, Runnable {
 	public void drive(double forwardMovement, double sidewaysMovement, double rotation){
 		drivetrain.arcadeDrive(forwardMovement, rotation);
 		sidewaysMotor.set(sidewaysMovement);
+	}
+	
+	/**
+	 * Drives a certain distance using the accelerometer and PID
+	 * @param meters distance to drive in meters
+	 */
+	public void driveDistance(double meters) {
+		if(lastDistanceUpdate == 0){
+			distancePID.setSetpoint(meters);
+			distancePID.enable();
+			lastDistanceUpdate = System.currentTimeMillis();
+		}
+	}
+	
+	/**
+	 * Drive a certain distance in meters or feet
+	 * @param distance the distance to drive
+	 * @param usingMeters true if using meters false if using feet
+	 */
+	public void driveDistance(double distance, boolean usingMeters){
+		driveDistance(usingMeters ? distance : AccelerometerSystem.METER_TO_FEET * distance);
 	}
 	
 	/* (non-Javadoc)
