@@ -31,6 +31,7 @@ public class WheelSystemTest {
 	 */
 	@Test
 	public void testRun() {
+		
 		// first make sure we aren't moving without input
 		Assert.assertEquals(0, currentSidewaysMovement, 0);
 		Assert.assertEquals(0, currentForwardMovement, 0);
@@ -195,6 +196,85 @@ public class WheelSystemTest {
 		});
 		wheelSystem.run();
 		Assert.assertEquals(0.25, currentRotation, 0);
+		
+		// test deadzone
+		wheelSystem.setInput(new InputMethod() {
+			
+			@Override
+			public double forwardMovement() {
+				return 0.05;
+			}
+			
+			@Override
+			public double sidewaysMovement() {
+				return 0.3;
+			}
+			
+			@Override
+			public double rotation() {
+				return 0;
+			}
+			
+			@Override
+			public Joystick[] joysticks() {
+				return null;
+			}
+		});
+		wheelSystem.run();
+		Assert.assertTrue(currentSidewaysMovement > 0);
+		Assert.assertEquals(0, currentForwardMovement, 0);
+		
+		wheelSystem.setInput(new InputMethod() {
+			
+			@Override
+			public double sidewaysMovement() {
+				return 0.07;
+			}
+			
+			@Override
+			public double rotation() {
+				return 0;
+			}
+			
+			@Override
+			public Joystick[] joysticks() {
+				return null;
+			}
+			
+			@Override
+			public double forwardMovement() {
+				return 0.3;
+			}
+		});
+		wheelSystem.run();
+		Assert.assertTrue(currentForwardMovement > 0);
+		Assert.assertEquals(0, currentSidewaysMovement, 0);
+		
+		wheelSystem.setInput(new InputMethod() {
+			
+			@Override
+			public double sidewaysMovement() {
+				return 0.09;
+			}
+			
+			@Override
+			public double rotation() {
+				return 0;
+			}
+			
+			@Override
+			public Joystick[] joysticks() {
+				return null;
+			}
+			
+			@Override
+			public double forwardMovement() {
+				return 0.09;
+			}
+		});
+		wheelSystem.run();
+		Assert.assertEquals(0, currentSidewaysMovement, 0);
+		Assert.assertEquals(0, currentForwardMovement, 0);
 	}
 
 	/**
