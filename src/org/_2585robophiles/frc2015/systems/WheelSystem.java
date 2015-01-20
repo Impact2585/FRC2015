@@ -55,9 +55,9 @@ public class WheelSystem implements RobotSystem, Runnable {
 		if(currentRampSideways < .15 && currentRampSideways > -.15)
 			currentRampSideways = 0.0;
 		if(input.rotation() < 0){
-			rotationValue = Math.pow(input.rotation(),2) * -1.0; // keeps the negative value
+			rotationValue = Math.pow(input.rotation(),RobotMap.ROTATION_EXPONENT) * -1.0; // keeps the negative value
 		}else{
-			rotationValue = Math.pow(input.rotation(),2);
+			rotationValue = Math.pow(input.rotation(),RobotMap.ROTATION_EXPONENT);
 		}
 		drive(currentRampForward, currentRampSideways, rotationValue);
 	}
