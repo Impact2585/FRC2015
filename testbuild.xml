@@ -59,7 +59,15 @@
             <classpath refid="FRC2015.classpath"/>
         </junit>
     </target>
-    <target depends="build-project, WheelSystemTest, AccelerometerTest" name="test"/>
+    <target name="GyroSystemTest">
+        <mkdir dir="${junit.output.dir}"/>
+        <junit fork="yes" haltonfailure="yes" printsummary="withOutAndErr">
+            <formatter type="xml"/>
+            <test name="org._2585robophiles.frc2015.tests.GyroSystemTest" todir="${junit.output.dir}"/>
+            <classpath refid="FRC2015.classpath"/>
+        </junit>
+    </target>
+    <target depends="build-project, WheelSystemTest, AccelerometerTest, GyroSystemTest" name="test"/>
     <target name="junitreport">
         <junitreport todir="${junit.output.dir}">
             <fileset dir="${junit.output.dir}">
