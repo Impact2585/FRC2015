@@ -65,6 +65,15 @@ public class WheelSystem implements RobotSystem, Runnable {
 	}
 	
 	/**
+	 * Drive a certain distance in meters or feet
+	 * @param distance the distance to drive
+	 * @param usingMeters true if using meters false if using feet
+	 */
+	public void driveDistance(double distance, boolean usingMeters){
+		driveDistance(usingMeters ? distance : AccelerometerSystem.METER_TO_FEET * distance);
+	}
+	
+	/**
 	 * Drive the robot
 	 * @param normalMovement forward back move value
 	 * @param sidewaysMovement left right move value
@@ -81,19 +90,29 @@ public class WheelSystem implements RobotSystem, Runnable {
 	 */
 	public void driveDistance(double meters) {
 		if(lastDistanceUpdate == 0){
-			distancePID.setSetpoint(meters);
-			distancePID.enable();
+			enableDistancePID(meters);
 			lastDistanceUpdate = System.currentTimeMillis();
+		}else if(distanceDriven == meters){
+			disableDistancePID();
+			lastDistanceUpdate = 0;
+		}else{
+			lastDistanceUpdate = System.currentTimeMillis();
+			
 		}
 	}
-	
+
 	/**
-	 * Drive a certain distance in meters or feet
-	 * @param distance the distance to drive
-	 * @param usingMeters true if using meters false if using feet
+	 * Enable and set the setpoint of the distance drive PID
+	 * @param setpoint distance to drive in meters
 	 */
-	public void driveDistance(double distance, boolean usingMeters){
-		driveDistance(usingMeters ? distance : AccelerometerSystem.METER_TO_FEET * distance);
+	protected void enableDistancePID(double setpoint) {
+		distancePID.setSetpoint(setpoint);
+		distancePID.enable();
+	}
+	
+	protected void disableDistancePID(){
+		distancePID.getPIDController().reset();
+		distancePID.disable();
 	}
 	
 	/* (non-Javadoc)
@@ -155,6 +174,34 @@ public class WheelSystem implements RobotSystem, Runnable {
 	 */
 	protected synchronized void setInput(InputMethod input) {
 		this.input = input;
+	}
+
+	/**
+	 * @return the distanceDriven
+	 */
+	public synchronized double getDistanceDriven() {
+		return distanceDriven;
+	}
+
+	/**
+	 * @param distanceDriven the distanceDriven to set
+	 */
+	protected synchronized void setDistanceDriven(double distanceDriven) {
+		this.distanceDriven = distanceDriven;
+	}
+
+	/**
+	 * @return the lastDistanceUpdate
+	 */
+	public synchronized long getLastDistanceUpdate() {
+		return lastDistanceUpdate;
+	}
+
+	/**
+	 * @param lastDistanceUpdate the lastDistanceUpdate to set
+	 */
+	protected synchronized void setLastDistanceUpdate(long lastDistanceUpdate) {
+		this.lastDistanceUpdate = lastDistanceUpdate;
 	}
 
 	/* (non-Javadoc)

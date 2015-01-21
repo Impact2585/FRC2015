@@ -17,6 +17,7 @@ public class WheelSystemTest {
 	private TestWheelSystem wheelSystem;
 	private double currentForwardMovement, currentSidewaysMovement,
 			currentRotation;
+	private boolean distancePIDEnabled;
 
 	/**
 	 * Set up the unit test
@@ -276,6 +277,23 @@ public class WheelSystemTest {
 		Assert.assertEquals(0, currentSidewaysMovement, 0);
 		Assert.assertEquals(0, currentForwardMovement, 0);
 	}
+	
+	/**
+	 * Test the driveDistance method
+	 */
+	@Test
+	public void testDriveDistance(){
+		Assert.assertFalse(distancePIDEnabled);
+		for(int i = 0; i < 3; i++){
+			wheelSystem.driveDistance(3);
+			Assert.assertTrue(distancePIDEnabled);
+			Assert.assertTrue(wheelSystem.getLastDistanceUpdate() > 0);
+		}
+		wheelSystem.setDistanceDriven(3);
+		wheelSystem.driveDistance(3);
+		Assert.assertFalse(distancePIDEnabled);
+		Assert.assertEquals(0, wheelSystem.getLastDistanceUpdate());
+	}
 
 	/**
 	 * WheelSystem subclass for the purpose of unit testing
@@ -305,6 +323,39 @@ public class WheelSystemTest {
 		@Override
 		protected synchronized void setInput(InputMethod input) {
 			super.setInput(input);
+		}
+
+		/* (non-Javadoc)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#setDistanceDriven(double)
+		 */
+		@Override
+		protected synchronized void setDistanceDriven(double distanceDriven) {
+			super.setDistanceDriven(distanceDriven);
+		}
+
+		/* (non-Javadoc)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#setLastDistanceUpdate(long)
+		 */
+		@Override
+		protected synchronized void setLastDistanceUpdate(
+				long lastDistanceUpdate) {
+			super.setLastDistanceUpdate(lastDistanceUpdate);
+		}
+
+		/* (non-Javadoc)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#enableDistancePID(double)
+		 */
+		@Override
+		protected void enableDistancePID(double setpoint) {
+			distancePIDEnabled = true;
+		}
+
+		/* (non-Javadoc)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#disableDistancePID()
+		 */
+		@Override
+		protected void disableDistancePID() {
+			distancePIDEnabled = false;
 		}
 
 	}
