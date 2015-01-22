@@ -2,6 +2,8 @@ package org._2585robophiles.frc2015;
 
 import org._2585robophiles.frc2015.input.InputMethod;
 import org._2585robophiles.frc2015.input.XboxInput;
+import org._2585robophiles.frc2015.systems.AccelerometerSystem;
+import org._2585robophiles.frc2015.systems.GyroSystem;
 import org._2585robophiles.frc2015.systems.WheelSystem;
 import org._2585robophiles.lib2585.RobotEnvironment;
 
@@ -13,6 +15,8 @@ public class Environment extends RobotEnvironment {
 	private static final long serialVersionUID = 8684301017988652791L;
 	
 	private WheelSystem wheelSystem;
+	private GyroSystem gyroSystem;
+	private AccelerometerSystem accelerometerSystem;
 	private InputMethod input;
 	
 	/**
@@ -31,6 +35,12 @@ public class Environment extends RobotEnvironment {
 		
 		wheelSystem = new WheelSystem();
 		wheelSystem.init(this);
+		
+		gyroSystem = new GyroSystem();
+		gyroSystem.init(this);
+		
+		accelerometerSystem = new AccelerometerSystem();
+		accelerometerSystem.init(this);
 		
 		input = new XboxInput();
 	}
@@ -63,12 +73,43 @@ public class Environment extends RobotEnvironment {
 		this.input = input;
 	}
 
+	/**
+	 * @return the gyroSystem
+	 */
+	public synchronized GyroSystem getGyroSystem() {
+		return gyroSystem;
+	}
+
+	/**
+	 * @param gyroSystem the gyroSystem to set
+	 */
+	protected synchronized void setGyroSystem(GyroSystem gyroSystem) {
+		this.gyroSystem = gyroSystem;
+	}
+
+	/**
+	 * @return the accelerometerSystem
+	 */
+	public synchronized AccelerometerSystem getAccelerometerSystem() {
+		return accelerometerSystem;
+	}
+
+	/**
+	 * @param accelerometerSystem the accelerometerSystem to set
+	 */
+	protected synchronized void setAccelerometerSystem(
+			AccelerometerSystem accelerometerSystem) {
+		this.accelerometerSystem = accelerometerSystem;
+	}
+
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.lib2585.Destroyable#destroy()
 	 */
 	@Override
 	public void destroy() {
 		wheelSystem.destroy();
+		gyroSystem.destroy();
+		accelerometerSystem.destroy();
 	}
 
 }
