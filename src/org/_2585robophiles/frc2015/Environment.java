@@ -33,22 +33,22 @@ public class Environment extends RobotEnvironment {
 	public Environment(Robot robot) {
 		super(robot);
 		
-		wheelSystem = new WheelSystem();
-		wheelSystem.init(this);
+		input = new XboxInput();
 		
 		gyroSystem = new GyroSystem();
 		gyroSystem.init(this);
 		
 		accelerometerSystem = new AccelerometerSystem();
 		accelerometerSystem.init(this);
-		
-		input = new XboxInput();
+				
+		wheelSystem = new WheelSystem();
+		wheelSystem.init(this);
 	}
 
 	/**
 	 * @return the wheelSystem
 	 */
-	public synchronized WheelSystem getWheelSystem() {
+	public WheelSystem getWheelSystem() {
 		return wheelSystem;
 	}
 
@@ -62,7 +62,7 @@ public class Environment extends RobotEnvironment {
 	/**
 	 * @return the input
 	 */
-	public synchronized InputMethod getInput() {
+	public InputMethod getInput() {
 		return input;
 	}
 
@@ -76,7 +76,7 @@ public class Environment extends RobotEnvironment {
 	/**
 	 * @return the gyroSystem
 	 */
-	public synchronized GyroSystem getGyroSystem() {
+	public GyroSystem getGyroSystem() {
 		return gyroSystem;
 	}
 
