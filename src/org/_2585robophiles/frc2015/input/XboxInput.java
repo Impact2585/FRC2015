@@ -12,10 +12,10 @@ public class XboxInput implements InputMethod {
 	private Joystick controller;
 	
 	/**
-	 * Use joystick on port 1
+	 * Initialize a joystick
 	 */
 	public XboxInput() {
-		controller = new Joystick(1);
+		controller = new Joystick(0);
 	}
 	
 	/**
