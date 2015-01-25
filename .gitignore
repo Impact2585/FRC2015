@@ -19,3 +19,6 @@ bin/
 
 dist/
 junit/
+
+# system properties file
+sysProps.xml
