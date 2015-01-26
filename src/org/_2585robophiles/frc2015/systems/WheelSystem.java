@@ -33,6 +33,8 @@ public class WheelSystem implements RobotSystem, Runnable {
 	@Override
 	public void init(Environment environment) {
 		drivetrain = new RobotDrive(RobotMap.FRONT_LEFT_DRIVE, RobotMap.REAR_LEFT_DRIVE, RobotMap.FRONT_RIGHT_DRIVE, RobotMap.REAR_RIGHT_DRIVE);
+		drivetrain.setInvertedMotor(RobotDrive.MotorType.kFrontLeft , true );
+		drivetrain.setInvertedMotor(RobotDrive.MotorType.kRearLeft , true );
 		sidewaysMotor = new Jaguar(RobotMap.SIDEWAYS_DRIVE);
 		input = environment.getInput();
 		
@@ -128,6 +130,9 @@ public class WheelSystem implements RobotSystem, Runnable {
 			currentRampSideways = 0.0;
 		if(input.rotation() < 0){
 			rotationValue = Math.pow(input.rotation(),RobotMap.ROTATION_EXPONENT) * -1.0; // keeps the negative value
+			if(rotationValue > 0){
+				rotationValue = rotationValue * -1; // if the ROTATION_EXPONENT is an odd number it keeps the positive
+			}
 		}else{
 			rotationValue = Math.pow(input.rotation(),RobotMap.ROTATION_EXPONENT);
 		}
