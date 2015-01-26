@@ -3,6 +3,7 @@ package org._2585robophiles.frc2015;
 import org._2585robophiles.frc2015.input.InputMethod;
 import org._2585robophiles.frc2015.input.XboxInput;
 import org._2585robophiles.frc2015.systems.AccelerometerSystem;
+import org._2585robophiles.frc2015.systems.DashboardSystem;
 import org._2585robophiles.frc2015.systems.GyroSystem;
 import org._2585robophiles.frc2015.systems.WheelSystem;
 import org._2585robophiles.lib2585.RobotEnvironment;
@@ -18,7 +19,8 @@ public class Environment extends RobotEnvironment {
 	private GyroSystem gyroSystem;
 	private AccelerometerSystem accelerometerSystem;
 	private InputMethod input;
-	
+	private DashboardSystem dashboardSystem;
+
 	/**
 	 * Just a default constructor
 	 */
@@ -43,6 +45,9 @@ public class Environment extends RobotEnvironment {
 				
 		wheelSystem = new WheelSystem();
 		wheelSystem.init(this);
+		
+		dashboardSystem = new DashboardSystem();
+		dashboardSystem.init(this);
 	}
 
 	/**
@@ -90,7 +95,7 @@ public class Environment extends RobotEnvironment {
 	/**
 	 * @return the accelerometerSystem
 	 */
-	public synchronized AccelerometerSystem getAccelerometerSystem() {
+	public AccelerometerSystem getAccelerometerSystem() {
 		return accelerometerSystem;
 	}
 
@@ -102,6 +107,20 @@ public class Environment extends RobotEnvironment {
 		this.accelerometerSystem = accelerometerSystem;
 	}
 
+	/**
+	 * @return the dashboardSystem
+	 */
+	public DashboardSystem getDashboardSystem() {
+		return dashboardSystem;
+	}
+
+	/**
+	 * @param dashboardSystem the dashboardSystem to set
+	 */
+	protected synchronized void setDashboardSystem(DashboardSystem dashboardSystem) {
+		this.dashboardSystem = dashboardSystem;
+	}
+	
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.lib2585.Destroyable#destroy()
 	 */
