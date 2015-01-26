@@ -36,17 +36,14 @@ public class Environment extends RobotEnvironment {
 		super(robot);
 		
 		input = new XboxInput();
-		
 		gyroSystem = new GyroSystem();
-		gyroSystem.init(this);
-		
 		accelerometerSystem = new AccelerometerSystem();
-		accelerometerSystem.init(this);
-				
 		wheelSystem = new WheelSystem();
-		wheelSystem.init(this);
-		
 		dashboardSystem = new DashboardSystem();
+		
+		gyroSystem.init(this);
+		accelerometerSystem.init(this);
+		wheelSystem.init(this);
 		dashboardSystem.init(this);
 	}
 

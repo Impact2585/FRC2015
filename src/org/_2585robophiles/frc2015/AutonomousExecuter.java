@@ -1,7 +1,5 @@
-package org._2585robophiles.frc2015.systems;
+package org._2585robophiles.frc2015;
 
-import org._2585robophiles.frc2015.Environment;
-import org._2585robophiles.frc2015.Initializable;
 import org._2585robophiles.lib2585.Executer;
 
 public class AutonomousExecuter implements Executer, Initializable {
