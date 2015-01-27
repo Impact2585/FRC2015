@@ -16,7 +16,8 @@ public class AccelerometerSystem implements RobotSystem, Runnable {
 	
 	private ADXL345_I2C accelerometer;
 	private long lastUpdate;
-	private double speed;
+	private double speedX;
+	private double speedY;
 
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.Initializable#init(org._2585robophiles.frc2015.Environment)
@@ -52,8 +53,12 @@ public class AccelerometerSystem implements RobotSystem, Runnable {
 	 */
 	@Override
 	public void run() {
-		if(lastUpdate != 0)
-			speed += accelerationX() * (System.currentTimeMillis() - lastUpdate) / 1000;
+		if(lastUpdate != 0){
+			double timeElapsed = (System.currentTimeMillis() - lastUpdate) / 1000d;
+			// velocity = acceleration * time
+			speedX += accelerationX() * timeElapsed;
+			speedY += accelerationY() * timeElapsed;
+		}
 		lastUpdate = System.currentTimeMillis();
 	}
 
@@ -76,24 +81,48 @@ public class AccelerometerSystem implements RobotSystem, Runnable {
 	 * Speed in meters per second
 	 * @return the speed
 	 */
-	public double getSpeed() {
-		return speed;
+	public double getSpeedX() {
+		return speedX;
 	}
 
 	/**
 	 * Set meters per second speed
 	 * @param speed the speed to set
 	 */
-	protected void setSpeed(double speed) {
-		this.speed = speed;
+	protected void setSpeedX(double speed) {
+		this.speedX = speed;
 	}
 	
 	/**
-	 * Speed in feet per second
+	 * The y-axis speed in meters per second
+	 * @return the speedY
+	 */
+	public double getSpeedY() {
+		return speedY;
+	}
+
+	/**
+	 * Set the y-axis speed in meters per second
+	 * @param speedY the speedY to set
+	 */
+	protected void setSpeedY(double speedY) {
+		this.speedY = speedY;
+	}
+
+	/**
+	 * X-axis speed in feet per second
 	 * @return speed
 	 */
-	public double getSpeedInFPS(){
-		return speed * METER_TO_FEET;
+	public double getSpeedXInFPS(){
+		return speedX * METER_TO_FEET;
+	}
+	
+	/**
+	 * Y-axis speed in feet per second
+	 * @return speed
+	 */
+	public double getSpeedYInFPS(){
+		return speedY * METER_TO_FEET;
 	}
 
 	/* (non-Javadoc)

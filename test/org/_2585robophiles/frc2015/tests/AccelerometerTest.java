@@ -1,6 +1,7 @@
 package org._2585robophiles.frc2015.tests;
 
 import org._2585robophiles.frc2015.systems.AccelerometerSystem;
+import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,6 +13,7 @@ public class AccelerometerTest {
 	
 	private TestAccelerometerSystem accelerometer;
 	private double accelerationX;
+	private double accelerationY;
 
 	/**
 	 * Set up before test is run
@@ -29,21 +31,24 @@ public class AccelerometerTest {
 		// we just started so speed should be 0
 		accelerometer.setLastUpdate(System.currentTimeMillis());
 		accelerometer.run();
-		Assert.assertEquals(0, accelerometer.getSpeed(), 0.001);
+		Assert.assertThat(accelerometer.getSpeedX(), CoreMatchers.equalTo(0.0));
+		Assert.assertThat(accelerometer.getSpeedY(), CoreMatchers.equalTo(0.0));
 		
 		// accelerate forward to half of acceleration due to gravity
-		accelerationX = AccelerometerSystem.GRAVITATIONAL_ACCELERATION;
+		accelerationX = accelerationY = AccelerometerSystem.GRAVITATIONAL_ACCELERATION;
 		accelerometer.setLastUpdate(System.currentTimeMillis() - 500);
 		accelerometer.run();
-		Assert.assertEquals(AccelerometerSystem.GRAVITATIONAL_ACCELERATION / 2, accelerometer.getSpeed(), 0.001);
+		Assert.assertThat(accelerometer.getSpeedX(), CoreMatchers.equalTo(AccelerometerSystem.GRAVITATIONAL_ACCELERATION / 2));
+		Assert.assertThat(accelerometer.getSpeedY(), CoreMatchers.equalTo(AccelerometerSystem.GRAVITATIONAL_ACCELERATION / 2));
 		
 		// decelerate back down to 0
-		accelerationX = -AccelerometerSystem.GRAVITATIONAL_ACCELERATION / 2;
+		accelerationX = accelerationY = -AccelerometerSystem.GRAVITATIONAL_ACCELERATION / 2;
 		accelerometer.setLastUpdate(System.currentTimeMillis());
 		accelerometer.run();
 		accelerometer.setLastUpdate(System.currentTimeMillis() - 1000);
 		accelerometer.run();
-		Assert.assertEquals(0, accelerometer.getSpeed(), 0.001);
+		Assert.assertThat(accelerometer.getSpeedX(), CoreMatchers.equalTo(0.0));
+		Assert.assertThat(accelerometer.getSpeedY(), CoreMatchers.equalTo(0.0));
 	}
 
 	private class TestAccelerometerSystem extends AccelerometerSystem{
@@ -61,7 +66,7 @@ public class AccelerometerTest {
 		 */
 		@Override
 		public double accelerationY() {
-			return 0;
+			return accelerationY;
 		}
 
 		/* (non-Javadoc)
