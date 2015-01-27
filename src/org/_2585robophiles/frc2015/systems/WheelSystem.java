@@ -33,8 +33,8 @@ public class WheelSystem implements RobotSystem, Runnable {
 	@Override
 	public void init(Environment environment) {
 		drivetrain = new RobotDrive(RobotMap.FRONT_LEFT_DRIVE, RobotMap.REAR_LEFT_DRIVE, RobotMap.FRONT_RIGHT_DRIVE, RobotMap.REAR_RIGHT_DRIVE);
-		drivetrain.setInvertedMotor(RobotDrive.MotorType.kFrontLeft , true );
-		drivetrain.setInvertedMotor(RobotDrive.MotorType.kRearLeft , true );
+		drivetrain.setInvertedMotor(RobotDrive.MotorType.kFrontRight , true );
+		drivetrain.setInvertedMotor(RobotDrive.MotorType.kRearRight , true );
 		sidewaysMotor = new Jaguar(RobotMap.SIDEWAYS_DRIVE);
 		input = environment.getInput();
 		
