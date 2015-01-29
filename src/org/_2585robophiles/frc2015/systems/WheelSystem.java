@@ -4,10 +4,10 @@ import org._2585robophiles.frc2015.Environment;
 import org._2585robophiles.frc2015.RobotMap;
 import org._2585robophiles.frc2015.input.InputMethod;
 
-import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SensorBase;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -18,6 +18,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 	private RobotDrive drivetrain;
 	private SpeedController sidewaysMotor;
 	private InputMethod input;
+	private AccelerometerSystem accelerometer;
 	private double previousNormalMovement;
 	private double currentRampForward;
 	private double currentRampSideways;
@@ -35,7 +36,8 @@ public class WheelSystem implements RobotSystem, Runnable {
 		drivetrain = new RobotDrive(RobotMap.FRONT_LEFT_DRIVE, RobotMap.REAR_LEFT_DRIVE, RobotMap.FRONT_RIGHT_DRIVE, RobotMap.REAR_RIGHT_DRIVE);
 		drivetrain.setInvertedMotor(RobotDrive.MotorType.kFrontRight , true );
 		drivetrain.setInvertedMotor(RobotDrive.MotorType.kRearRight , true );
-		sidewaysMotor = new Jaguar(RobotMap.SIDEWAYS_DRIVE);
+		sidewaysMotor = new Victor(RobotMap.SIDEWAYS_DRIVE);
+		accelerometer = environment.getAccelerometerSystem();
 		input = environment.getInput();
 		
 		distancePID = new PIDSubsystem(0.3, 0.3, 0.3) {
@@ -99,8 +101,18 @@ public class WheelSystem implements RobotSystem, Runnable {
 			lastDistanceUpdate = 0;
 		}else{
 			lastDistanceUpdate = System.currentTimeMillis();
-			
+			// use the accelerometer to find the distance we have driven
+			accelerometer.getSpeedXInFPS();
 		}
+	}
+	
+	/**
+	 * Drive straight using gyro and PID
+	 * @param forwardMovement the forward movement value
+	 * @param sidewaysMovement the left/right movement value
+	 */
+	public void straightDrive(double forwardMovement, double sidewaysMovement){
+		
 	}
 
 	/**
@@ -170,7 +182,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 	/**
 	 * @return the input
 	 */
-	protected InputMethod getInput() {
+	public InputMethod getInput() {
 		return input;
 	}
 
@@ -179,6 +191,20 @@ public class WheelSystem implements RobotSystem, Runnable {
 	 */
 	protected synchronized void setInput(InputMethod input) {
 		this.input = input;
+	}
+
+	/**
+	 * @return the accelerometer
+	 */
+	public synchronized AccelerometerSystem getAccelerometer() {
+		return accelerometer;
+	}
+
+	/**
+	 * @param accelerometer the accelerometer to set
+	 */
+	protected synchronized void setAccelerometer(AccelerometerSystem accelerometer) {
+		this.accelerometer = accelerometer;
 	}
 
 	/**
