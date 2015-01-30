@@ -2,12 +2,14 @@ package org._2585robophiles.frc2015.tests;
 
 import org._2585robophiles.frc2015.RobotMap;
 import org._2585robophiles.frc2015.input.InputMethod;
+import org._2585robophiles.frc2015.systems.AccelerometerSystem;
 import org._2585robophiles.frc2015.systems.WheelSystem;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SpeedController;
 
 /**
  * Unit test for the WheelSystem class
@@ -25,6 +27,25 @@ public class WheelSystemTest {
 	@Before
 	public void setUp() {
 		wheelSystem = new TestWheelSystem();
+		wheelSystem.setAccelerometer(new AccelerometerSystem(){
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.systems.AccelerometerSystem#getSpeedX()
+			 */
+			@Override
+			public double getSpeedX() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.systems.AccelerometerSystem#getSpeedY()
+			 */
+			@Override
+			public double getSpeedY() {
+				return 0;
+			}
+			
+		});
 	}
 
 	/**
@@ -340,6 +361,33 @@ public class WheelSystemTest {
 		protected synchronized void setLastDistanceUpdate(
 				long lastDistanceUpdate) {
 			super.setLastDistanceUpdate(lastDistanceUpdate);
+		}
+
+		/* (non-Javadoc)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#setPreviousNormalMovement(double)
+		 */
+		@Override
+		protected synchronized void setPreviousNormalMovement(
+				double currentNormalMovement) {
+			super.setPreviousNormalMovement(currentNormalMovement);
+		}
+
+		/* (non-Javadoc)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#setSidewaysMotor(edu.wpi.first.wpilibj.SpeedController)
+		 */
+		@Override
+		protected synchronized void setSidewaysMotor(
+				SpeedController sidewaysMotor) {
+			super.setSidewaysMotor(sidewaysMotor);
+		}
+
+		/* (non-Javadoc)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#setAccelerometer(org._2585robophiles.frc2015.systems.AccelerometerSystem)
+		 */
+		@Override
+		protected synchronized void setAccelerometer(
+				AccelerometerSystem accelerometer) {
+			super.setAccelerometer(accelerometer);
 		}
 
 		/* (non-Javadoc)
