@@ -19,14 +19,18 @@ public class WheelSystem implements RobotSystem, Runnable {
 	private SpeedController sidewaysMotor;
 	private InputMethod input;
 	private AccelerometerSystem accelerometer;
+	private GyroSystem gyro;
 	private double previousNormalMovement;
 	private double currentRampForward;
 	private double currentRampSideways;
 	private double rotationValue;
 	private double distanceDriven;
 	private long lastDistanceUpdate;
-	
-	private PIDSubsystem distancePID;
+	private boolean straightDriving;
+	private boolean straightDriveDisabled = true;
+	private boolean straightDrivePressed;
+	private double correctRotate;
+	private PIDSubsystem distancePID, straightDrivePID;
 
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.Initializable#init(org._2585robophiles.frc2015.Environment)
@@ -38,34 +42,62 @@ public class WheelSystem implements RobotSystem, Runnable {
 		drivetrain.setInvertedMotor(RobotDrive.MotorType.kRearRight , true );
 		sidewaysMotor = new Victor(RobotMap.SIDEWAYS_DRIVE);
 		accelerometer = environment.getAccelerometerSystem();
+		gyro = environment.getGyroSystem();
 		input = environment.getInput();
 		
-		distancePID = new PIDSubsystem(0.3, 0.3, 0.3) {
+		distancePID = new PIDSubsystem(0.2, 0.03, 0) {
+
+			/* (non-Javadoc)
+			 * @see edu.wpi.first.wpilibj.command.Subsystem#initDefaultCommand()
+			 */
+			@Override
+			protected void initDefaultCommand() {
+
+			}
+
+			/* (non-Javadoc)
+			 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#usePIDOutput(double)
+			 */
+			@Override
+			protected void usePIDOutput(double output) {
+				drive(output, 0, 0);
+			}
+
+			/* (non-Javadoc)
+			 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#returnPIDInput()
+			 */
+			@Override
+			protected double returnPIDInput() {
+				return distanceDriven;
+			}
+		};
+		
+		straightDrivePID = new PIDSubsystem(0.2, 0.03, 0) {
+			
+			/* (non-Javadoc)
+			 * @see edu.wpi.first.wpilibj.command.Subsystem#initDefaultCommand()
+			 */
+			@Override
+			protected void initDefaultCommand() {
 				
-				/* (non-Javadoc)
-				 * @see edu.wpi.first.wpilibj.command.Subsystem#initDefaultCommand()
-				 */
-				@Override
-				protected void initDefaultCommand() {
-					
-				}
-				
-				/* (non-Javadoc)
-				 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#usePIDOutput(double)
-				 */
-				@Override
-				protected void usePIDOutput(double output) {
-					drive(output, 0, 0);
-				}
-				
-				/* (non-Javadoc)
-				 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#returnPIDInput()
-				 */
-				@Override
-				protected double returnPIDInput() {
-					return distanceDriven;
-				}
-			};
+			}
+			
+			/* (non-Javadoc)
+			 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#usePIDOutput(double)
+			 */
+			@Override
+			protected void usePIDOutput(double output) {
+				correctRotate = output;
+			}
+			
+			/* (non-Javadoc)
+			 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#returnPIDInput()
+			 */
+			@Override
+			protected double returnPIDInput() {
+				return gyro.angle();
+			}
+		};
 	}
 	
 	/**
@@ -112,21 +144,48 @@ public class WheelSystem implements RobotSystem, Runnable {
 	 * @param sidewaysMovement the left/right movement value
 	 */
 	public void straightDrive(double forwardMovement, double sidewaysMovement){
-		
+		if(!straightDriving){
+			enableStraightDrivePID(gyro.angle());
+		}
+		drive(forwardMovement, sidewaysMovement, correctRotate);
 	}
 
 	/**
 	 * Enable and set the setpoint of the distance drive PID
 	 * @param setpoint distance to drive in meters
 	 */
-	protected void enableDistancePID(double setpoint) {
+	protected synchronized void enableDistancePID(double setpoint) {
 		distancePID.setSetpoint(setpoint);
 		distancePID.enable();
 	}
 	
-	protected void disableDistancePID(){
+	/**
+	 * Disable distance drive PID
+	 */
+	protected synchronized void disableDistancePID(){
 		distancePID.getPIDController().reset();
 		distancePID.disable();
+	}
+	
+	/**
+	 * Enable straight driving
+	 * @param setpoint target angle
+	 */
+	protected synchronized void enableStraightDrivePID(double setpoint){
+		straightDrivePID.setSetpoint(setpoint);
+		straightDrivePID.setAbsoluteTolerance(2);// it's OK if we're 2 degrees off
+		straightDrivePID.enable();
+		straightDriving = true;
+	}
+	
+	/**
+	 * Stop straight driving
+	 * @param setpoint target angle
+	 */
+	protected synchronized void disableSraightDrivePID(){
+		straightDriving = false;
+		straightDrivePID.getPIDController().reset();
+		straightDrivePID.disable();
 	}
 	
 	/* (non-Javadoc)
@@ -148,7 +207,17 @@ public class WheelSystem implements RobotSystem, Runnable {
 		}else{
 			rotationValue = Math.pow(input.rotation(),RobotMap.ROTATION_EXPONENT);
 		}
-		drive(currentRampForward, currentRampSideways, rotationValue);
+		if(rotationValue == 0){
+			straightDrive(currentRampForward, currentRampSideways);// straight drive when not turning
+		}else{
+			disableSraightDrivePID();
+			drive(currentRampForward, currentRampSideways, rotationValue);
+		}
+		
+		// toggle between straight driving enabled and disabled
+		if(input.straightDrive() && !straightDrivePressed)
+			straightDriveDisabled =! straightDriveDisabled;
+		straightDrivePressed = input.straightDrive();
 	}
 
 	/**
