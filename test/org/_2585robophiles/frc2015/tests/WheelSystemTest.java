@@ -439,7 +439,7 @@ public class WheelSystemTest {
 		 * @see org._2585robophiles.frc2015.systems.WheelSystem#enableDistancePID(double)
 		 */
 		@Override
-		protected void enableDistancePID(double setpoint) {
+		protected synchronized void enableDistancePID(double setpoint) {
 			distancePIDEnabled = true;
 		}
 
@@ -447,8 +447,33 @@ public class WheelSystemTest {
 		 * @see org._2585robophiles.frc2015.systems.WheelSystem#disableDistancePID()
 		 */
 		@Override
-		protected void disableDistancePID() {
+		protected synchronized void disableDistancePID() {
 			distancePIDEnabled = false;
+		}
+
+		/* (non-Javadoc)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#straightDrive(double, double)
+		 */
+		@Override
+		public void straightDrive(double forwardMovement,
+				double sidewaysMovement) {
+			drive(forwardMovement, sidewaysMovement, 0);
+		}
+
+		/* (non-Javadoc)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#enableStraightDrivePID(double)
+		 */
+		@Override
+		protected synchronized void enableStraightDrivePID(double setpoint) {
+			
+		}
+
+		/* (non-Javadoc)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#disableSraightDrivePID()
+		 */
+		@Override
+		protected synchronized void disableSraightDrivePID() {
+			
 		}
 
 	}
