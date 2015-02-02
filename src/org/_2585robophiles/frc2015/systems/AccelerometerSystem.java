@@ -2,8 +2,7 @@ package org._2585robophiles.frc2015.systems;
 
 import org._2585robophiles.frc2015.Environment;
 
-import edu.wpi.first.wpilibj.ADXL345_I2C;
-import edu.wpi.first.wpilibj.I2C;
+import edu.wpi.first.wpilibj.BuiltInAccelerometer;
 import edu.wpi.first.wpilibj.interfaces.Accelerometer;
 
 /**
@@ -14,7 +13,7 @@ public class AccelerometerSystem implements RobotSystem, Runnable {
 	public static final double GRAVITATIONAL_ACCELERATION = 9.80665;
 	public static final double METER_TO_FEET = 3.2808399;
 	
-	private ADXL345_I2C accelerometer;
+	private Accelerometer accelerometer;
 	private long lastUpdate;
 	private double speedX;
 	private double speedY;
@@ -24,7 +23,7 @@ public class AccelerometerSystem implements RobotSystem, Runnable {
 	 */
 	@Override
 	public void init(Environment environment) {
-	    accelerometer = new ADXL345_I2C(I2C.Port.kOnboard, Accelerometer.Range.k4G);
+		accelerometer = new BuiltInAccelerometer();
 	}
 	
 	/**
