@@ -50,6 +50,17 @@ public class XboxInput implements InputMethod {
 		return controller.getRawAxis(XboxConstants.RIGHT_X_AXIS);
 	}
 
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
+	 */
+	@Override
+	public boolean straightDrive() {
+		return controller.getRawButton(XboxConstants.BACK_BUTTON);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
+	 */
 	@Override
 	public Joystick[] joysticks() {
 		return new Joystick[]{controller};

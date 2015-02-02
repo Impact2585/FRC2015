@@ -24,6 +24,11 @@ public interface InputMethod {
 	public abstract double rotation();
 	
 	/**
+	 * @return enable/disable straight driving
+	 */
+	public abstract boolean straightDrive();
+	
+	/**
 	 * @return an array of joysticks used for input
 	 */
 	public abstract Joystick[] joysticks();

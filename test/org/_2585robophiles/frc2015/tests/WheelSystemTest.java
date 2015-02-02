@@ -81,6 +81,11 @@ public class WheelSystemTest {
 			public Joystick[] joysticks() {
 				return null;
 			}
+
+			@Override
+			public boolean straightDrive() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertEquals(0, currentRotation, 0);
@@ -106,6 +111,11 @@ public class WheelSystemTest {
 			@Override
 			public Joystick[] joysticks() {
 				return null;
+			}
+
+			@Override
+			public boolean straightDrive() {
+				return false;
 			}
 		});
 		wheelSystem.run();
@@ -137,6 +147,11 @@ public class WheelSystemTest {
 					public Joystick[] joysticks() {
 						return null;
 					}
+
+					@Override
+					public boolean straightDrive() {
+						return false;
+					}
 				});
 				wheelSystem.run();
 				Assert.assertEquals(0, currentRotation, 0);
@@ -161,6 +176,11 @@ public class WheelSystemTest {
 					@Override
 					public Joystick[] joysticks() {
 						return null;
+					}
+
+					@Override
+					public boolean straightDrive() {
+						return false;
 					}
 				});
 				wheelSystem.run();
@@ -191,6 +211,11 @@ public class WheelSystemTest {
 			public double forwardMovement() {
 				return 0;
 			}
+
+			@Override
+			public boolean straightDrive() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertEquals(-1, currentRotation, 0);
@@ -214,6 +239,11 @@ public class WheelSystemTest {
 			@Override
 			public double forwardMovement() {
 				return 0;
+			}
+
+			@Override
+			public boolean straightDrive() {
+				return false;
 			}
 		});
 		wheelSystem.run();
@@ -241,6 +271,11 @@ public class WheelSystemTest {
 			public Joystick[] joysticks() {
 				return null;
 			}
+
+			@Override
+			public boolean straightDrive() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertTrue(currentSidewaysMovement > 0);
@@ -267,6 +302,11 @@ public class WheelSystemTest {
 			public double forwardMovement() {
 				return 0.3;
 			}
+
+			@Override
+			public boolean straightDrive() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertTrue(currentForwardMovement > 0);
@@ -292,6 +332,11 @@ public class WheelSystemTest {
 			@Override
 			public double forwardMovement() {
 				return 0.09;
+			}
+
+			@Override
+			public boolean straightDrive() {
+				return false;
 			}
 		});
 		wheelSystem.run();
@@ -394,7 +439,7 @@ public class WheelSystemTest {
 		 * @see org._2585robophiles.frc2015.systems.WheelSystem#enableDistancePID(double)
 		 */
 		@Override
-		protected void enableDistancePID(double setpoint) {
+		protected synchronized void enableDistancePID(double setpoint) {
 			distancePIDEnabled = true;
 		}
 
@@ -402,8 +447,33 @@ public class WheelSystemTest {
 		 * @see org._2585robophiles.frc2015.systems.WheelSystem#disableDistancePID()
 		 */
 		@Override
-		protected void disableDistancePID() {
+		protected synchronized void disableDistancePID() {
 			distancePIDEnabled = false;
+		}
+
+		/* (non-Javadoc)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#straightDrive(double, double)
+		 */
+		@Override
+		public void straightDrive(double forwardMovement,
+				double sidewaysMovement) {
+			drive(forwardMovement, sidewaysMovement, 0);
+		}
+
+		/* (non-Javadoc)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#enableStraightDrivePID(double)
+		 */
+		@Override
+		protected synchronized void enableStraightDrivePID(double setpoint) {
+			
+		}
+
+		/* (non-Javadoc)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#disableSraightDrivePID()
+		 */
+		@Override
+		protected synchronized void disableSraightDrivePID() {
+			
 		}
 
 	}
