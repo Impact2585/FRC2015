@@ -45,12 +45,11 @@ public class TestExecuter implements Initializable, Executer {
 			for(int i = 0; i < input.joysticks()[0].getAxisCount(); i++)
 				SmartDashboard.putNumber("Axis " + i, input.joysticks()[0].getRawAxis(i));
 			// all the buttons
-			for(int i = 0; i < input.joysticks()[0].getButtonCount(); i++)
+			for(int i = 1; i < input.joysticks()[0].getButtonCount(); i++)
 				SmartDashboard.putBoolean("Button " + i, input.joysticks()[0].getRawButton(i));
 			// the POV hat
 			SmartDashboard.putNumber("POV ", input.joysticks()[0].getPOV());
 		}
-		SmartDashboard.putString("Test", "world P.S. Andrew is the push engineer");
 	}
 
 }
