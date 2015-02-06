@@ -208,6 +208,8 @@ public class WheelSystem implements RobotSystem, Runnable {
 		}else{
 			rotationValue = Math.pow(input.rotation(),RobotMap.ROTATION_EXPONENT);
 		}
+		if(rotationValue < .15 && rotationValue > -.15)
+			rotationValue = 0.0;
 		if(rotationValue == 0 && !straightDriveDisabled){
 			straightDrive(currentRampForward, currentRampSideways);// straight drive when not turning
 		}else{

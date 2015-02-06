@@ -19,7 +19,7 @@ public class WheelSystemTest {
 
 	private TestWheelSystem wheelSystem;
 	private double currentForwardMovement, currentSidewaysMovement,
-			currentRotation;
+	currentRotation;
 	private boolean distancePIDEnabled, straightDrivePIDEnabled;
 
 	/**
@@ -45,7 +45,7 @@ public class WheelSystemTest {
 			public double getSpeedY() {
 				return 0;
 			}
-			
+
 		});
 	}
 
@@ -54,7 +54,7 @@ public class WheelSystemTest {
 	 */
 	@Test
 	public void testRun() {
-		
+
 		// first make sure we aren't moving without input
 		Assert.assertEquals(0, currentSidewaysMovement, 0);
 		Assert.assertEquals(0, currentForwardMovement, 0);
@@ -125,70 +125,70 @@ public class WheelSystemTest {
 		Assert.assertEquals(RobotMap.FORWARD_RAMPING
 				+ (-1 - RobotMap.FORWARD_RAMPING) * RobotMap.FORWARD_RAMPING,
 				currentForwardMovement, 0);
-		
+
 		// test sideways ramping
-				wheelSystem.setInput(new InputMethod() {
+		wheelSystem.setInput(new InputMethod() {
 
-					@Override
-					public double sidewaysMovement() {
-						return 1;
-					}
+			@Override
+			public double sidewaysMovement() {
+				return 1;
+			}
 
-					@Override
-					public double rotation() {
-						return 0;
-					}
+			@Override
+			public double rotation() {
+				return 0;
+			}
 
-					@Override
-					public double forwardMovement() {
-						return 0;
-					}
+			@Override
+			public double forwardMovement() {
+				return 0;
+			}
 
-					@Override
-					public Joystick[] joysticks() {
-						return null;
-					}
+			@Override
+			public Joystick[] joysticks() {
+				return null;
+			}
 
-					@Override
-					public boolean straightDrive() {
-						return false;
-					}
-				});
-				wheelSystem.run();
-				Assert.assertEquals(0, currentRotation, 0);
-				Assert.assertEquals(RobotMap.SIDEWAYS_RAMPING, currentSidewaysMovement, 0);
-				wheelSystem.setInput(new InputMethod() {
+			@Override
+			public boolean straightDrive() {
+				return false;
+			}
+		});
+		wheelSystem.run();
+		Assert.assertEquals(0, currentRotation, 0);
+		Assert.assertEquals(RobotMap.SIDEWAYS_RAMPING, currentSidewaysMovement, 0);
+		wheelSystem.setInput(new InputMethod() {
 
-					@Override
-					public double sidewaysMovement() {
-						return -1;
-					}
+			@Override
+			public double sidewaysMovement() {
+				return -1;
+			}
 
-					@Override
-					public double rotation() {
-						return 0;
-					}
+			@Override
+			public double rotation() {
+				return 0;
+			}
 
-					@Override
-					public double forwardMovement() {
-						return 0;
-					}
+			@Override
+			public double forwardMovement() {
+				return 0;
+			}
 
-					@Override
-					public Joystick[] joysticks() {
-						return null;
-					}
+			@Override
+			public Joystick[] joysticks() {
+				return null;
+			}
 
-					@Override
-					public boolean straightDrive() {
-						return false;
-					}
-				});
-				wheelSystem.run();
-				Assert.assertEquals(0, currentRotation, 0);
-				Assert.assertEquals(RobotMap.SIDEWAYS_RAMPING
-						+ (-1 - RobotMap.SIDEWAYS_RAMPING) * RobotMap.SIDEWAYS_RAMPING,
-						currentSidewaysMovement, 0);
+			@Override
+			public boolean straightDrive() {
+				return false;
+			}
+		});
+		wheelSystem.run();
+		Assert.assertEquals(0, currentRotation, 0);
+		Assert.assertEquals(RobotMap.SIDEWAYS_RAMPING
+				+ (-1 - RobotMap.SIDEWAYS_RAMPING) * RobotMap.SIDEWAYS_RAMPING,
+				currentSidewaysMovement, 0);
 
 		// test squared rotation
 		wheelSystem.setInput(new InputMethod() {
@@ -249,25 +249,25 @@ public class WheelSystemTest {
 		});
 		wheelSystem.run();
 		Assert.assertEquals(Math.pow(0.5, RobotMap.ROTATION_EXPONENT), currentRotation, 0);
-		
+
 		// test deadzone
 		wheelSystem.setInput(new InputMethod() {
-			
+
 			@Override
 			public double forwardMovement() {
 				return 0.05;
 			}
-			
+
 			@Override
 			public double sidewaysMovement() {
 				return 0.3;
 			}
-			
+
 			@Override
 			public double rotation() {
 				return 0;
 			}
-			
+
 			@Override
 			public Joystick[] joysticks() {
 				return null;
@@ -281,24 +281,24 @@ public class WheelSystemTest {
 		wheelSystem.run();
 		Assert.assertTrue(currentSidewaysMovement > 0);
 		Assert.assertEquals(0, currentForwardMovement, 0);
-		
+
 		wheelSystem.setInput(new InputMethod() {
-			
+
 			@Override
 			public double sidewaysMovement() {
 				return 0.07;
 			}
-			
+
 			@Override
 			public double rotation() {
 				return 0;
 			}
-			
+
 			@Override
 			public Joystick[] joysticks() {
 				return null;
 			}
-			
+
 			@Override
 			public double forwardMovement() {
 				return 0.3;
@@ -312,24 +312,24 @@ public class WheelSystemTest {
 		wheelSystem.run();
 		Assert.assertTrue(currentForwardMovement > 0);
 		Assert.assertEquals(0, currentSidewaysMovement, 0);
-		
+
 		wheelSystem.setInput(new InputMethod() {
-			
+
 			@Override
 			public double sidewaysMovement() {
 				return 0.09;
 			}
-			
+
 			@Override
 			public double rotation() {
 				return 0;
 			}
-			
+
 			@Override
 			public Joystick[] joysticks() {
 				return null;
 			}
-			
+
 			@Override
 			public double forwardMovement() {
 				return 0.09;
@@ -343,8 +343,70 @@ public class WheelSystemTest {
 		wheelSystem.run();
 		Assert.assertEquals(0, currentSidewaysMovement, 0);
 		Assert.assertEquals(0, currentForwardMovement, 0);
+
+		wheelSystem.setInput(new InputMethod() {
+
+			@Override
+			public double sidewaysMovement() {
+				return 0;
+			}
+
+			@Override
+			public double rotation() {
+				return 0.14;
+			}
+
+			@Override
+			public Joystick[] joysticks() {
+				return null;
+			}
+
+			@Override
+			public double forwardMovement() {
+				return 0;
+			}
+
+			@Override
+			public boolean straightDrive() {
+				return false;
+			}
+		});
+		wheelSystem.run();
+		Assert.assertEquals(0, currentRotation, 0);
+
+		wheelSystem.setInput(new InputMethod() {
+
+			@Override
+			public double sidewaysMovement() {
+				return 0;
+			}
+
+			@Override
+			public double rotation() {
+				return -0.04;
+			}
+
+			@Override
+			public Joystick[] joysticks() {
+				return null;
+			}
+
+			@Override
+			public double forwardMovement() {
+				return 0;
+			}
+
+			@Override
+			public boolean straightDrive() {
+				return false;
+			}
+		});
+		wheelSystem.run();
+		Assert.assertEquals(0, currentRotation, 0);
 	}
-	
+
+
+
 	/**
 	 * Test the driveDistance method
 	 */
@@ -361,7 +423,7 @@ public class WheelSystemTest {
 		Assert.assertFalse(distancePIDEnabled);
 		Assert.assertEquals(0, wheelSystem.getLastDistanceUpdate());
 	}
-	
+
 	/**
 	 * test straight driving
 	 */
