@@ -9,7 +9,8 @@ public interface RobotMap {
 							FRONT_RIGHT_DRIVE = 1,
 							REAR_LEFT_DRIVE = 2,
 							REAR_RIGHT_DRIVE = 3,
-							SIDEWAYS_DRIVE = 4;
+							SIDEWAYS_DRIVE = 4,
+							SIDEWAYS_DRIVE_2 = 5;
 	
 	public static final int GYRO = 1;
 	
