@@ -72,7 +72,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 			}
 		};
 		
-		straightDrivePID = new PIDSubsystem(0.2, 0.03, 0) {
+		straightDrivePID = new PIDSubsystem(0.1, 0.03, 0) {
 			
 			/* (non-Javadoc)
 			 * @see edu.wpi.first.wpilibj.command.Subsystem#initDefaultCommand()
@@ -145,7 +145,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 	 */
 	public void straightDrive(double forwardMovement, double sidewaysMovement){
 		if(!straightDriving){
-			enableStraightDrivePID(gyro.angle());
+			enableStraightDrivePID();
 		}
 		drive(forwardMovement, sidewaysMovement, correctRotate);
 	}
@@ -165,14 +165,15 @@ public class WheelSystem implements RobotSystem, Runnable {
 	protected synchronized void disableDistancePID(){
 		distancePID.getPIDController().reset();
 		distancePID.disable();
+		straightDriving = false;
 	}
 	
 	/**
 	 * Enable straight driving
 	 * @param setpoint target angle
 	 */
-	protected synchronized void enableStraightDrivePID(double setpoint){
-		straightDrivePID.setSetpoint(setpoint);
+	protected synchronized void enableStraightDrivePID(){
+		straightDrivePID.setSetpoint(gyro.angle());
 		straightDrivePID.setAbsoluteTolerance(2);// it's OK if we're 2 degrees off
 		straightDrivePID.enable();
 		straightDriving = true;
@@ -207,7 +208,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 		}else{
 			rotationValue = Math.pow(input.rotation(),RobotMap.ROTATION_EXPONENT);
 		}
-		if(rotationValue == 0){
+		if(rotationValue == 0 && !straightDriveDisabled){
 			straightDrive(currentRampForward, currentRampSideways);// straight drive when not turning
 		}else{
 			disableSraightDrivePID();

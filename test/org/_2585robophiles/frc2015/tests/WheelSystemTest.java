@@ -4,6 +4,7 @@ import org._2585robophiles.frc2015.RobotMap;
 import org._2585robophiles.frc2015.input.InputMethod;
 import org._2585robophiles.frc2015.systems.AccelerometerSystem;
 import org._2585robophiles.frc2015.systems.WheelSystem;
+import org.hamcrest.CoreMatchers;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +20,7 @@ public class WheelSystemTest {
 	private TestWheelSystem wheelSystem;
 	private double currentForwardMovement, currentSidewaysMovement,
 			currentRotation;
-	private boolean distancePIDEnabled;
+	private boolean distancePIDEnabled, straightDrivePIDEnabled;
 
 	/**
 	 * Set up the unit test
@@ -49,7 +50,7 @@ public class WheelSystemTest {
 	}
 
 	/**
-	 * Test the run() method of the WheelSystem class
+	 * Test the general things in the run() method of the WheelSystem class
 	 */
 	@Test
 	public void testRun() {
@@ -360,6 +361,19 @@ public class WheelSystemTest {
 		Assert.assertFalse(distancePIDEnabled);
 		Assert.assertEquals(0, wheelSystem.getLastDistanceUpdate());
 	}
+	
+	/**
+	 * test straight driving
+	 */
+	@Test
+	public void testStraightDrive(){
+		wheelSystem.disableSraightDrivePID();
+		Assert.assertThat(straightDrivePIDEnabled, CoreMatchers.equalTo(false));
+		wheelSystem.straightDrive(0.3, 0.3);
+		Assert.assertThat(currentForwardMovement, CoreMatchers.equalTo(0.3));
+		Assert.assertThat(currentSidewaysMovement, CoreMatchers.equalTo(0.3));
+		Assert.assertThat(straightDrivePIDEnabled, CoreMatchers.equalTo(true));
+	}
 
 	/**
 	 * WheelSystem subclass for the purpose of unit testing
@@ -452,20 +466,11 @@ public class WheelSystemTest {
 		}
 
 		/* (non-Javadoc)
-		 * @see org._2585robophiles.frc2015.systems.WheelSystem#straightDrive(double, double)
-		 */
-		@Override
-		public void straightDrive(double forwardMovement,
-				double sidewaysMovement) {
-			drive(forwardMovement, sidewaysMovement, 0);
-		}
-
-		/* (non-Javadoc)
 		 * @see org._2585robophiles.frc2015.systems.WheelSystem#enableStraightDrivePID(double)
 		 */
 		@Override
-		protected synchronized void enableStraightDrivePID(double setpoint) {
-			
+		protected synchronized void enableStraightDrivePID() {
+			straightDrivePIDEnabled = true;
 		}
 
 		/* (non-Javadoc)
@@ -473,7 +478,7 @@ public class WheelSystemTest {
 		 */
 		@Override
 		protected synchronized void disableSraightDrivePID() {
-			
+			straightDrivePIDEnabled = false;
 		}
 
 	}
