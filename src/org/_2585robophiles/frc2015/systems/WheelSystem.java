@@ -26,7 +26,6 @@ public class WheelSystem implements RobotSystem, Runnable {
 	private double rotationValue;
 	private double distanceDriven;
 	private long lastDistanceUpdate;
-	private boolean straightDriving;
 	private boolean straightDriveDisabled = true;
 	private boolean straightDrivePressed;
 	private double correctRotate;
@@ -144,7 +143,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 	 * @param sidewaysMovement the left/right movement value
 	 */
 	public void straightDrive(double forwardMovement, double sidewaysMovement){
-		if(!straightDriving){
+		if(!straightDriving()){
 			enableStraightDrivePID();
 		}
 		drive(forwardMovement, sidewaysMovement, correctRotate);
@@ -165,7 +164,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 	protected synchronized void disableDistancePID(){
 		distancePID.getPIDController().reset();
 		distancePID.disable();
-		straightDriving = false;
+		disableSraightDrivePID();
 	}
 	
 	/**
@@ -176,7 +175,6 @@ public class WheelSystem implements RobotSystem, Runnable {
 		straightDrivePID.setSetpoint(gyro.angle());
 		straightDrivePID.setAbsoluteTolerance(2);// it's OK if we're 2 degrees off
 		straightDrivePID.enable();
-		straightDriving = true;
 	}
 	
 	/**
@@ -184,9 +182,15 @@ public class WheelSystem implements RobotSystem, Runnable {
 	 * @param setpoint target angle
 	 */
 	protected synchronized void disableSraightDrivePID(){
-		straightDriving = false;
 		straightDrivePID.getPIDController().reset();
 		straightDrivePID.disable();
+	}
+	
+	/**
+	 * @return whether or not the robot is straight driving
+	 */
+	public synchronized boolean straightDriving(){
+		return straightDrivePID.getPIDController().isEnable();
 	}
 	
 	/* (non-Javadoc)
