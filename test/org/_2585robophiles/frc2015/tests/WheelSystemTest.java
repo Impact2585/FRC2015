@@ -543,5 +543,15 @@ public class WheelSystemTest {
 			straightDrivePIDEnabled = false;
 		}
 
+		/* (non-Javadoc)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#straightDriving()
+		 */
+		@Override
+		public synchronized boolean straightDriving() {
+			return straightDrivePIDEnabled;
+		}
+		
+		
+
 	}
 }
