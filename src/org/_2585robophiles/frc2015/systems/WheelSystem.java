@@ -3,6 +3,7 @@ package org._2585robophiles.frc2015.systems;
 import org._2585robophiles.frc2015.Environment;
 import org._2585robophiles.frc2015.RobotMap;
 import org._2585robophiles.frc2015.input.InputMethod;
+import org._2585robophiles.lib2585.MultiMotor;
 
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SensorBase;
@@ -39,7 +40,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 		drivetrain = new RobotDrive(RobotMap.FRONT_LEFT_DRIVE, RobotMap.REAR_LEFT_DRIVE, RobotMap.FRONT_RIGHT_DRIVE, RobotMap.REAR_RIGHT_DRIVE);
 		drivetrain.setInvertedMotor(RobotDrive.MotorType.kFrontRight , true );
 		drivetrain.setInvertedMotor(RobotDrive.MotorType.kRearRight , true );
-		sidewaysMotor = new Victor(RobotMap.SIDEWAYS_DRIVE);
+		sidewaysMotor = new MultiMotor(new SpeedController[]{new Victor(RobotMap.SIDEWAYS_DRIVE), new Victor(RobotMap.SIDEWAYS_DRIVE_2)});
 		accelerometer = environment.getAccelerometerSystem();
 		gyro = environment.getGyroSystem();
 		input = environment.getInput();
