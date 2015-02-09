@@ -49,6 +49,8 @@ public class TestExecuter implements Initializable, Executer {
 				SmartDashboard.putBoolean("Button " + i, input.joysticks()[0].getRawButton(i));
 			// the POV hat
 			SmartDashboard.putNumber("POV ", input.joysticks()[0].getPOV());
+			SmartDashboard.putNumber("X ", input.joysticks()[0].getX());
+			SmartDashboard.putNumber("Y ", input.joysticks()[0].getY());
 		}
 	}
 

@@ -1,7 +1,7 @@
 package org._2585robophiles.frc2015;
 
 import org._2585robophiles.frc2015.input.InputMethod;
-import org._2585robophiles.frc2015.input.XboxInput;
+import org._2585robophiles.frc2015.input.JoystickInput;
 import org._2585robophiles.frc2015.systems.AccelerometerSystem;
 import org._2585robophiles.frc2015.systems.DashboardSystem;
 import org._2585robophiles.frc2015.systems.GyroSystem;
@@ -35,7 +35,7 @@ public class Environment extends RobotEnvironment {
 	public Environment(Robot robot) {
 		super(robot);
 		
-		input = new XboxInput();
+		input = new JoystickInput();
 		gyroSystem = new GyroSystem();
 		accelerometerSystem = new AccelerometerSystem();
 		wheelSystem = new WheelSystem();
