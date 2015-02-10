@@ -3,6 +3,8 @@ package org._2585robophiles.frc2015;
 import org._2585robophiles.frc2015.input.InputMethod;
 import org._2585robophiles.lib2585.Executer;
 
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -33,6 +35,7 @@ public class TestExecuter implements Initializable, Executer {
 	@Override
 	public void init(Environment environment) {
 		input = environment.getInput();
+		LiveWindow.setEnabled(false);// we don't want the LiveWindow we want to use the SmartDashboard
 	}
 
 	/* (non-Javadoc)
@@ -40,17 +43,17 @@ public class TestExecuter implements Initializable, Executer {
 	 */
 	@Override
 	public void execute() {
-		if(input.joysticks().length > 0){
+		for(Joystick joystick : input.joysticks()){
 			// put all the axis of joystick one on the dashboard
-			for(int i = 0; i < input.joysticks()[0].getAxisCount(); i++)
-				SmartDashboard.putNumber("Axis " + i, input.joysticks()[0].getRawAxis(i));
+			for(int i = 0; i < joystick.getAxisCount(); i++)
+				SmartDashboard.putNumber("Axis " + i, joystick.getRawAxis(i));
 			// all the buttons
 			for(int i = 1; i < input.joysticks()[0].getButtonCount(); i++)
-				SmartDashboard.putBoolean("Button " + i, input.joysticks()[0].getRawButton(i));
+				SmartDashboard.putBoolean("Button " + i, joystick.getRawButton(i));
 			// the POV hat
-			SmartDashboard.putNumber("POV ", input.joysticks()[0].getPOV());
-			SmartDashboard.putNumber("X ", input.joysticks()[0].getX());
-			SmartDashboard.putNumber("Y ", input.joysticks()[0].getY());
+			SmartDashboard.putNumber("POV ", joystick.getPOV());
+			SmartDashboard.putNumber("X ", joystick.getX());
+			SmartDashboard.putNumber("Y ", joystick.getY());
 		}
 	}
 
