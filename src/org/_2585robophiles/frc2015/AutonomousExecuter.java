@@ -2,29 +2,24 @@ package org._2585robophiles.frc2015;
 
 import org._2585robophiles.lib2585.Executer;
 
-public class AutonomousExecuter implements Executer, Initializable {
+/**
+ * Executer for autonomous mode
+ */
+public enum AutonomousExecuter implements Executer, Initializable {
 
 	/**
-	 * Doesn't initialize anything
+	 * Basic auton that just pushes a tote into the auto zone
 	 */
-	public AutonomousExecuter() {
-		
-	}
+	BASIC;
 	
-	/**
-	 * Just calls init
-	 * @param environment the environment to initialize with
-	 */
-	public AutonomousExecuter(Environment environment){
-		init(environment);
-	}
+	private Environment environment;
 
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.Initializable#init(org._2585robophiles.frc2015.Environment)
 	 */
 	@Override
 	public void init(Environment environment) {
-		
+		this.environment = environment;
 	}
 
 	/* (non-Javadoc)
@@ -32,7 +27,11 @@ public class AutonomousExecuter implements Executer, Initializable {
 	 */
 	@Override
 	public void execute() {
-		
+		switch(this){
+		case BASIC:
+			environment.getWheelSystem().driveDistance(3, false);// just drive forward
+			break;
+		}
 	}
 
 }
