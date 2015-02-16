@@ -117,7 +117,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 	 */
 	public void drive(double forwardMovement, double sidewaysMovement, double rotation){
 		drivetrain.arcadeDrive(forwardMovement, rotation);
-		sidewaysMotor.set(-sidewaysMovement);// we need to invert the sideways motor
+		sidewaysMotor.set(sidewaysMovement);// we need to invert the sideways motor
 	}
 	
 	/**
