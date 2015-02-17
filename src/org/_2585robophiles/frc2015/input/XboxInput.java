@@ -39,7 +39,7 @@ public class XboxInput implements InputMethod {
 	 */
 	@Override
 	public double sidewaysMovement() {
-		return (-controller.getRawAxis(0));// left stick x-axis
+		return (controller.getRawAxis(0));// left stick x-axis
 	}
 
 	/* (non-Javadoc)

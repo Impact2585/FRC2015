@@ -5,10 +5,10 @@ package org._2585robophiles.frc2015;
  */
 public interface RobotMap {
 
-	public static final int FRONT_LEFT_DRIVE = 0,
-							FRONT_RIGHT_DRIVE = 1,
-							REAR_LEFT_DRIVE = 2,
-							REAR_RIGHT_DRIVE = 3,
+	public static final int FRONT_RIGHT_DRIVE = 0,
+							FRONT_LEFT_DRIVE = 1,
+							REAR_RIGHT_DRIVE = 2,
+							REAR_LEFT_DRIVE = 3,
 							SIDEWAYS_DRIVE = 4,
 							SIDEWAYS_DRIVE_2 = 5;
 	
