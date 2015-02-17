@@ -10,7 +10,12 @@ public enum AutonomousExecuter implements Executer, Initializable {
 	/**
 	 * Basic auton that just pushes a tote into the auto zone
 	 */
-	BASIC;
+	BASIC,
+	
+	/**
+	 * Auton that does nothing so basically auton is disabled
+	 */
+	NONE;
 	
 	private Environment environment;
 
@@ -29,7 +34,9 @@ public enum AutonomousExecuter implements Executer, Initializable {
 	public void execute() {
 		switch(this){
 		case BASIC:
-			environment.getWheelSystem().driveDistance(3, false);// just drive forward
+			environment.getWheelSystem().driveDistance(8 + 11.0 / 12.0, false);// just drive forward 8 feet 11 inches
+			break;
+		case NONE:
 			break;
 		}
 	}
