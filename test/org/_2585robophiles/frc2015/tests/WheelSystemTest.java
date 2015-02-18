@@ -63,28 +63,75 @@ public class WheelSystemTest {
 		// test forward ramping
 		wheelSystem.setInput(new InputMethod() {
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
+			 */
 			@Override
 			public double sidewaysMovement() {
 				return 0;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
+			 */
 			@Override
 			public double rotation() {
 				return 0;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
+			 */
 			@Override
 			public double forwardMovement() {
 				return 1;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
+			 */
 			@Override
 			public Joystick[] joysticks() {
 				return null;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
+			 */
 			@Override
 			public boolean straightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
+			 */
+			@Override
+			public double analogLiftUp() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
+			 */
+			@Override
+			public double analogLiftDown() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
+			 */
+			@Override
+			public boolean liftSetpointDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
+			 */
+			@Override
+			public boolean liftSetpointUp() {
 				return false;
 			}
 		});
@@ -94,28 +141,75 @@ public class WheelSystemTest {
 		Assert.assertEquals(RobotMap.FORWARD_RAMPING, currentForwardMovement, 0);
 		wheelSystem.setInput(new InputMethod() {
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
+			 */
 			@Override
 			public double sidewaysMovement() {
 				return 0;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
+			 */
 			@Override
 			public double rotation() {
 				return 0;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
+			 */
 			@Override
 			public double forwardMovement() {
 				return -1;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
+			 */
 			@Override
 			public Joystick[] joysticks() {
 				return null;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
+			 */
 			@Override
 			public boolean straightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
+			 */
+			@Override
+			public double analogLiftUp() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
+			 */
+			@Override
+			public double analogLiftDown() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
+			 */
+			@Override
+			public boolean liftSetpointDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
+			 */
+			@Override
+			public boolean liftSetpointUp() {
 				return false;
 			}
 		});
@@ -129,28 +223,75 @@ public class WheelSystemTest {
 		// test sideways ramping
 		wheelSystem.setInput(new InputMethod() {
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
+			 */
 			@Override
 			public double sidewaysMovement() {
 				return 1;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
+			 */
 			@Override
 			public double rotation() {
 				return 0;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
+			 */
 			@Override
 			public double forwardMovement() {
 				return 0;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
+			 */
 			@Override
 			public Joystick[] joysticks() {
 				return null;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
+			 */
 			@Override
 			public boolean straightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
+			 */
+			@Override
+			public double analogLiftUp() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
+			 */
+			@Override
+			public double analogLiftDown() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
+			 */
+			@Override
+			public boolean liftSetpointDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
+			 */
+			@Override
+			public boolean liftSetpointUp() {
 				return false;
 			}
 		});
@@ -159,28 +300,75 @@ public class WheelSystemTest {
 		Assert.assertEquals(RobotMap.SIDEWAYS_RAMPING, currentSidewaysMovement, 0);
 		wheelSystem.setInput(new InputMethod() {
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
+			 */
 			@Override
 			public double sidewaysMovement() {
 				return -1;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
+			 */
 			@Override
 			public double rotation() {
 				return 0;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
+			 */
 			@Override
 			public double forwardMovement() {
 				return 0;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
+			 */
 			@Override
 			public Joystick[] joysticks() {
 				return null;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
+			 */
 			@Override
 			public boolean straightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
+			 */
+			@Override
+			public double analogLiftUp() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
+			 */
+			@Override
+			public double analogLiftDown() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
+			 */
+			@Override
+			public boolean liftSetpointDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
+			 */
+			@Override
+			public boolean liftSetpointUp() {
 				return false;
 			}
 		});
@@ -193,28 +381,75 @@ public class WheelSystemTest {
 		// test squared rotation
 		wheelSystem.setInput(new InputMethod() {
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
+			 */
 			@Override
 			public double sidewaysMovement() {
 				return 0;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
+			 */
 			@Override
 			public double rotation() {
 				return -1;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
+			 */
 			@Override
 			public Joystick[] joysticks() {
 				return null;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
+			 */
 			@Override
 			public double forwardMovement() {
 				return 0;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
+			 */
 			@Override
 			public boolean straightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
+			 */
+			@Override
+			public double analogLiftUp() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
+			 */
+			@Override
+			public double analogLiftDown() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
+			 */
+			@Override
+			public boolean liftSetpointDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
+			 */
+			@Override
+			public boolean liftSetpointUp() {
 				return false;
 			}
 		});
@@ -222,28 +457,75 @@ public class WheelSystemTest {
 		Assert.assertEquals(-1, currentRotation, 0);
 		wheelSystem.setInput(new InputMethod() {
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
+			 */
 			@Override
 			public double sidewaysMovement() {
 				return 0;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
+			 */
 			@Override
 			public double rotation() {
 				return 0.5;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
+			 */
 			@Override
 			public Joystick[] joysticks() {
 				return null;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
+			 */
 			@Override
 			public double forwardMovement() {
 				return 0;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
+			 */
 			@Override
 			public boolean straightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
+			 */
+			@Override
+			public double analogLiftUp() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
+			 */
+			@Override
+			public double analogLiftDown() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
+			 */
+			@Override
+			public boolean liftSetpointDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
+			 */
+			@Override
+			public boolean liftSetpointUp() {
 				return false;
 			}
 		});
@@ -253,28 +535,75 @@ public class WheelSystemTest {
 		// test deadzone
 		wheelSystem.setInput(new InputMethod() {
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
+			 */
 			@Override
 			public double forwardMovement() {
 				return 0.05;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
+			 */
 			@Override
 			public double sidewaysMovement() {
 				return 0.3;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
+			 */
 			@Override
 			public double rotation() {
 				return 0;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
+			 */
 			@Override
 			public Joystick[] joysticks() {
 				return null;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
+			 */
 			@Override
 			public boolean straightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
+			 */
+			@Override
+			public double analogLiftUp() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
+			 */
+			@Override
+			public double analogLiftDown() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
+			 */
+			@Override
+			public boolean liftSetpointDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
+			 */
+			@Override
+			public boolean liftSetpointUp() {
 				return false;
 			}
 		});
@@ -284,28 +613,75 @@ public class WheelSystemTest {
 
 		wheelSystem.setInput(new InputMethod() {
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
+			 */
 			@Override
 			public double sidewaysMovement() {
 				return 0.07;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
+			 */
 			@Override
 			public double rotation() {
 				return 0;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
+			 */
 			@Override
 			public Joystick[] joysticks() {
 				return null;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
+			 */
 			@Override
 			public double forwardMovement() {
 				return 0.3;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
+			 */
 			@Override
 			public boolean straightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
+			 */
+			@Override
+			public double analogLiftUp() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
+			 */
+			@Override
+			public double analogLiftDown() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
+			 */
+			@Override
+			public boolean liftSetpointDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
+			 */
+			@Override
+			public boolean liftSetpointUp() {
 				return false;
 			}
 		});
@@ -315,28 +691,75 @@ public class WheelSystemTest {
 
 		wheelSystem.setInput(new InputMethod() {
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
+			 */
 			@Override
 			public double sidewaysMovement() {
 				return 0.09;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
+			 */
 			@Override
 			public double rotation() {
 				return 0;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
+			 */
 			@Override
 			public Joystick[] joysticks() {
 				return null;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
+			 */
 			@Override
 			public double forwardMovement() {
 				return 0.09;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
+			 */
 			@Override
 			public boolean straightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
+			 */
+			@Override
+			public double analogLiftUp() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
+			 */
+			@Override
+			public double analogLiftDown() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
+			 */
+			@Override
+			public boolean liftSetpointDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
+			 */
+			@Override
+			public boolean liftSetpointUp() {
 				return false;
 			}
 		});
@@ -346,28 +769,75 @@ public class WheelSystemTest {
 
 		wheelSystem.setInput(new InputMethod() {
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
+			 */
 			@Override
 			public double sidewaysMovement() {
 				return 0;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
+			 */
 			@Override
 			public double rotation() {
 				return 0.14;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
+			 */
 			@Override
 			public Joystick[] joysticks() {
 				return null;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
+			 */
 			@Override
 			public double forwardMovement() {
 				return 0;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
+			 */
 			@Override
 			public boolean straightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
+			 */
+			@Override
+			public double analogLiftUp() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
+			 */
+			@Override
+			public double analogLiftDown() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
+			 */
+			@Override
+			public boolean liftSetpointDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
+			 */
+			@Override
+			public boolean liftSetpointUp() {
 				return false;
 			}
 		});
@@ -376,28 +846,75 @@ public class WheelSystemTest {
 
 		wheelSystem.setInput(new InputMethod() {
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
+			 */
 			@Override
 			public double sidewaysMovement() {
 				return 0;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
+			 */
 			@Override
 			public double rotation() {
 				return -0.04;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
+			 */
 			@Override
 			public Joystick[] joysticks() {
 				return null;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
+			 */
 			@Override
 			public double forwardMovement() {
 				return 0;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
+			 */
 			@Override
 			public boolean straightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
+			 */
+			@Override
+			public double analogLiftUp() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
+			 */
+			@Override
+			public double analogLiftDown() {
+				return 0;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
+			 */
+			@Override
+			public boolean liftSetpointDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
+			 */
+			@Override
+			public boolean liftSetpointUp() {
 				return false;
 			}
 		});

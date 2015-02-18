@@ -59,11 +59,42 @@ public class XboxInput implements InputMethod {
 	}
 	
 	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
+	 */
+	@Override
+	public double analogLiftUp() {
+		return controller.getRawAxis(3);// right trigger
+	}
+
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
+	 */
+	@Override
+	public double analogLiftDown() {
+		return controller.getRawAxis(2);// left trigger
+	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
+	 */
+	@Override
+	public boolean liftSetpointDown() {
+		return controller.getRawButton(XboxConstants.LEFT_BUMPER);
+	}
+
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
+	 */
+	@Override
+	public boolean liftSetpointUp() {
+		return controller.getRawButton(XboxConstants.RIGHT_BUMPER);
+	}
+	
+	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
 	 */
 	@Override
 	public Joystick[] joysticks() {
 		return new Joystick[]{controller};
 	}
-
 }

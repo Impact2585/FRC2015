@@ -29,6 +29,30 @@ public interface InputMethod {
 	public abstract boolean straightDrive();
 	
 	/**
+	 * Analog input to make the lift go up
+	 * @return value from 0 to 1 for how fast the lift should go up
+	 */
+	public abstract double analogLiftUp();
+	
+	/**
+	 * Same sort of thing as analogLiftUp() except for going down
+	 * @return value from 0 to 1 for how fast the lift should go down
+	 */
+	public abstract double analogLiftDown();
+	
+	/**
+	 * Move the lift to the setpoint below it's current setpoint
+	 * @return input to make the setpoint the next lowest setpoint
+	 */
+	public abstract boolean liftSetpointDown();
+	
+	/**
+	 * Same as liftSetpointDown() basically except for going up
+	 * @return input to make the lift setpoint the next higher one
+	 */
+	public abstract boolean liftSetpointUp();
+	
+	/**
 	 * @return an array of joysticks used for input
 	 */
 	public abstract Joystick[] joysticks();
