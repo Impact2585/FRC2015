@@ -87,7 +87,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 			 */
 			@Override
 			protected void usePIDOutput(double output) {
-				drive(output, 0, 0);
+				drive(0, output, 0);
 			}
 
 			/* (non-Javadoc)
@@ -136,7 +136,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 		if(usingMeters){
 			driveDistance(forwardDistance, sidewaysDistance);
 		}else{
-			driveDistance(forwardDistance * AccelerometerSystem.METER_TO_FEET, sidewaysDistance * AccelerometerSystem.METER_TO_FEET);
+			driveDistance(forwardDistance / AccelerometerSystem.METER_TO_FEET, sidewaysDistance / AccelerometerSystem.METER_TO_FEET);
 		}
 	}
 

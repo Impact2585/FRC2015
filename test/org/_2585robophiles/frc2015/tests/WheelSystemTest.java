@@ -408,7 +408,7 @@ public class WheelSystemTest {
 
 
 	/**
-	 * Test the driveDistance method
+	 * Test the driveDistance method includes forwardDriveDistance and sidewaysDriveDistance
 	 */
 	@Test
 	public void testDriveDistance(){
