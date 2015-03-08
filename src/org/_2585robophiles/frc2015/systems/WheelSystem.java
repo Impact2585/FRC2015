@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  * This system controls the movement of the robot
  */
 public class WheelSystem implements RobotSystem, Runnable {
-	
+
 	private RobotDrive drivetrain;
 	private SpeedController sidewaysMotor;
 	private InputMethod input;
@@ -25,12 +25,12 @@ public class WheelSystem implements RobotSystem, Runnable {
 	private double currentRampForward;
 	private double currentRampSideways;
 	private double rotationValue;
-	private double distanceDriven;
-	private long lastDistanceUpdate;
+	private double forwardDistanceDriven, sidewaysDistanceDriven;
+	private long lastForwardDistanceUpdate, lastSidewaysDistanceUpdate;
 	private boolean straightDriveDisabled = true;
 	private boolean straightDrivePressed;
 	private double correctRotate;
-	private PIDSubsystem distancePID, straightDrivePID;
+	private PIDSubsystem forwardDistancePID, sidewaysDistancePID, straightDrivePID;
 
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.Initializable#init(org._2585robophiles.frc2015.Environment)
@@ -44,8 +44,8 @@ public class WheelSystem implements RobotSystem, Runnable {
 		accelerometer = environment.getAccelerometerSystem();
 		gyro = environment.getGyroSystem();
 		input = environment.getInput();
-		
-		distancePID = new PIDSubsystem(0.2, 0.03, 0) {
+
+		forwardDistancePID = new PIDSubsystem(0.2, 0.03, 0) {
 
 			/* (non-Javadoc)
 			 * @see edu.wpi.first.wpilibj.command.Subsystem#initDefaultCommand()
@@ -68,20 +68,47 @@ public class WheelSystem implements RobotSystem, Runnable {
 			 */
 			@Override
 			protected double returnPIDInput() {
-				return distanceDriven;
+				return forwardDistanceDriven;
 			}
 		};
-		
-		straightDrivePID = new PIDSubsystem(0.1, 0.03, 0) {
-			
+
+		sidewaysDistancePID = new PIDSubsystem(0.2, 0.03, 0) {
+
 			/* (non-Javadoc)
 			 * @see edu.wpi.first.wpilibj.command.Subsystem#initDefaultCommand()
 			 */
 			@Override
 			protected void initDefaultCommand() {
-				
+
 			}
-			
+
+			/* (non-Javadoc)
+			 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#usePIDOutput(double)
+			 */
+			@Override
+			protected void usePIDOutput(double output) {
+				drive(0, output, 0);
+			}
+
+			/* (non-Javadoc)
+			 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#returnPIDInput()
+			 */
+			@Override
+			protected double returnPIDInput() {
+				return sidewaysDistanceDriven;
+			}
+		};
+
+		straightDrivePID = new PIDSubsystem(0.1, 0.03, 0) {
+
+			/* (non-Javadoc)
+			 * @see edu.wpi.first.wpilibj.command.Subsystem#initDefaultCommand()
+			 */
+			@Override
+			protected void initDefaultCommand() {
+
+			}
+
 			/* (non-Javadoc)
 			 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#usePIDOutput(double)
 			 */
@@ -89,7 +116,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 			protected void usePIDOutput(double output) {
 				correctRotate = output;
 			}
-			
+
 			/* (non-Javadoc)
 			 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#returnPIDInput()
 			 */
@@ -99,16 +126,20 @@ public class WheelSystem implements RobotSystem, Runnable {
 			}
 		};
 	}
-	
+
 	/**
 	 * Drive a certain distance in meters or feet
 	 * @param distance the distance to drive
 	 * @param usingMeters true if using meters false if using feet
 	 */
-	public void driveDistance(double distance, boolean usingMeters){
-		driveDistance(usingMeters ? distance : AccelerometerSystem.METER_TO_FEET * distance);
+	public void driveDistance(double forwardDistance, double sidewaysDistance, boolean usingMeters){
+		if(usingMeters){
+			driveDistance(forwardDistance, sidewaysDistance);
+		}else{
+			driveDistance(forwardDistance / AccelerometerSystem.METER_TO_FEET, sidewaysDistance / AccelerometerSystem.METER_TO_FEET);
+		}
 	}
-	
+
 	/**
 	 * Drive the robot
 	 * @param normalMovement forward back move value
@@ -119,25 +150,41 @@ public class WheelSystem implements RobotSystem, Runnable {
 		drivetrain.arcadeDrive(forwardMovement, rotation);
 		sidewaysMotor.set(sidewaysMovement);// we need to invert the sideways motor
 	}
-	
+
 	/**
 	 * Drives a certain distance using the accelerometer and PID
 	 * @param meters distance to drive in meters
 	 */
-	public void driveDistance(double meters) {
-		if(lastDistanceUpdate == 0){
-			enableDistancePID(meters);
-			lastDistanceUpdate = System.currentTimeMillis();
-		}else if(distanceDriven == meters){
-			disableDistancePID();
-			lastDistanceUpdate = 0;
-		}else{
-			lastDistanceUpdate = System.currentTimeMillis();
-			// use the accelerometer to find the distance we have driven
-			accelerometer.getSpeedXInFPS();
+	public void driveDistance(double forwardMeters , double sidewaysMeters) {
+		if(forwardMeters != 0){
+			if(lastForwardDistanceUpdate == 0){
+				enableForwardDistancePID(forwardMeters);
+				lastForwardDistanceUpdate = System.currentTimeMillis();
+			}else if(forwardDistanceDriven == forwardMeters){
+				disableForwardDistancePID();
+				lastForwardDistanceUpdate = 0;
+			}else{
+				lastForwardDistanceUpdate = System.currentTimeMillis();
+				// use the accelerometer to find the forward distance we have driven
+				forwardDistanceDriven += accelerometer.getSpeedX() * lastForwardDistanceUpdate;
+			}
+		}
+
+		if(sidewaysMeters != 0){
+			if(lastSidewaysDistanceUpdate == 0){
+				enableSidewaysDistancePID(sidewaysMeters);
+				lastSidewaysDistanceUpdate = System.currentTimeMillis();
+			}else if(sidewaysDistanceDriven == sidewaysMeters){
+				disableSidewaysDistancePID();
+				lastSidewaysDistanceUpdate = 0;
+			}else{
+				lastSidewaysDistanceUpdate = System.currentTimeMillis();
+				// use the accelerometer to find the sideways distance we have driven
+				sidewaysDistanceDriven += accelerometer.getSpeedY() * lastSidewaysDistanceUpdate;
+			}
 		}
 	}
-	
+
 	/**
 	 * Drive straight using gyro and PID
 	 * @param forwardMovement the forward movement value
@@ -151,23 +198,41 @@ public class WheelSystem implements RobotSystem, Runnable {
 	}
 
 	/**
-	 * Enable and set the setpoint of the distance drive PID
-	 * @param setpoint distance to drive in meters
+	 * Enable and set the setpoint of the forward distance drive PID
+	 * @param setpoint forward distance to drive in meters
 	 */
-	protected synchronized void enableDistancePID(double setpoint) {
-		distancePID.setSetpoint(setpoint);
-		distancePID.enable();
+	protected synchronized void enableForwardDistancePID(double setpoint) {
+		forwardDistancePID.setSetpoint(setpoint);
+		forwardDistancePID.enable();
 	}
-	
+
 	/**
-	 * Disable distance drive PID
+	 * Disable forward distance drive PID
 	 */
-	protected synchronized void disableDistancePID(){
-		distancePID.getPIDController().reset();
-		distancePID.disable();
+	protected synchronized void disableForwardDistancePID(){
+		forwardDistancePID.getPIDController().reset();
+		forwardDistancePID.disable();
 		disableSraightDrivePID();
 	}
-	
+
+	/**
+	 * Enable and set the setpoint of the sideways distance drive PID
+	 * @param setpoint sideways distance to drive in meters
+	 */
+	protected synchronized void enableSidewaysDistancePID(double setpoint) {
+		sidewaysDistancePID.setSetpoint(setpoint);
+		sidewaysDistancePID.enable();
+	}
+
+	/**
+	 * Disable sideways distance drive PID
+	 */
+	protected synchronized void disableSidewaysDistancePID(){
+		sidewaysDistancePID.getPIDController().reset();
+		sidewaysDistancePID.disable();
+		disableSraightDrivePID();
+	}   
+
 	/**
 	 * Enable straight driving
 	 * @param setpoint target angle
@@ -177,7 +242,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 		straightDrivePID.setAbsoluteTolerance(2);// it's OK if we're 2 degrees off
 		straightDrivePID.enable();
 	}
-	
+
 	/**
 	 * Stop straight driving
 	 * @param setpoint target angle
@@ -186,14 +251,14 @@ public class WheelSystem implements RobotSystem, Runnable {
 		straightDrivePID.getPIDController().reset();
 		straightDrivePID.disable();
 	}
-	
+
 	/**
 	 * @return whether or not the robot is straight driving
 	 */
 	public synchronized boolean straightDriving(){
 		return straightDrivePID.getPIDController().isEnable();
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Runnable#run()
 	 */
@@ -221,7 +286,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 			disableSraightDrivePID();
 			drive(currentRampForward, currentRampSideways, rotationValue);
 		}
-		
+
 		// toggle between straight driving enabled and disabled
 		if(input.straightDrive() && !straightDrivePressed)
 			straightDriveDisabled =! straightDriveDisabled;
@@ -241,7 +306,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 	protected synchronized void setPreviousNormalMovement(double currentNormalMovement) {
 		this.previousNormalMovement = currentNormalMovement;
 	}
-	
+
 	/**
 	 * @return the sidewaysMotor
 	 */
@@ -285,31 +350,59 @@ public class WheelSystem implements RobotSystem, Runnable {
 	}
 
 	/**
-	 * @return the distanceDriven
+	 * @return the forwardDistanceDriven
 	 */
-	public synchronized double getDistanceDriven() {
-		return distanceDriven;
+	public synchronized double getForwardDistanceDriven() {
+		return forwardDistanceDriven;
 	}
 
 	/**
-	 * @param distanceDriven the distanceDriven to set
+	 * @return the sidewaysDistanceDriven
 	 */
-	protected synchronized void setDistanceDriven(double distanceDriven) {
-		this.distanceDriven = distanceDriven;
+	public synchronized double getSidewaysDistanceDriven() {
+		return sidewaysDistanceDriven;
 	}
 
 	/**
-	 * @return the lastDistanceUpdate
+	 * @param forwardDistanceDriven the forwardDistanceDriven to set
 	 */
-	public synchronized long getLastDistanceUpdate() {
-		return lastDistanceUpdate;
+	protected synchronized void setForwardDistanceDriven(double forwardDistanceDriven) {
+		this.forwardDistanceDriven = forwardDistanceDriven;
 	}
 
 	/**
-	 * @param lastDistanceUpdate the lastDistanceUpdate to set
+	 * @param sidewaysDistanceDriven the sidewaysDistanceDriven to set
 	 */
-	protected synchronized void setLastDistanceUpdate(long lastDistanceUpdate) {
-		this.lastDistanceUpdate = lastDistanceUpdate;
+	protected synchronized void setSidewaysDistanceDriven(double sidewaysDistanceDriven) {
+		this.sidewaysDistanceDriven = sidewaysDistanceDriven;
+	}
+
+	/**
+	 * @return the lastForwardDistanceUpdate
+	 */
+	public synchronized long getLastForwardDistanceUpdate() {
+		return lastForwardDistanceUpdate;
+	}
+
+	/**
+	 * @return the lastSidewaysDistanceUpdate
+	 */
+	public synchronized long getLastSidewaysDistanceUpdate() {
+		return lastSidewaysDistanceUpdate;
+	}
+
+	/**
+	 * @param lastForwardDistanceUpdate the lastForwardDistanceUpdate to set
+	 */
+	protected synchronized void setLastForwardDistanceUpdate(long lastForwardDistanceUpdate) {
+		this.lastForwardDistanceUpdate = lastForwardDistanceUpdate;
+	}
+
+	/**
+	 * @param lastSidewaysDistanceUpdate the lastSidewaysDistanceUpdate to set
+	 */
+	protected synchronized void setLastSidewaysDistanceUpdate(long lastSidewaysDistanceUpdate) {
+		this.lastSidewaysDistanceUpdate = lastSidewaysDistanceUpdate;
 	}
 
 	/* (non-Javadoc)

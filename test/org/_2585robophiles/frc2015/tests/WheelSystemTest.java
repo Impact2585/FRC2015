@@ -20,7 +20,7 @@ public class WheelSystemTest {
 	private TestWheelSystem wheelSystem;
 	private double currentForwardMovement, currentSidewaysMovement,
 	currentRotation;
-	private boolean distancePIDEnabled, straightDrivePIDEnabled;
+	private boolean forwardDistancePIDEnabled, sidewaysDistancePIDEnabled, straightDrivePIDEnabled;
 
 	/**
 	 * Set up the unit test
@@ -408,20 +408,70 @@ public class WheelSystemTest {
 
 
 	/**
-	 * Test the driveDistance method
+	 * Test the driveDistance method includes forwardDriveDistance and sidewaysDriveDistance
 	 */
 	@Test
 	public void testDriveDistance(){
-		Assert.assertFalse(distancePIDEnabled);
+		//test forwardDriveDistance
+		Assert.assertFalse(forwardDistancePIDEnabled);
+		Assert.assertFalse(sidewaysDistancePIDEnabled);
 		for(int i = 0; i < 3; i++){
-			wheelSystem.driveDistance(3);
-			Assert.assertTrue(distancePIDEnabled);
-			Assert.assertTrue(wheelSystem.getLastDistanceUpdate() > 0);
+			wheelSystem.driveDistance(3,0);
+			Assert.assertTrue(forwardDistancePIDEnabled);
+			Assert.assertFalse(sidewaysDistancePIDEnabled);
+			Assert.assertTrue(wheelSystem.getLastForwardDistanceUpdate() > 0);
+			Assert.assertTrue(wheelSystem.getLastSidewaysDistanceUpdate() == 0);
 		}
-		wheelSystem.setDistanceDriven(3);
-		wheelSystem.driveDistance(3);
-		Assert.assertFalse(distancePIDEnabled);
-		Assert.assertEquals(0, wheelSystem.getLastDistanceUpdate());
+		wheelSystem.setForwardDistanceDriven(3);
+		wheelSystem.driveDistance(3, 0);
+		Assert.assertFalse(forwardDistancePIDEnabled);
+		Assert.assertFalse(sidewaysDistancePIDEnabled);
+		Assert.assertEquals(0, wheelSystem.getLastForwardDistanceUpdate());
+		Assert.assertEquals(0, wheelSystem.getLastSidewaysDistanceUpdate());
+
+		//reset for next test
+		wheelSystem.setForwardDistanceDriven(0);
+		wheelSystem.setSidewaysDistanceDriven(0);
+
+		//test sidewaysDriveDistance
+		Assert.assertFalse(sidewaysDistancePIDEnabled);
+		Assert.assertFalse(forwardDistancePIDEnabled);
+		for(int i = 0; i < 3; i++){
+			wheelSystem.driveDistance(0,3);
+			Assert.assertTrue(sidewaysDistancePIDEnabled);
+			Assert.assertFalse(forwardDistancePIDEnabled);
+			Assert.assertTrue(wheelSystem.getLastSidewaysDistanceUpdate() > 0);
+			Assert.assertTrue(wheelSystem.getLastForwardDistanceUpdate() == 0);
+
+		}
+		wheelSystem.setSidewaysDistanceDriven(3);
+		wheelSystem.driveDistance(0, 3);
+		Assert.assertFalse(sidewaysDistancePIDEnabled);
+		Assert.assertFalse(forwardDistancePIDEnabled);
+		Assert.assertEquals(0, wheelSystem.getLastSidewaysDistanceUpdate());
+		Assert.assertEquals(0, wheelSystem.getLastForwardDistanceUpdate());
+
+		//reset for next test
+		wheelSystem.setForwardDistanceDriven(0);
+		wheelSystem.setSidewaysDistanceDriven(0);
+
+		//test both forwardDriveDistance and sidewaysDriveDistance
+		Assert.assertFalse(forwardDistancePIDEnabled);
+		Assert.assertFalse(sidewaysDistancePIDEnabled);
+		for(int i = 0; i < 9; i++){
+			wheelSystem.driveDistance(3,3);
+			Assert.assertTrue(forwardDistancePIDEnabled);
+			Assert.assertTrue(sidewaysDistancePIDEnabled);
+			Assert.assertTrue(wheelSystem.getLastForwardDistanceUpdate() > 0);
+			Assert.assertTrue(wheelSystem.getLastSidewaysDistanceUpdate() > 0);
+		}
+		wheelSystem.setForwardDistanceDriven(3);
+		wheelSystem.setSidewaysDistanceDriven(3);
+		wheelSystem.driveDistance(3, 3);
+		Assert.assertFalse(forwardDistancePIDEnabled);
+		Assert.assertFalse(sidewaysDistancePIDEnabled);
+		Assert.assertEquals(0, wheelSystem.getLastForwardDistanceUpdate());
+		Assert.assertEquals(0, wheelSystem.getLastSidewaysDistanceUpdate());
 	}
 
 	/**
@@ -468,20 +518,31 @@ public class WheelSystemTest {
 		}
 
 		/* (non-Javadoc)
-		 * @see org._2585robophiles.frc2015.systems.WheelSystem#setDistanceDriven(double)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#setForwardDistanceDriven(double)
 		 */
 		@Override
-		protected synchronized void setDistanceDriven(double distanceDriven) {
-			super.setDistanceDriven(distanceDriven);
+		protected synchronized void setForwardDistanceDriven(double forwardDistanceDriven) {
+			super.setForwardDistanceDriven(forwardDistanceDriven);
+		}
+
+		protected synchronized void setSidewaysDistanceDriven(double sidewaysDistanceDriven) {
+			super.setSidewaysDistanceDriven(sidewaysDistanceDriven);
 		}
 
 		/* (non-Javadoc)
-		 * @see org._2585robophiles.frc2015.systems.WheelSystem#setLastDistanceUpdate(long)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#setLastForwardDistanceUpdate(long)
 		 */
-		@Override
-		protected synchronized void setLastDistanceUpdate(
-				long lastDistanceUpdate) {
-			super.setLastDistanceUpdate(lastDistanceUpdate);
+		protected synchronized void setLastForwardDistanceUpdate(
+				long lastForwardDistanceUpdate) {
+			super.setLastForwardDistanceUpdate(lastForwardDistanceUpdate);
+		}
+
+		/* (non-Javadoc)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#setLastSidewaysDistanceUpdate(long)
+		 */
+		protected synchronized void setLastSidewaysDistanceUpdate(
+				long lastSidewaysDistanceUpdate) {
+			super.setLastSidewaysDistanceUpdate(lastSidewaysDistanceUpdate);
 		}
 
 		/* (non-Javadoc)
@@ -512,19 +573,31 @@ public class WheelSystemTest {
 		}
 
 		/* (non-Javadoc)
-		 * @see org._2585robophiles.frc2015.systems.WheelSystem#enableDistancePID(double)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#enableForwardDistancePID(double)
 		 */
-		@Override
-		protected synchronized void enableDistancePID(double setpoint) {
-			distancePIDEnabled = true;
+		protected synchronized void enableForwardDistancePID(double setpoint) {
+			forwardDistancePIDEnabled = true;
 		}
 
 		/* (non-Javadoc)
-		 * @see org._2585robophiles.frc2015.systems.WheelSystem#disableDistancePID()
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#enableSidewaysDistancePID(double)
 		 */
-		@Override
-		protected synchronized void disableDistancePID() {
-			distancePIDEnabled = false;
+		protected synchronized void enableSidewaysDistancePID(double setpoint) {
+			sidewaysDistancePIDEnabled = true;
+		}
+
+		/* (non-Javadoc)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#disableForwardDistancePID()
+		 */
+		protected synchronized void disableForwardDistancePID() {
+			forwardDistancePIDEnabled = false;
+		}
+
+		/* (non-Javadoc)
+		 * @see org._2585robophiles.frc2015.systems.WheelSystem#disableSidewaysDistancePID()
+		 */
+		protected synchronized void disableSidewaysDistancePID() {
+			sidewaysDistancePIDEnabled = false;
 		}
 
 		/* (non-Javadoc)
@@ -550,8 +623,8 @@ public class WheelSystemTest {
 		public synchronized boolean straightDriving() {
 			return straightDrivePIDEnabled;
 		}
-		
-		
+
+
 
 	}
 }
