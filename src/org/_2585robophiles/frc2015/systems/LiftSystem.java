@@ -21,7 +21,6 @@ public class LiftSystem implements RobotSystem, Runnable {
 	public static final double TOTE_PICKUP_2 = 3;
 	public static final double TOTE_PICKUP_3 = 3;
 	public static final double TOTE_PICKUP_4 = 3;
-	public static final double TOTE_PICKUP_5 = 3;
 
 	private InputMethod input;
 	private SpeedController leftMotor;
@@ -31,6 +30,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 	private double setpoint;
 	private boolean upPressed;
 	private boolean downPressed;
+	private boolean manual;
 	
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.Initializable#init(org._2585robophiles.frc2015.Environment)
@@ -95,6 +95,13 @@ public class LiftSystem implements RobotSystem, Runnable {
 		rightMotor.set(speed);
 	}
 	
+	/**
+	 * @return distance from the encoder
+	 */
+	public double encoderDistance(){
+		return encoder.getDistance();
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Runnable#run()
 	 */
@@ -107,6 +114,10 @@ public class LiftSystem implements RobotSystem, Runnable {
 		}else if(input.analogLiftUp() > 0){
 			disablePID();
 			setMotors(input.analogLiftUp());
+		}else if(manual){
+			// driver just stopped controlling lift manually so let's maintain this height
+			setpoint = encoderDistance();
+			enablePID();
 		}else if(input.liftSetpointUp() && !upPressed){
 			// not so manual control of the lift
 			if(setpoint == GROUND_SETPOINT)
@@ -115,15 +126,11 @@ public class LiftSystem implements RobotSystem, Runnable {
 				setpoint = TOTE_PICKUP_2;
 			else if(setpoint == TOTE_PICKUP_2)
 				setpoint = TOTE_PICKUP_3;
-			else if(setpoint == TOTE_PICKUP_3)
-				setpoint = TOTE_PICKUP_4;
 			else
-				setpoint = TOTE_PICKUP_5;
+				setpoint = TOTE_PICKUP_4;
 			enablePID();
 		}else if(input.liftSetpointDown() && !downPressed){
-			if(setpoint == TOTE_PICKUP_5)
-				setpoint = TOTE_PICKUP_4;
-			else if(setpoint == TOTE_PICKUP_4)
+			if(setpoint == TOTE_PICKUP_4)
 				setpoint = TOTE_PICKUP_3;
 			else if(setpoint == TOTE_PICKUP_3)
 				setpoint = TOTE_PICKUP_2;
@@ -135,6 +142,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 		}
 		upPressed = input.liftSetpointUp();
 		downPressed = input.liftSetpointDown();
+		manual = input.analogLiftDown() == input.analogLiftUp() && input.analogLiftDown() == 0;// user is controlling lift manually
 	}
 
 	/**
