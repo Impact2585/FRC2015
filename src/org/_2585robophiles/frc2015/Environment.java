@@ -5,6 +5,7 @@ import org._2585robophiles.frc2015.input.XboxInput;
 import org._2585robophiles.frc2015.systems.AccelerometerSystem;
 import org._2585robophiles.frc2015.systems.DashboardSystem;
 import org._2585robophiles.frc2015.systems.GyroSystem;
+import org._2585robophiles.frc2015.systems.LiftSystem;
 import org._2585robophiles.frc2015.systems.WheelSystem;
 import org._2585robophiles.lib2585.RobotEnvironment;
 
@@ -16,6 +17,7 @@ public class Environment extends RobotEnvironment {
 	private static final long serialVersionUID = 8684301017988652791L;
 	
 	private WheelSystem wheelSystem;
+	private LiftSystem liftSystem;
 	private GyroSystem gyroSystem;
 	private AccelerometerSystem accelerometerSystem;
 	private InputMethod input;
@@ -39,12 +41,28 @@ public class Environment extends RobotEnvironment {
 		gyroSystem = new GyroSystem();
 		accelerometerSystem = new AccelerometerSystem();
 		wheelSystem = new WheelSystem();
+		liftSystem = new LiftSystem();
 		dashboardSystem = new DashboardSystem();
 		
 		gyroSystem.init(this);
 		accelerometerSystem.init(this);
 		wheelSystem.init(this);
+		liftSystem.init(this);
 		dashboardSystem.init(this);
+	}
+
+	/**
+	 * @return the liftSystem
+	 */
+	public LiftSystem getLiftSystem() {
+		return liftSystem;
+	}
+
+	/**
+	 * @param liftSystem the liftSystem to set
+	 */
+	protected synchronized void setLiftSystem(LiftSystem liftSystem) {
+		this.liftSystem = liftSystem;
 	}
 
 	/**
