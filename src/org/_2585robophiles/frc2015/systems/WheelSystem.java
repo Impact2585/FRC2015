@@ -27,7 +27,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 	private double rotationValue;
 	private double forwardDistanceDriven, sidewaysDistanceDriven;
 	private long lastForwardDistanceUpdate, lastSidewaysDistanceUpdate;
-	private boolean straightDriveDisabled = true;
+	private boolean straightDriveDisabled;
 	private boolean straightDrivePressed;
 	private double correctRotate;
 	private PIDSubsystem forwardDistancePID, sidewaysDistancePID, straightDrivePID;
@@ -44,6 +44,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 		accelerometer = environment.getAccelerometerSystem();
 		gyro = environment.getGyroSystem();
 		input = environment.getInput();
+		straightDriveDisabled = true;
 
 		forwardDistancePID = new PIDSubsystem(0.2, 0.03, 0) {
 
@@ -131,12 +132,13 @@ public class WheelSystem implements RobotSystem, Runnable {
 	 * Drive a certain distance in meters or feet
 	 * @param distance the distance to drive
 	 * @param usingMeters true if using meters false if using feet
+	 * @return if driveDistance is done
 	 */
-	public void driveDistance(double forwardDistance, double sidewaysDistance, boolean usingMeters){
+	public boolean driveDistance(double forwardDistance, double sidewaysDistance, boolean usingMeters){
 		if(usingMeters){
-			driveDistance(forwardDistance, sidewaysDistance);
+			return driveDistance(forwardDistance, sidewaysDistance);
 		}else{
-			driveDistance(forwardDistance / AccelerometerSystem.METER_TO_FEET, sidewaysDistance / AccelerometerSystem.METER_TO_FEET);
+			return driveDistance(forwardDistance / AccelerometerSystem.METER_TO_FEET, sidewaysDistance / AccelerometerSystem.METER_TO_FEET);
 		}
 	}
 
@@ -145,6 +147,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 	 * @param normalMovement forward back move value
 	 * @param sidewaysMovement left right move value
 	 * @param rotation turn value
+	 * @return if driveDistance is done
 	 */
 	public void drive(double forwardMovement, double sidewaysMovement, double rotation){
 		drivetrain.arcadeDrive(forwardMovement, rotation);
@@ -155,7 +158,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 	 * Drives a certain distance using the accelerometer and PID
 	 * @param meters distance to drive in meters
 	 */
-	public void driveDistance(double forwardMeters , double sidewaysMeters) {
+	public boolean driveDistance(double forwardMeters , double sidewaysMeters) {
 		if(forwardMeters != 0){
 			if(lastForwardDistanceUpdate == 0){
 				enableForwardDistancePID(forwardMeters);
@@ -183,6 +186,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 				sidewaysDistanceDriven += accelerometer.getSpeedY() * lastSidewaysDistanceUpdate;
 			}
 		}
+		return forwardDistanceDriven == forwardMeters && sidewaysDistanceDriven == sidewaysMeters;
 	}
 
 	/**
