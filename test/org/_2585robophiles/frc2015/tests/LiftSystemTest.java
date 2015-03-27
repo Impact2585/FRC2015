@@ -230,6 +230,14 @@ public class LiftSystemTest {
 		protected synchronized void setSetpoint(double setpoint) {
 			super.setSetpoint(setpoint);
 		}
+
+		/* (non-Javadoc)
+		 * @see org._2585robophiles.frc2015.systems.LiftSystem#encoderDistance()
+		 */
+		@Override
+		public double encoderDistance() {
+			return 3;
+		}
 		
 	}
 
