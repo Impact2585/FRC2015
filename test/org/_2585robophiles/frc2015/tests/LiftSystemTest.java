@@ -20,6 +20,7 @@ public class LiftSystemTest {
 	private double motorSpeed;
 	private double analogUpInput;
 	private double analogDownInput;
+	private int liftSetpoint;
 	private boolean setpointUpInput;
 	private boolean setpointDownInput;
 	private boolean enabledPID;
@@ -103,6 +104,26 @@ public class LiftSystemTest {
 			public double analogLiftDown() {
 				return analogDownInput;
 			}
+
+			@Override
+			public boolean liftSetpoint1() {
+				return liftSetpoint == 1;
+			}
+
+			@Override
+			public boolean liftSetpoint2() {
+				return liftSetpoint == 2;
+			}
+
+			@Override
+			public boolean liftSetpoint3() {
+				return liftSetpoint == 3;
+			}
+
+			@Override
+			public boolean liftSetpoint4() {
+				return liftSetpoint == 4;
+			}
 		});
 	}
 
@@ -165,6 +186,9 @@ public class LiftSystemTest {
 		setpointUpInput = true;
 	}
 	
+	/**
+	 * LiftSystem subclass for unit testing
+	 */
 	private class TestLiftSystem extends LiftSystem {
 
 		/* (non-Javadoc)

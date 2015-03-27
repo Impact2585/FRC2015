@@ -4,7 +4,11 @@ import org._2585robophiles.lib2585.XboxConstants;
 
 import edu.wpi.first.wpilibj.Joystick;
 
+/**
+ * Input with two xbox 360 controllers
+ */
 public class PartnerXboxInput implements InputMethod {
+	
 	private Joystick controller1, controller2;
 
 	/**
@@ -29,7 +33,7 @@ public class PartnerXboxInput implements InputMethod {
 	 */
 	@Override
 	public double forwardMovement() {
-		return controller1.getRawAxis(XboxConstants.LEFT_Y_AXIS);
+		return controller1.getRawAxis(1);// left y
 	}
 
 	/* (non-Javadoc)
@@ -37,7 +41,7 @@ public class PartnerXboxInput implements InputMethod {
 	 */
 	@Override
 	public double sidewaysMovement() {
-		return controller1.getRawAxis(XboxConstants.LEFT_X_AXIS);
+		return controller1.getRawAxis(0);// left x
 	}
 
 	/* (non-Javadoc)
@@ -61,7 +65,7 @@ public class PartnerXboxInput implements InputMethod {
 	 */
 	@Override
 	public double analogLiftUp() {
-		return controller2.getRawAxis(3);// right trigger of second controller
+		return Math.max(0, controller2.getRawAxis(1));// left y lift driver when going up
 	}
 
 	/* (non-Javadoc)
@@ -69,7 +73,7 @@ public class PartnerXboxInput implements InputMethod {
 	 */
 	@Override
 	public double analogLiftDown() {
-		return controller2.getRawAxis(2);// left trigger of second controller
+		return Math.max(0, -controller2.getRawAxis(1));// left y lift driver when going down
 	}
 
 	/* (non-Javadoc)
@@ -77,7 +81,7 @@ public class PartnerXboxInput implements InputMethod {
 	 */
 	@Override
 	public boolean liftSetpointDown() {
-		return controller2.getRawButton(XboxConstants.LEFT_BUMPER);
+		return controller2.getRawAxis(3) > 0.15;// right trigger
 	}
 
 	/* (non-Javadoc)
@@ -87,6 +91,38 @@ public class PartnerXboxInput implements InputMethod {
 	public boolean liftSetpointUp() {
 		return controller2.getRawButton(XboxConstants.RIGHT_BUMPER);
 	}
+
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
+	 */
+	@Override
+	public boolean liftSetpoint1() {
+		return controller2.getRawButton(XboxConstants.A_BUTTON);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
+	 */
+	@Override
+	public boolean liftSetpoint2() {
+		return controller2.getRawButton(XboxConstants.X_BUTTON);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
+	 */
+	@Override
+	public boolean liftSetpoint3() {
+		return controller2.getRawButton(XboxConstants.B_BUTTON);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
+	 */
+	@Override
+	public boolean liftSetpoint4() {
+		return controller2.getRawButton(XboxConstants.Y_BUTTON);
+	}
 	
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
@@ -94,4 +130,5 @@ public class PartnerXboxInput implements InputMethod {
 	public Joystick[] joysticks() {
 		return new Joystick[] { controller1, controller2 };
 	}
+
 }

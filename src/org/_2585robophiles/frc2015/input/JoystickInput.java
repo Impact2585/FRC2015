@@ -2,6 +2,9 @@ package org._2585robophiles.frc2015.input;
 
 import edu.wpi.first.wpilibj.Joystick;
 
+/**
+ * Input from the joysticks
+ */
 public class JoystickInput implements InputMethod {
 	
 	private Joystick left , right;
@@ -75,6 +78,38 @@ public class JoystickInput implements InputMethod {
 	 */
 	@Override
 	public boolean liftSetpointUp() {
+		return false;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
+	 */
+	@Override
+	public boolean liftSetpoint1() {
+		return false;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
+	 */
+	@Override
+	public boolean liftSetpoint2() {
+		return false;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
+	 */
+	@Override
+	public boolean liftSetpoint3() {
+		return false;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
+	 */
+	@Override
+	public boolean liftSetpoint4() {
 		return false;
 	}
 

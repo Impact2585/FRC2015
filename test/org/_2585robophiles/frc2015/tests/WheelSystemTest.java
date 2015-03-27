@@ -134,6 +134,38 @@ public class WheelSystemTest {
 			public boolean liftSetpointUp() {
 				return false;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
+			 */
+			@Override
+			public boolean liftSetpoint1() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
+			 */
+			@Override
+			public boolean liftSetpoint2() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
+			 */
+			@Override
+			public boolean liftSetpoint3() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
+			 */
+			@Override
+			public boolean liftSetpoint4() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertEquals(0, currentRotation, 0);
@@ -182,6 +214,38 @@ public class WheelSystemTest {
 			}
 
 			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
+			 */
+			@Override
+			public boolean liftSetpoint1() {
+				return false;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
+			 */
+			@Override
+			public boolean liftSetpoint2() {
+				return false;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
+			 */
+			@Override
+			public boolean liftSetpoint3() {
+				return false;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
+			 */
+			@Override
+			public boolean liftSetpoint4() {
+				return false;
+			}
+			
+			/* (non-Javadoc)
 			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
 			 */
 			@Override
@@ -204,6 +268,7 @@ public class WheelSystemTest {
 			public boolean liftSetpointDown() {
 				return false;
 			}
+			
 
 			/* (non-Javadoc)
 			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
@@ -212,6 +277,7 @@ public class WheelSystemTest {
 			public boolean liftSetpointUp() {
 				return false;
 			}
+
 		});
 		wheelSystem.run();
 		Assert.assertEquals(0, currentRotation, 0);
@@ -294,6 +360,38 @@ public class WheelSystemTest {
 			public boolean liftSetpointUp() {
 				return false;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
+			 */
+			@Override
+			public boolean liftSetpoint1() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
+			 */
+			@Override
+			public boolean liftSetpoint2() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
+			 */
+			@Override
+			public boolean liftSetpoint3() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
+			 */
+			@Override
+			public boolean liftSetpoint4() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertEquals(0, currentRotation, 0);
@@ -369,6 +467,38 @@ public class WheelSystemTest {
 			 */
 			@Override
 			public boolean liftSetpointUp() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
+			 */
+			@Override
+			public boolean liftSetpoint1() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
+			 */
+			@Override
+			public boolean liftSetpoint2() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
+			 */
+			@Override
+			public boolean liftSetpoint3() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
+			 */
+			@Override
+			public boolean liftSetpoint4() {
 				return false;
 			}
 		});
@@ -452,6 +582,38 @@ public class WheelSystemTest {
 			public boolean liftSetpointUp() {
 				return false;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
+			 */
+			@Override
+			public boolean liftSetpoint1() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
+			 */
+			@Override
+			public boolean liftSetpoint2() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
+			 */
+			@Override
+			public boolean liftSetpoint3() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
+			 */
+			@Override
+			public boolean liftSetpoint4() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertEquals(-1, currentRotation, 0);
@@ -526,6 +688,38 @@ public class WheelSystemTest {
 			 */
 			@Override
 			public boolean liftSetpointUp() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
+			 */
+			@Override
+			public boolean liftSetpoint1() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
+			 */
+			@Override
+			public boolean liftSetpoint2() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
+			 */
+			@Override
+			public boolean liftSetpoint3() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
+			 */
+			@Override
+			public boolean liftSetpoint4() {
 				return false;
 			}
 		});
@@ -606,6 +800,38 @@ public class WheelSystemTest {
 			public boolean liftSetpointUp() {
 				return false;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
+			 */
+			@Override
+			public boolean liftSetpoint1() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
+			 */
+			@Override
+			public boolean liftSetpoint2() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
+			 */
+			@Override
+			public boolean liftSetpoint3() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
+			 */
+			@Override
+			public boolean liftSetpoint4() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertTrue(currentSidewaysMovement > 0);
@@ -682,6 +908,38 @@ public class WheelSystemTest {
 			 */
 			@Override
 			public boolean liftSetpointUp() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
+			 */
+			@Override
+			public boolean liftSetpoint1() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
+			 */
+			@Override
+			public boolean liftSetpoint2() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
+			 */
+			@Override
+			public boolean liftSetpoint3() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
+			 */
+			@Override
+			public boolean liftSetpoint4() {
 				return false;
 			}
 		});
@@ -762,6 +1020,38 @@ public class WheelSystemTest {
 			public boolean liftSetpointUp() {
 				return false;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
+			 */
+			@Override
+			public boolean liftSetpoint1() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
+			 */
+			@Override
+			public boolean liftSetpoint2() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
+			 */
+			@Override
+			public boolean liftSetpoint3() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
+			 */
+			@Override
+			public boolean liftSetpoint4() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertEquals(0, currentSidewaysMovement, 0);
@@ -840,6 +1130,38 @@ public class WheelSystemTest {
 			public boolean liftSetpointUp() {
 				return false;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
+			 */
+			@Override
+			public boolean liftSetpoint1() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
+			 */
+			@Override
+			public boolean liftSetpoint2() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
+			 */
+			@Override
+			public boolean liftSetpoint3() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
+			 */
+			@Override
+			public boolean liftSetpoint4() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertEquals(0, currentRotation, 0);
@@ -915,6 +1237,38 @@ public class WheelSystemTest {
 			 */
 			@Override
 			public boolean liftSetpointUp() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
+			 */
+			@Override
+			public boolean liftSetpoint1() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
+			 */
+			@Override
+			public boolean liftSetpoint2() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
+			 */
+			@Override
+			public boolean liftSetpoint3() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
+			 */
+			@Override
+			public boolean liftSetpoint4() {
 				return false;
 			}
 		});
