@@ -165,11 +165,12 @@ public class WheelSystem implements RobotSystem, Runnable {
 				lastForwardDistanceUpdate = System.currentTimeMillis();
 			}else if(forwardDistanceDriven == forwardMeters){
 				disableForwardDistancePID();
+				forwardDistanceDriven = 0;
 				lastForwardDistanceUpdate = 0;
 			}else{
-				lastForwardDistanceUpdate = System.currentTimeMillis();
+				lastForwardDistanceUpdate = System.currentTimeMillis() - lastForwardDistanceUpdate;
 				// use the accelerometer to find the forward distance we have driven
-				forwardDistanceDriven += accelerometer.getSpeedX() * lastForwardDistanceUpdate;
+				forwardDistanceDriven += accelerometer.getSpeedX() * lastForwardDistanceUpdate /1000;
 			}
 		}
 
@@ -179,11 +180,12 @@ public class WheelSystem implements RobotSystem, Runnable {
 				lastSidewaysDistanceUpdate = System.currentTimeMillis();
 			}else if(sidewaysDistanceDriven == sidewaysMeters){
 				disableSidewaysDistancePID();
+				sidewaysDistanceDriven = 0;
 				lastSidewaysDistanceUpdate = 0;
 			}else{
-				lastSidewaysDistanceUpdate = System.currentTimeMillis();
+				lastSidewaysDistanceUpdate = System.currentTimeMillis()-lastSidewaysDistanceUpdate;
 				// use the accelerometer to find the sideways distance we have driven
-				sidewaysDistanceDriven += accelerometer.getSpeedY() * lastSidewaysDistanceUpdate;
+				sidewaysDistanceDriven += accelerometer.getSpeedY() * lastSidewaysDistanceUpdate /1000;
 			}
 		}
 		return forwardDistanceDriven == forwardMeters && sidewaysDistanceDriven == sidewaysMeters;
