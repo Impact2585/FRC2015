@@ -33,7 +33,7 @@ public class PartnerXboxInput implements InputMethod {
 	 */
 	@Override
 	public double forwardMovement() {
-		return controller1.getRawAxis(1);// left y
+		return -controller1.getRawAxis(1);// left y
 	}
 
 	/* (non-Javadoc)
@@ -65,7 +65,7 @@ public class PartnerXboxInput implements InputMethod {
 	 */
 	@Override
 	public double analogLiftUp() {
-		return Math.max(0, controller2.getRawAxis(1));// left y lift driver when going up
+		return Math.max(0, -controller2.getRawAxis(1));// left y lift driver when going up
 	}
 
 	/* (non-Javadoc)
@@ -73,7 +73,7 @@ public class PartnerXboxInput implements InputMethod {
 	 */
 	@Override
 	public double analogLiftDown() {
-		return Math.max(0, -controller2.getRawAxis(1));// left y lift driver when going down
+		return Math.min(0, controller2.getRawAxis(1));// left y lift driver when going down
 	}
 
 	/* (non-Javadoc)

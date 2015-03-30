@@ -22,6 +22,6 @@ public interface RobotMap {
 	
 	public static final double FORWARD_RAMPING = .8;
 	public static final double SIDEWAYS_RAMPING = .8;
-	public static final int ROTATION_EXPONENT = 2;
+	public static final double ROTATION_EXPONENT = 0.5;
 	
 }

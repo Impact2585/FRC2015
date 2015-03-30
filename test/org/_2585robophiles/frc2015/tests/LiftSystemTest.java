@@ -105,21 +105,33 @@ public class LiftSystemTest {
 				return analogDownInput;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
+			 */
 			@Override
 			public boolean liftSetpoint1() {
 				return liftSetpoint == 1;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
+			 */
 			@Override
 			public boolean liftSetpoint2() {
 				return liftSetpoint == 2;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
+			 */
 			@Override
 			public boolean liftSetpoint3() {
 				return liftSetpoint == 3;
 			}
 
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
+			 */
 			@Override
 			public boolean liftSetpoint4() {
 				return liftSetpoint == 4;
@@ -146,12 +158,16 @@ public class LiftSystemTest {
 		lift.run();
 		Assert.assertThat(motorSpeed, CoreMatchers.equalTo(-1d));
 		Assert.assertThat(enabledPID, CoreMatchers.equalTo(false));
+		analogDownInput = analogUpInput = 0;
+		lift.run();
+		Assert.assertThat(motorSpeed, CoreMatchers.equalTo(0d));
+		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));// it should attempt to maintain its height
 		
 		// test setpoint input
 		setpointUpInput = true;
-		analogDownInput = 0;
 		lift.run();
 		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));
+		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(LiftSystem.TOTE_PICKUP_1));
 		// PID should be disabled as we take manual control once again
 		analogDownInput = 0.5;
 		setpointUpInput = false;

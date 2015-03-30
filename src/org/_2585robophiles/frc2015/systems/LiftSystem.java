@@ -30,6 +30,10 @@ public class LiftSystem implements RobotSystem, Runnable {
 	private double setpoint;
 	private boolean upPressed;
 	private boolean downPressed;
+	private boolean setpoint1Pressed;
+	private boolean setpoint2Pressed;
+	private boolean setpoint3Pressed;
+	private boolean setpoint4Pressed;
 	private boolean manual;
 	
 	/* (non-Javadoc)
@@ -108,13 +112,14 @@ public class LiftSystem implements RobotSystem, Runnable {
 	@Override
 	public void run() {
 		// manual control of the lift
-		if(input.analogLiftDown()>0){
+		if(input.analogLiftDown() > 0.15){
 			disablePID();
 			setMotors(-input.analogLiftDown());
-		}else if(input.analogLiftUp() > 0){
+		}else if(input.analogLiftUp() > 0.15){
 			disablePID();
 			setMotors(input.analogLiftUp());
 		}else if(manual){
+			setMotors(0);
 			// driver just stopped controlling lift manually so let's maintain this height
 			setpoint = encoderDistance();
 			enablePID();
@@ -139,10 +144,26 @@ public class LiftSystem implements RobotSystem, Runnable {
 			else
 				setpoint = GROUND_SETPOINT;
 			enablePID();
+		}else if(input.liftSetpoint1() && !setpoint1Pressed){
+			setpoint = TOTE_PICKUP_1;
+			enablePID();
+		}else if(input.liftSetpoint2() && !setpoint2Pressed){
+			setpoint = TOTE_PICKUP_2;
+			enablePID();
+		}else if(input.liftSetpoint3() && !setpoint3Pressed){
+			setpoint = TOTE_PICKUP_3;
+			enablePID();
+		}else if(input.liftSetpoint4() && !setpoint4Pressed){
+			setpoint = TOTE_PICKUP_4;
+			enablePID();
 		}
 		upPressed = input.liftSetpointUp();
 		downPressed = input.liftSetpointDown();
-		manual = input.analogLiftDown() == input.analogLiftUp() && input.analogLiftDown() == 0;// user is controlling lift manually
+		setpoint1Pressed = input.liftSetpoint1();
+		setpoint2Pressed = input.liftSetpoint2();
+		setpoint3Pressed = input.liftSetpoint3();
+		setpoint4Pressed = input.liftSetpoint4();
+		manual = input.analogLiftUp() > 0.15 || input.analogLiftDown() > 0.15;// user is controlling lift manually
 	}
 
 	/**
