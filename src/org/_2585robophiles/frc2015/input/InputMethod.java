@@ -53,6 +53,26 @@ public interface InputMethod {
 	public abstract boolean liftSetpointUp();
 	
 	/**
+	 * @return input to make the lift setpoint the first one
+	 */
+	public abstract boolean liftSetpoint1();
+	
+	/**
+	 * @return input to make the lift setpoint the second one
+	 */
+	public abstract boolean liftSetpoint2();
+	
+	/**
+	 * @return input to make lift go to 3rd setpoint
+	 */
+	public abstract boolean liftSetpoint3();
+	
+	/**
+	 * @return input to make lift go to 4th setpoint
+	 */
+	public abstract boolean liftSetpoint4();
+	
+	/**
 	 * @return an array of joysticks used for input
 	 */
 	public abstract Joystick[] joysticks();

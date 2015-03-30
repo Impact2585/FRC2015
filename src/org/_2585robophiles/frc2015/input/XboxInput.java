@@ -89,6 +89,38 @@ public class XboxInput implements InputMethod {
 	public boolean liftSetpointUp() {
 		return controller.getRawButton(XboxConstants.RIGHT_BUMPER);
 	}
+
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
+	 */
+	@Override
+	public boolean liftSetpoint1() {
+		return controller.getRawButton(XboxConstants.A_BUTTON);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
+	 */
+	@Override
+	public boolean liftSetpoint2() {
+		return controller.getRawButton(XboxConstants.X_BUTTON);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
+	 */
+	@Override
+	public boolean liftSetpoint3() {
+		return controller.getRawButton(XboxConstants.B_BUTTON);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
+	 */
+	@Override
+	public boolean liftSetpoint4() {
+		return controller.getRawButton(XboxConstants.Y_BUTTON);
+	}
 	
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
@@ -97,4 +129,5 @@ public class XboxInput implements InputMethod {
 	public Joystick[] joysticks() {
 		return new Joystick[]{controller};
 	}
+
 }

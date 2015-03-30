@@ -18,6 +18,7 @@ public enum AutonomousExecuter implements Executer, Initializable {
 	NONE;
 	
 	private Environment environment;
+	private boolean done;
 
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.Initializable#init(org._2585robophiles.frc2015.Environment)
@@ -32,12 +33,15 @@ public enum AutonomousExecuter implements Executer, Initializable {
 	 */
 	@Override
 	public void execute() {
-		switch(this){
-		case BASIC:
-			environment.getWheelSystem().driveDistance(8 + 11.0 / 12.0, 0 ,false);// just drive forward 8 feet 11 inches
-			break;
-		case NONE:
-			break;
+		if(!done){
+			switch(this){
+			case BASIC:
+				done = environment.getWheelSystem().driveDistance(8 + 11.0 / 12.0, 0 ,false);// just drive forward 8 feet 11 inches
+				break;
+			case NONE:
+				done = true;
+				break;
+			}
 		}
 	}
 
