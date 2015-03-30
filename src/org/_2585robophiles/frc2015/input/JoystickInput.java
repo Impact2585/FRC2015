@@ -112,6 +112,14 @@ public class JoystickInput implements InputMethod {
 	public boolean liftSetpoint4() {
 		return false;
 	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#groundLift()
+	 */
+	@Override
+	public boolean groundLift() {
+		return false;
+	}
 
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
@@ -120,4 +128,5 @@ public class JoystickInput implements InputMethod {
 	public Joystick[] joysticks() {
 		return new Joystick[] {left , right};
 	}
+
 }

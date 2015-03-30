@@ -73,7 +73,7 @@ public class PartnerXboxInput implements InputMethod {
 	 */
 	@Override
 	public double analogLiftDown() {
-		return Math.min(0, controller2.getRawAxis(1));// left y lift driver when going down
+		return -Math.min(0, -controller2.getRawAxis(1));// left y lift driver when going down
 	}
 
 	/* (non-Javadoc)
@@ -81,7 +81,7 @@ public class PartnerXboxInput implements InputMethod {
 	 */
 	@Override
 	public boolean liftSetpointDown() {
-		return controller2.getRawAxis(3) > 0.15;// right trigger
+		return controller2.getRawAxis(3) > 0;// right trigger
 	}
 
 	/* (non-Javadoc)
@@ -122,6 +122,14 @@ public class PartnerXboxInput implements InputMethod {
 	@Override
 	public boolean liftSetpoint4() {
 		return controller2.getRawButton(XboxConstants.Y_BUTTON);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#groundLift()
+	 */
+	@Override
+	public boolean groundLift() {
+		return controller2.getRawButton(XboxConstants.START_BUTTON);
 	}
 	
 	/* (non-Javadoc)

@@ -24,6 +24,7 @@ public class LiftSystemTest {
 	private boolean setpointUpInput;
 	private boolean setpointDownInput;
 	private boolean enabledPID;
+	private boolean ground;
 
 	/**
 	 * Set up before the test
@@ -136,6 +137,14 @@ public class LiftSystemTest {
 			public boolean liftSetpoint4() {
 				return liftSetpoint == 4;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#groundLift()
+			 */
+			@Override
+			public boolean groundLift() {
+				return ground;
+			}
 		});
 	}
 
@@ -199,7 +208,30 @@ public class LiftSystemTest {
 		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));
 		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(LiftSystem.GROUND_SETPOINT));// we are already at lowest point
 		setpointDownInput = false;
-		setpointUpInput = true;
+		
+		// test going to each setpoint
+		ground = true;
+		lift.run();
+		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));
+		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(LiftSystem.GROUND_SETPOINT));
+		ground = false;
+		liftSetpoint = 1;
+		lift.run();
+		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));
+		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(LiftSystem.TOTE_PICKUP_1));
+		liftSetpoint = 2;
+		lift.run();
+		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(LiftSystem.TOTE_PICKUP_2));
+		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));
+		liftSetpoint = 3;
+		lift.run();
+		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));
+		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(LiftSystem.TOTE_PICKUP_3));
+		liftSetpoint = 4;
+		lift.run();
+		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));
+		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(LiftSystem.TOTE_PICKUP_4));
+		liftSetpoint = 0;
 	}
 	
 	/**
