@@ -73,6 +73,11 @@ public interface InputMethod {
 	public abstract boolean liftSetpoint4();
 	
 	/**
+	 * @return input to make the lift go to the ground setpoints
+	 */
+	public abstract boolean groundLift();
+	
+	/**
 	 * @return an array of joysticks used for input
 	 */
 	public abstract Joystick[] joysticks();

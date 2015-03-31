@@ -30,6 +30,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 	private double setpoint;
 	private boolean upPressed;
 	private boolean downPressed;
+	private boolean groundPressed;
 	private boolean setpoint1Pressed;
 	private boolean setpoint2Pressed;
 	private boolean setpoint3Pressed;
@@ -44,7 +45,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 		input = environment.getInput();
 		leftMotor = new MultiMotor(new Victor[]{new Victor(RobotMap.LEFT_LIFT_1), new Victor(RobotMap.LEFT_LIFT_2)});
 		rightMotor = new MultiMotor(new Victor[]{new Victor(RobotMap.RIGHT_LIFT_1), new Victor(RobotMap.RIGHT_LIFT_2)});
-		encoder = new Encoder(RobotMap.ENCODER_A_CHANNEL, RobotMap.ENCODER_B_CHANNEL);
+		encoder = new Encoder(RobotMap.ENCODER_A_CHANNEL, RobotMap.ENCODER_B_CHANNEL, RobotMap.ENCODER_INDEX_CHANNEL);
 		encoder.setDistancePerPulse(3);
 		liftPID = new PIDSubsystem(0.3, 0.3, 0.3) {
 			
@@ -144,6 +145,9 @@ public class LiftSystem implements RobotSystem, Runnable {
 			else
 				setpoint = GROUND_SETPOINT;
 			enablePID();
+		}else if(input.groundLift() && !groundPressed){
+			setpoint = GROUND_SETPOINT;
+			enablePID();
 		}else if(input.liftSetpoint1() && !setpoint1Pressed){
 			setpoint = TOTE_PICKUP_1;
 			enablePID();
@@ -159,6 +163,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 		}
 		upPressed = input.liftSetpointUp();
 		downPressed = input.liftSetpointDown();
+		groundPressed = input.groundLift();
 		setpoint1Pressed = input.liftSetpoint1();
 		setpoint2Pressed = input.liftSetpoint2();
 		setpoint3Pressed = input.liftSetpoint3();
@@ -235,7 +240,106 @@ public class LiftSystem implements RobotSystem, Runnable {
 	protected synchronized void setSetpoint(double setpoint) {
 		this.setpoint = setpoint;
 	}
+	
+	/**
+	 * @return the upPressed
+	 */
+	public synchronized boolean isUpPressed() {
+		return upPressed;
+	}
 
+	/**
+	 * @param upPressed the upPressed to set
+	 */
+	protected synchronized void setUpPressed(boolean upPressed) {
+		this.upPressed = upPressed;
+	}
+
+	/**
+	 * @return the downPressed
+	 */
+	public synchronized boolean isDownPressed() {
+		return downPressed;
+	}
+
+	/**
+	 * @param downPressed the downPressed to set
+	 */
+	protected synchronized void setDownPressed(boolean downPressed) {
+		this.downPressed = downPressed;
+	}
+
+	/**
+	 * @return the groundPressed
+	 */
+	public synchronized boolean isGroundPressed() {
+		return groundPressed;
+	}
+
+	/**
+	 * @param groundPressed the groundPressed to set
+	 */
+	protected synchronized void setGroundPressed(boolean groundPressed) {
+		this.groundPressed = groundPressed;
+	}
+
+	/**
+	 * @return the setpoint1Pressed
+	 */
+	public synchronized boolean isSetpoint1Pressed() {
+		return setpoint1Pressed;
+	}
+
+	/**
+	 * @param setpoint1Pressed the setpoint1Pressed to set
+	 */
+	protected synchronized void setSetpoint1Pressed(boolean setpoint1Pressed) {
+		this.setpoint1Pressed = setpoint1Pressed;
+	}
+
+	/**
+	 * @return the setpoint2Pressed
+	 */
+	public synchronized boolean isSetpoint2Pressed() {
+		return setpoint2Pressed;
+	}
+
+	/**
+	 * @param setpoint2Pressed the setpoint2Pressed to set
+	 */
+	protected synchronized void setSetpoint2Pressed(boolean setpoint2Pressed) {
+		this.setpoint2Pressed = setpoint2Pressed;
+	}
+
+	/**
+	 * @return the setpoint3Pressed
+	 */
+	public synchronized boolean isSetpoint3Pressed() {
+		return setpoint3Pressed;
+	}
+
+	/**
+	 * @param setpoint3Pressed the setpoint3Pressed to set
+	 */
+	protected synchronized void setSetpoint3Pressed(boolean setpoint3Pressed) {
+		this.setpoint3Pressed = setpoint3Pressed;
+	}
+
+	/**
+	 * @return the setpoint4Pressed
+	 */
+	public synchronized boolean isSetpoint4Pressed() {
+		return setpoint4Pressed;
+	}
+
+	/**
+	 * @param setpoint4Pressed the setpoint4Pressed to set
+	 */
+	protected synchronized void setSetpoint4Pressed(boolean setpoint4Pressed) {
+		this.setpoint4Pressed = setpoint4Pressed;
+	}
+
+	
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.lib2585.Destroyable#destroy()
 	 */

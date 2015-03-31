@@ -123,6 +123,14 @@ public class XboxInput implements InputMethod {
 	}
 	
 	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#groundLift()
+	 */
+	@Override
+	public boolean groundLift() {
+		return controller.getRawButton(XboxConstants.START_BUTTON);
+	}
+	
+	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
 	 */
 	@Override
