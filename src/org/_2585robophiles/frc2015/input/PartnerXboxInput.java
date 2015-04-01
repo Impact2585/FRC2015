@@ -57,7 +57,7 @@ public class PartnerXboxInput implements InputMethod {
 	 */
 	@Override
 	public boolean straightDrive() {
-		return controller1.getRawButton(XboxConstants.BACK_BUTTON);
+		return controller1.getRawButton(XboxConstants.LEFT_BUMPER);
 	}
 	
 	/* (non-Javadoc)
@@ -130,6 +130,22 @@ public class PartnerXboxInput implements InputMethod {
 	@Override
 	public boolean groundLift() {
 		return controller2.getRawButton(XboxConstants.START_BUTTON);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
+	 */
+	@Override
+	public boolean stopStraightDrive() {
+		return controller1.getRawButton(XboxConstants.RIGHT_BUMPER);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
+	 */
+	@Override
+	public boolean changeSensitivity() {
+		return controller1.getRawButton(XboxConstants.A_BUTTON);
 	}
 	
 	/* (non-Javadoc)

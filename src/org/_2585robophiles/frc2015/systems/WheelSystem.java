@@ -29,6 +29,8 @@ public class WheelSystem implements RobotSystem, Runnable {
 	private long lastForwardDistanceUpdate, lastSidewaysDistanceUpdate;
 	private boolean straightDriveDisabled;
 	private boolean straightDrivePressed;
+	private boolean changeSensitivityPressed;
+	private boolean secondarySensitivity;
 	private double correctRotate;
 	private PIDSubsystem forwardDistancePID, sidewaysDistancePID, straightDrivePID;
 
@@ -280,8 +282,8 @@ public class WheelSystem implements RobotSystem, Runnable {
 		if(rotationValue < .15 && rotationValue > -.15)
 			rotationValue = 0.0;
 		else
-			rotationValue = Math.signum(input.rotation()) * Math.pow(Math.abs(input.rotation()),RobotMap.ROTATION_EXPONENT);
-		if(rotationValue == 0 && !straightDriveDisabled){
+			rotationValue = Math.signum(input.rotation()) * Math.pow(Math.abs(input.rotation()), secondarySensitivity ? RobotMap.SECONDARY_ROTATION_EXPONENT : RobotMap.ROTATION_EXPONENT);
+		if(rotationValue == 0 && !straightDriveDisabled && !input.stopStraightDrive()){
 			straightDrive(currentRampForward, currentRampSideways);// straight drive when not turning
 		}else{
 			disableSraightDrivePID();
@@ -292,6 +294,11 @@ public class WheelSystem implements RobotSystem, Runnable {
 		if(input.straightDrive() && !straightDrivePressed)
 			straightDriveDisabled =! straightDriveDisabled;
 		straightDrivePressed = input.straightDrive();
+		
+		// toggle sensitivities so people don't die
+		if(input.changeSensitivity() && !changeSensitivityPressed)
+			secondarySensitivity =! secondarySensitivity;
+		changeSensitivityPressed = input.changeSensitivity();
 	}
 
 	/**

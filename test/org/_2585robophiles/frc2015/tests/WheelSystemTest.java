@@ -174,6 +174,22 @@ public class WheelSystemTest {
 			public boolean groundLift() {
 				return false;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
+			 */
+			@Override
+			public boolean stopStraightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
+			 */
+			@Override
+			public boolean changeSensitivity() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertEquals(0, currentRotation, 0);
@@ -290,6 +306,22 @@ public class WheelSystemTest {
 			 */
 			@Override
 			public boolean groundLift() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
+			 */
+			@Override
+			public boolean stopStraightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
+			 */
+			@Override
+			public boolean changeSensitivity() {
 				return false;
 			}
 
@@ -415,6 +447,22 @@ public class WheelSystemTest {
 			public boolean groundLift() {
 				return false;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
+			 */
+			@Override
+			public boolean stopStraightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
+			 */
+			@Override
+			public boolean changeSensitivity() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertEquals(0, currentRotation, 0);
@@ -530,6 +578,22 @@ public class WheelSystemTest {
 			 */
 			@Override
 			public boolean groundLift() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
+			 */
+			@Override
+			public boolean stopStraightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
+			 */
+			@Override
+			public boolean changeSensitivity() {
 				return false;
 			}
 		});
@@ -653,6 +717,22 @@ public class WheelSystemTest {
 			public boolean groundLift() {
 				return false;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
+			 */
+			@Override
+			public boolean stopStraightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
+			 */
+			@Override
+			public boolean changeSensitivity() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertEquals(-1, currentRotation, 0);
@@ -767,6 +847,22 @@ public class WheelSystemTest {
 			 */
 			@Override
 			public boolean groundLift() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
+			 */
+			@Override
+			public boolean stopStraightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
+			 */
+			@Override
+			public boolean changeSensitivity() {
 				return false;
 			}
 		});
@@ -887,6 +983,22 @@ public class WheelSystemTest {
 			public boolean groundLift() {
 				return false;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
+			 */
+			@Override
+			public boolean stopStraightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
+			 */
+			@Override
+			public boolean changeSensitivity() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertTrue(currentSidewaysMovement > 0);
@@ -1003,6 +1115,22 @@ public class WheelSystemTest {
 			 */
 			@Override
 			public boolean groundLift() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
+			 */
+			@Override
+			public boolean stopStraightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
+			 */
+			@Override
+			public boolean changeSensitivity() {
 				return false;
 			}
 		});
@@ -1123,6 +1251,22 @@ public class WheelSystemTest {
 			public boolean groundLift() {
 				return false;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
+			 */
+			@Override
+			public boolean stopStraightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
+			 */
+			@Override
+			public boolean changeSensitivity() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertEquals(0, currentSidewaysMovement, 0);
@@ -1241,6 +1385,22 @@ public class WheelSystemTest {
 			public boolean groundLift() {
 				return false;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
+			 */
+			@Override
+			public boolean stopStraightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
+			 */
+			@Override
+			public boolean changeSensitivity() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertEquals(0, currentRotation, 0);
@@ -1356,6 +1516,22 @@ public class WheelSystemTest {
 			 */
 			@Override
 			public boolean groundLift() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
+			 */
+			@Override
+			public boolean stopStraightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
+			 */
+			@Override
+			public boolean changeSensitivity() {
 				return false;
 			}
 		});

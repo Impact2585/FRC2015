@@ -78,6 +78,16 @@ public interface InputMethod {
 	public abstract boolean groundLift();
 	
 	/**
+	 * @return input to stop a straight drive
+	 */
+	public abstract boolean stopStraightDrive();
+	
+	/**
+	 * @return input to change the rotation sensitivity
+	 */
+	public abstract boolean changeSensitivity();
+	
+	/**
 	 * @return an array of joysticks used for input
 	 */
 	public abstract Joystick[] joysticks();
