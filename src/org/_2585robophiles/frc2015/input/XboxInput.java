@@ -131,6 +131,22 @@ public class XboxInput implements InputMethod {
 	}
 	
 	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
+	 */
+	@Override
+	public boolean stopStraightDrive() {
+		return controller.getRawButton(XboxConstants.LEFT_JOYSTICK_BUTTON);
+	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
+	 */
+	@Override
+	public boolean changeSensitivity() {
+		return controller.getRawButton(XboxConstants.RIGHT_JOYSTICK_BUTTON);
+	}
+	
+	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
 	 */
 	@Override

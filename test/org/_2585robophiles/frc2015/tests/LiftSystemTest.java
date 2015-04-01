@@ -145,6 +145,22 @@ public class LiftSystemTest {
 			public boolean groundLift() {
 				return ground;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
+			 */
+			@Override
+			public boolean stopStraightDrive() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
+			 */
+			@Override
+			public boolean changeSensitivity() {
+				return false;
+			}
 		});
 	}
 

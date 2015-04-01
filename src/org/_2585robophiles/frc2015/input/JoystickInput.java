@@ -120,6 +120,22 @@ public class JoystickInput implements InputMethod {
 	public boolean groundLift() {
 		return false;
 	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
+	 */
+	@Override
+	public boolean stopStraightDrive() {
+		return false;
+	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
+	 */
+	@Override
+	public boolean changeSensitivity() {
+		return false;
+	}
 
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
