@@ -3,7 +3,6 @@ package org._2585robophiles.frc2015.systems;
 import org._2585robophiles.frc2015.Environment;
 import org._2585robophiles.frc2015.RobotMap;
 import org._2585robophiles.frc2015.input.InputMethod;
-import org._2585robophiles.lib2585.MultiMotor;
 
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
@@ -28,6 +27,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 	private SpeedController rightMotor;
 	private Encoder leftEncoder,rightEncoder;
 	private PIDSubsystem liftPID;
+	private PIDSubsystem rightPID;
 	private double setpoint;
 	private boolean upPressed;
 	private boolean downPressed;
@@ -44,16 +44,17 @@ public class LiftSystem implements RobotSystem, Runnable {
 	@Override
 	public void init(Environment environment) {
 		input = environment.getInput();
-		leftMotor = new MultiMotor(new Victor[]{new Victor(RobotMap.LEFT_LIFT_1)});
-		rightMotor = new MultiMotor(new Victor[]{new Victor(RobotMap.RIGHT_LIFT_1)});
+		leftMotor = new Victor(RobotMap.LEFT_LIFT);
+		rightMotor = new Victor(RobotMap.RIGHT_LIFT);
 		leftEncoder = new Encoder(RobotMap.LEFT_ENCODER_A_CHANNEL, RobotMap.LEFT_ENCODER_B_CHANNEL, true , CounterBase.EncodingType.k4X);
-		leftEncoder.setDistancePerPulse(0.01);
+		leftEncoder.setDistancePerPulse(0.01 / 12);
 		leftEncoder.reset();
 		rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_A_CHANNEL, RobotMap.RIGHT_ENCODER_B_CHANNEL, false , CounterBase.EncodingType.k4X);
-		rightEncoder.setDistancePerPulse(0.01);
+		rightEncoder.setDistancePerPulse(0.01 / 12);
 		rightEncoder.reset();
 		
-		liftPID = new PIDSubsystem(0.3, 0.3, 0.3) {
+		// two independent PID subsystems for each side
+		liftPID = new PIDSubsystem(1 / 9d, 0.03, 0) {
 			
 			/* (non-Javadoc)
 			 * @see edu.wpi.first.wpilibj.command.Subsystem#initDefaultCommand()
@@ -68,7 +69,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 			 */
 			@Override
 			protected void usePIDOutput(double output) {
-				setMotors(output);
+				leftMotor.set(output);
 			}
 			
 			/* (non-Javadoc)
@@ -77,6 +78,23 @@ public class LiftSystem implements RobotSystem, Runnable {
 			@Override
 			protected double returnPIDInput() {
 				return leftEncoder.getDistance();
+			}
+		};
+		
+		rightPID = new PIDSubsystem(1 / 9d, 0.03, 0) {
+			
+			@Override
+			protected void initDefaultCommand() {
+			}
+			
+			@Override
+			protected void usePIDOutput(double output) {
+				rightMotor.set(output);
+			}
+			
+			@Override
+			protected double returnPIDInput() {
+				return rightEncoder.getDistance();
 			}
 		};
 	}
@@ -88,6 +106,8 @@ public class LiftSystem implements RobotSystem, Runnable {
 	protected synchronized void enablePID(){
 		liftPID.setSetpoint(setpoint);
 		liftPID.enable();
+		rightPID.setSetpoint(setpoint);
+		rightPID.enable();
 	}
 	
 	/**
@@ -95,6 +115,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 	 */
 	protected synchronized void disablePID(){
 		liftPID.disable();
+		rightPID.disable();
 	}
 	
 	/**
@@ -107,10 +128,10 @@ public class LiftSystem implements RobotSystem, Runnable {
 	}
 	
 	/**
-	 * @return distance from the encoder
+	 * @return average distance of the encoders
 	 */
 	public double encoderDistance(){
-		return leftEncoder.getDistance();
+		return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;
 	}
 	
 	/* (non-Javadoc)
