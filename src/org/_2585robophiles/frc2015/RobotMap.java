@@ -17,9 +17,14 @@ public interface RobotMap {
 	public static final int RIGHT_LIFT_2 = 9;
 	
 	public static final int GYRO = 1;
-	public static final int ENCODER_A_CHANNEL = 2;
-	public static final int ENCODER_B_CHANNEL = 3;
-	public static final int ENCODER_INDEX_CHANNEL = 4;
+	
+	public static final int LEFT_ENCODER_A_CHANNEL = 2;
+	public static final int LEFT_ENCODER_B_CHANNEL = 3;
+	public static final int LEFT_ENCODER_INDEX_CHANNEL = 4;
+	
+	public static final int RIGHT_ENCODER_A_CHANNEL = 5;
+	public static final int RIGHT_ENCODER_B_CHANNEL = 6;
+	public static final int RIGHT_ENCODER_INDEX_CHANNEL = 7;
 	
 	public static final double FORWARD_RAMPING = .8;
 	public static final double SIDEWAYS_RAMPING = .8;

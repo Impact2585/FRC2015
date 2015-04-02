@@ -5,6 +5,7 @@ import org._2585robophiles.frc2015.RobotMap;
 import org._2585robophiles.frc2015.input.InputMethod;
 import org._2585robophiles.lib2585.MultiMotor;
 
+import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SensorBase;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -25,7 +26,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 	private InputMethod input;
 	private SpeedController leftMotor;
 	private SpeedController rightMotor;
-	private Encoder encoder;
+	private Encoder leftEncoder,rightEncoder;
 	private PIDSubsystem liftPID;
 	private double setpoint;
 	private boolean upPressed;
@@ -43,10 +44,15 @@ public class LiftSystem implements RobotSystem, Runnable {
 	@Override
 	public void init(Environment environment) {
 		input = environment.getInput();
-		leftMotor = new MultiMotor(new Victor[]{new Victor(RobotMap.LEFT_LIFT_1), new Victor(RobotMap.LEFT_LIFT_2)});
-		rightMotor = new MultiMotor(new Victor[]{new Victor(RobotMap.RIGHT_LIFT_1), new Victor(RobotMap.RIGHT_LIFT_2)});
-		encoder = new Encoder(RobotMap.ENCODER_A_CHANNEL, RobotMap.ENCODER_B_CHANNEL, RobotMap.ENCODER_INDEX_CHANNEL);
-		encoder.setDistancePerPulse(3);
+		leftMotor = new MultiMotor(new Victor[]{new Victor(RobotMap.LEFT_LIFT_1)});
+		rightMotor = new MultiMotor(new Victor[]{new Victor(RobotMap.RIGHT_LIFT_1)});
+		leftEncoder = new Encoder(RobotMap.LEFT_ENCODER_A_CHANNEL, RobotMap.LEFT_ENCODER_B_CHANNEL, true , CounterBase.EncodingType.k4X);
+		leftEncoder.setDistancePerPulse(0.01);
+		leftEncoder.reset();
+		rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_A_CHANNEL, RobotMap.RIGHT_ENCODER_B_CHANNEL, false , CounterBase.EncodingType.k4X);
+		rightEncoder.setDistancePerPulse(0.01);
+		rightEncoder.reset();
+		
 		liftPID = new PIDSubsystem(0.3, 0.3, 0.3) {
 			
 			/* (non-Javadoc)
@@ -70,7 +76,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 			 */
 			@Override
 			protected double returnPIDInput() {
-				return encoder.getDistance();
+				return leftEncoder.getDistance();
 			}
 		};
 	}
@@ -96,7 +102,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 	 * @param speed desired motor speed
 	 */
 	public void setMotors(double speed) {
-		leftMotor.set(speed);
+		leftMotor.set(-speed); // invert left motor
 		rightMotor.set(speed);
 	}
 	
@@ -104,7 +110,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 	 * @return distance from the encoder
 	 */
 	public double encoderDistance(){
-		return encoder.getDistance();
+		return leftEncoder.getDistance();
 	}
 	
 	/* (non-Javadoc)
@@ -355,7 +361,8 @@ public class LiftSystem implements RobotSystem, Runnable {
 			SensorBase motor = (SensorBase) rightMotor;
 			motor.free();
 		}
-		encoder.free();
+		rightEncoder.free();
+		leftEncoder.free();
 	}
 
 }
