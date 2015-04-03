@@ -75,6 +75,22 @@ public class XboxInput implements InputMethod {
 	}
 	
 	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
+	 */
+	@Override
+	public boolean digitalLiftDown() {
+		return false;
+	}
+
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
+	 */
+	@Override
+	public boolean digitalLiftUp() {
+		return false;
+	}
+	
+	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
 	 */
 	@Override
@@ -153,5 +169,4 @@ public class XboxInput implements InputMethod {
 	public Joystick[] joysticks() {
 		return new Joystick[]{controller};
 	}
-
 }

@@ -190,6 +190,22 @@ public class WheelSystemTest {
 			public boolean changeSensitivity() {
 				return false;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
+			 */
+			@Override
+			public boolean digitalLiftDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
+			 */
+			@Override
+			public boolean digitalLiftUp() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertEquals(0, currentRotation, 0);
@@ -322,6 +338,16 @@ public class WheelSystemTest {
 			 */
 			@Override
 			public boolean changeSensitivity() {
+				return false;
+			}
+
+			@Override
+			public boolean digitalLiftDown() {
+				return false;
+			}
+
+			@Override
+			public boolean digitalLiftUp() {
 				return false;
 			}
 
@@ -463,6 +489,22 @@ public class WheelSystemTest {
 			public boolean changeSensitivity() {
 				return false;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
+			 */
+			@Override
+			public boolean digitalLiftDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
+			 */
+			@Override
+			public boolean digitalLiftUp() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertEquals(0, currentRotation, 0);
@@ -594,6 +636,22 @@ public class WheelSystemTest {
 			 */
 			@Override
 			public boolean changeSensitivity() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
+			 */
+			@Override
+			public boolean digitalLiftDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
+			 */
+			@Override
+			public boolean digitalLiftUp() {
 				return false;
 			}
 		});
@@ -733,6 +791,22 @@ public class WheelSystemTest {
 			public boolean changeSensitivity() {
 				return false;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
+			 */
+			@Override
+			public boolean digitalLiftDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
+			 */
+			@Override
+			public boolean digitalLiftUp() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertEquals(-1, currentRotation, 0);
@@ -863,6 +937,22 @@ public class WheelSystemTest {
 			 */
 			@Override
 			public boolean changeSensitivity() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
+			 */
+			@Override
+			public boolean digitalLiftDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
+			 */
+			@Override
+			public boolean digitalLiftUp() {
 				return false;
 			}
 		});
@@ -999,6 +1089,22 @@ public class WheelSystemTest {
 			public boolean changeSensitivity() {
 				return false;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
+			 */
+			@Override
+			public boolean digitalLiftDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
+			 */
+			@Override
+			public boolean digitalLiftUp() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertTrue(currentSidewaysMovement > 0);
@@ -1131,6 +1237,22 @@ public class WheelSystemTest {
 			 */
 			@Override
 			public boolean changeSensitivity() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
+			 */
+			@Override
+			public boolean digitalLiftDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
+			 */
+			@Override
+			public boolean digitalLiftUp() {
 				return false;
 			}
 		});
@@ -1267,6 +1389,22 @@ public class WheelSystemTest {
 			public boolean changeSensitivity() {
 				return false;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
+			 */
+			@Override
+			public boolean digitalLiftDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
+			 */
+			@Override
+			public boolean digitalLiftUp() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertEquals(0, currentSidewaysMovement, 0);
@@ -1401,6 +1539,22 @@ public class WheelSystemTest {
 			public boolean changeSensitivity() {
 				return false;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
+			 */
+			@Override
+			public boolean digitalLiftDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
+			 */
+			@Override
+			public boolean digitalLiftUp() {
+				return false;
+			}
 		});
 		wheelSystem.run();
 		Assert.assertEquals(0, currentRotation, 0);
@@ -1532,6 +1686,22 @@ public class WheelSystemTest {
 			 */
 			@Override
 			public boolean changeSensitivity() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
+			 */
+			@Override
+			public boolean digitalLiftDown() {
+				return false;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
+			 */
+			@Override
+			public boolean digitalLiftUp() {
 				return false;
 			}
 		});

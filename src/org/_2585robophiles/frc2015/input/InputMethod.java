@@ -35,10 +35,22 @@ public interface InputMethod {
 	public abstract double analogLiftUp();
 	
 	/**
-	 * Same sort of thing as analogLiftUp() except for going down
+	 * Analog input to make the lift go down
 	 * @return value from 0 to 1 for how fast the lift should go down
 	 */
 	public abstract double analogLiftDown();
+	
+	/**
+	 * Digital input to make the lift go down
+	 * @return boolean if the lift need to go down
+	 */
+	public abstract boolean digitalLiftDown();
+	
+	/**
+	 * Digital input to make the lift go up
+	 * @return boolean if the lift need to go up
+	 */
+	public abstract boolean digitalLiftUp();
 	
 	/**
 	 * Move the lift to the setpoint below it's current setpoint

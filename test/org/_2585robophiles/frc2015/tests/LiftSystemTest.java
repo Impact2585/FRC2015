@@ -15,11 +15,13 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  * Unit test for the lift system
  */
 public class LiftSystemTest {
-	
+
 	private TestLiftSystem lift;
 	private double motorSpeed;
 	private double analogUpInput;
 	private double analogDownInput;
+	private boolean digitalUpInput;
+	private boolean digitalDownInput;
 	private int liftSetpoint;
 	private boolean setpointUpInput;
 	private boolean setpointDownInput;
@@ -33,7 +35,7 @@ public class LiftSystemTest {
 	public void setUp() {
 		lift = new TestLiftSystem();
 		lift.setInput(new InputMethod() {
-			
+
 			/* (non-Javadoc)
 			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
 			 */
@@ -41,7 +43,7 @@ public class LiftSystemTest {
 			public boolean straightDrive() {
 				return false;
 			}
-			
+
 			/* (non-Javadoc)
 			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
 			 */
@@ -49,7 +51,7 @@ public class LiftSystemTest {
 			public double sidewaysMovement() {
 				return 0;
 			}
-			
+
 			/* (non-Javadoc)
 			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
 			 */
@@ -57,7 +59,7 @@ public class LiftSystemTest {
 			public double rotation() {
 				return 0;
 			}
-			
+
 			/* (non-Javadoc)
 			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
 			 */
@@ -65,7 +67,7 @@ public class LiftSystemTest {
 			public boolean liftSetpointUp() {
 				return setpointUpInput;
 			}
-			
+
 			/* (non-Javadoc)
 			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
 			 */
@@ -73,7 +75,7 @@ public class LiftSystemTest {
 			public boolean liftSetpointDown() {
 				return setpointDownInput;
 			}
-			
+
 			/* (non-Javadoc)
 			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
 			 */
@@ -81,7 +83,7 @@ public class LiftSystemTest {
 			public Joystick[] joysticks() {
 				return null;
 			}
-			
+
 			/* (non-Javadoc)
 			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
 			 */
@@ -89,7 +91,7 @@ public class LiftSystemTest {
 			public double forwardMovement() {
 				return 0;
 			}
-			
+
 			/* (non-Javadoc)
 			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
 			 */
@@ -97,7 +99,7 @@ public class LiftSystemTest {
 			public double analogLiftUp() {
 				return analogUpInput;
 			}
-			
+
 			/* (non-Javadoc)
 			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
 			 */
@@ -161,6 +163,22 @@ public class LiftSystemTest {
 			public boolean changeSensitivity() {
 				return false;
 			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
+			 */
+			@Override
+			public boolean digitalLiftDown() {
+				return digitalDownInput;
+			}
+
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
+			 */
+			@Override
+			public boolean digitalLiftUp() {
+				return digitalUpInput;
+			}
 		});
 	}
 
@@ -172,7 +190,7 @@ public class LiftSystemTest {
 		// we shouldn't be doing anything yet
 		Assert.assertThat(motorSpeed, CoreMatchers.equalTo(0d));
 		Assert.assertThat(enabledPID, CoreMatchers.equalTo(false));
-		
+
 		// test analog input
 		analogUpInput = 1;
 		lift.run();
@@ -183,11 +201,28 @@ public class LiftSystemTest {
 		lift.run();
 		Assert.assertThat(motorSpeed, CoreMatchers.equalTo(-1d));
 		Assert.assertThat(enabledPID, CoreMatchers.equalTo(false));
-		analogDownInput = analogUpInput = 0;
+		analogDownInput = 0;
+		analogUpInput = 0;
 		lift.run();
 		Assert.assertThat(motorSpeed, CoreMatchers.equalTo(0d));
 		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));// it should attempt to maintain its height
-		
+
+		// test digital input
+		digitalUpInput = true;
+		lift.run();
+		Assert.assertThat(motorSpeed, CoreMatchers.equalTo(1d));
+		Assert.assertThat(enabledPID, CoreMatchers.equalTo(false));
+		digitalUpInput = false;
+		digitalDownInput = true;
+		lift.run();
+		Assert.assertThat(motorSpeed, CoreMatchers.equalTo(-1d));
+		Assert.assertThat(enabledPID, CoreMatchers.equalTo(false));
+		digitalDownInput = false;
+		digitalUpInput = false;
+		lift.run();
+		Assert.assertThat(motorSpeed, CoreMatchers.equalTo(0d));
+		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));// it should attempt to maintain its height
+
 		// test setpoint input
 		setpointUpInput = true;
 		lift.run();
@@ -205,7 +240,7 @@ public class LiftSystemTest {
 		setpointUpInput = true;
 		lift.run();
 		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));
-		
+
 		// test holding down buttons
 		double previousSetpoint = lift.getSetpoint();
 		lift.run();
@@ -216,7 +251,7 @@ public class LiftSystemTest {
 		previousSetpoint = lift.getSetpoint();
 		lift.run();
 		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(previousSetpoint));
-		
+
 		// go through the setpoints
 		lift.setSetpoint(LiftSystem.GROUND_SETPOINT);
 		setpointDownInput = true;
@@ -224,7 +259,7 @@ public class LiftSystemTest {
 		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));
 		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(LiftSystem.GROUND_SETPOINT));// we are already at lowest point
 		setpointDownInput = false;
-		
+
 		// test going to each setpoint
 		ground = true;
 		lift.run();
@@ -249,7 +284,7 @@ public class LiftSystemTest {
 		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(LiftSystem.TOTE_PICKUP_4));
 		liftSetpoint = 0;
 	}
-	
+
 	/**
 	 * LiftSystem subclass for unit testing
 	 */
@@ -326,7 +361,7 @@ public class LiftSystemTest {
 		public double encoderDistance() {
 			return 3;
 		}
-		
+
 	}
 
 }

@@ -12,20 +12,21 @@ public enum AutonomousExecuter implements Executer, Initializable {
 	 * Basic auton that just pushes a tote into the auto zone
 	 */
 	BASIC,
-	
+
 	/**
 	 * Score a tote stack (stack the three yellow totes and drop them off in auto zone)
 	 */
 	TOTE_STACK,
-	
+
 	/**
 	 * Auton that does nothing so basically auton is disabled
 	 */
 	NONE;
-	
+
 	private Environment environment;
 	private boolean done;
 	private int phase;
+	private long start;
 
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.Initializable#init(org._2585robophiles.frc2015.Environment)
@@ -33,6 +34,8 @@ public enum AutonomousExecuter implements Executer, Initializable {
 	@Override
 	public void init(Environment environment) {
 		this.environment = environment;
+		phase = 0;
+		start = System.currentTimeMillis() / 1000;
 	}
 
 	/* (non-Javadoc)
@@ -43,7 +46,11 @@ public enum AutonomousExecuter implements Executer, Initializable {
 		if(!done){
 			switch(this){
 			case BASIC:
-				done = environment.getWheelSystem().driveDistance(8 + 11.0 / 12.0, 0 ,false);// just drive forward 8 feet 11 inches
+				long time = (System.currentTimeMillis() / 1000) - start;
+				if(time < 2.5){
+					done = environment.getWheelSystem().driveDistance(5, 0 ,false);// just drive forward 8 feet 11 inches
+				}
+				done = true;
 				break;
 			case TOTE_STACK:
 				if(phase == 0){

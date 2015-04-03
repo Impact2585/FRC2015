@@ -75,6 +75,22 @@ public class PartnerXboxInput implements InputMethod {
 	public double analogLiftDown() {
 		return -Math.min(0, -controller2.getRawAxis(1));// left y lift driver when going down
 	}
+	
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
+	 */
+	@Override
+	public boolean digitalLiftDown() {
+		return controller2.getRawAxis(2) > 0;// left trigger
+	}
+
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
+	 */
+	@Override
+	public boolean digitalLiftUp() {
+		return controller2.getRawButton(XboxConstants.LEFT_BUMPER);
+	}
 
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()

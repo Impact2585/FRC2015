@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  * This system controls our lift for picking up game pieces
  */
 public class LiftSystem implements RobotSystem, Runnable {
-	
+
 	public static final double GROUND_SETPOINT = 0;
 	public static final double TOTE_PICKUP_1 = 3;
 	public static final double TOTE_PICKUP_2 = 3;
@@ -37,7 +37,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 	private boolean setpoint3Pressed;
 	private boolean setpoint4Pressed;
 	private boolean manual;
-	
+
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.Initializable#init(org._2585robophiles.frc2015.Environment)
 	 */
@@ -46,24 +46,24 @@ public class LiftSystem implements RobotSystem, Runnable {
 		input = environment.getInput();
 		leftMotor = new Victor(RobotMap.LEFT_LIFT);
 		rightMotor = new Victor(RobotMap.RIGHT_LIFT);
-		leftEncoder = new Encoder(RobotMap.LEFT_ENCODER_A_CHANNEL, RobotMap.LEFT_ENCODER_B_CHANNEL, true , CounterBase.EncodingType.k4X);
+		leftEncoder = new Encoder(RobotMap.LEFT_ENCODER_A_CHANNEL, RobotMap.LEFT_ENCODER_B_CHANNEL, false , CounterBase.EncodingType.k4X);
 		leftEncoder.setDistancePerPulse(0.01 / 12);
 		leftEncoder.reset();
-		rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_A_CHANNEL, RobotMap.RIGHT_ENCODER_B_CHANNEL, false , CounterBase.EncodingType.k4X);
+		rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_A_CHANNEL, RobotMap.RIGHT_ENCODER_B_CHANNEL, true , CounterBase.EncodingType.k4X); // invert right encoder
 		rightEncoder.setDistancePerPulse(0.01 / 12);
 		rightEncoder.reset();
-		
+
 		// two independent PID subsystems for each side
 		liftPID = new PIDSubsystem(1 / 9d, 0.03, 0) {
-			
+
 			/* (non-Javadoc)
 			 * @see edu.wpi.first.wpilibj.command.Subsystem#initDefaultCommand()
 			 */
 			@Override
 			protected void initDefaultCommand() {
-				
+
 			}
-			
+
 			/* (non-Javadoc)
 			 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#usePIDOutput(double)
 			 */
@@ -71,7 +71,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 			protected void usePIDOutput(double output) {
 				leftMotor.set(output);
 			}
-			
+
 			/* (non-Javadoc)
 			 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#returnPIDInput()
 			 */
@@ -80,16 +80,16 @@ public class LiftSystem implements RobotSystem, Runnable {
 				return leftEncoder.getDistance();
 			}
 		};
-		
+
 		rightPID = new PIDSubsystem(1 / 9d, 0.03, 0) {
-			
+
 			/* (non-Javadoc)
 			 * @see edu.wpi.first.wpilibj.command.Subsystem#initDefaultCommand()
 			 */
 			@Override
 			protected void initDefaultCommand() {
 			}
-			
+
 			/* (non-Javadoc)
 			 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#usePIDOutput(double)
 			 */
@@ -97,7 +97,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 			protected void usePIDOutput(double output) {
 				rightMotor.set(output);
 			}
-			
+
 			/* (non-Javadoc)
 			 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#returnPIDInput()
 			 */
@@ -107,7 +107,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 			}
 		};
 	}
-	
+
 	/**
 	 * Enable PIDSubsystem of the lift
 	 * @param setpoint PID setpoint for the lift
@@ -118,7 +118,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 		rightPID.setSetpoint(setpoint);
 		rightPID.enable();
 	}
-	
+
 	/**
 	 * Disable PIDSubsystem of the lift
 	 */
@@ -126,7 +126,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 		liftPID.disable();
 		rightPID.disable();
 	}
-	
+
 	/**
 	 * Move the lift to a certain height with PID
 	 * @param height the height that the lift should get to
@@ -137,23 +137,23 @@ public class LiftSystem implements RobotSystem, Runnable {
 		enablePID();
 		return encoderDistance() == height;
 	}
-	
+
 	/**
 	 * Set the speed of the lift motors
 	 * @param speed desired motor speed
 	 */
 	public void setMotors(double speed) {
-		leftMotor.set(-speed); // invert left motor
-		rightMotor.set(speed);
+		leftMotor.set(speed); 
+		rightMotor.set(-speed); // invert right motor
 	}
-	
+
 	/**
 	 * @return average distance of the encoders
 	 */
 	public double encoderDistance(){
 		return (leftEncoder.getDistance() + rightEncoder.getDistance()) / 2;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see java.lang.Runnable#run()
 	 */
@@ -166,6 +166,12 @@ public class LiftSystem implements RobotSystem, Runnable {
 		}else if(input.analogLiftUp() > 0.15){
 			disablePID();
 			setMotors(input.analogLiftUp());
+		}else if(input.digitalLiftUp()){
+			disablePID();
+			setMotors(1);
+		}else if(input.digitalLiftDown()){
+			disablePID();
+			setMotors(-1);
 		}else if(manual){
 			setMotors(0);
 			// driver just stopped controlling lift manually so let's maintain this height
@@ -215,195 +221,195 @@ public class LiftSystem implements RobotSystem, Runnable {
 		setpoint2Pressed = input.liftSetpoint2();
 		setpoint3Pressed = input.liftSetpoint3();
 		setpoint4Pressed = input.liftSetpoint4();
-		manual = input.analogLiftUp() > 0.15 || input.analogLiftDown() > 0.15;// user is controlling lift manually
+		manual = input.analogLiftUp() > 0.15 || input.analogLiftDown() > 0.15 || input.digitalLiftUp() || input.digitalLiftDown() ;// user is controlling lift manually
 	}
 
-	/**
-	 * @return the input
-	 */
-	public synchronized InputMethod getInput() {
-		return input;
-	}
+/**
+ * @return the input
+ */
+public synchronized InputMethod getInput() {
+	return input;
+}
 
-	/**
-	 * @param input the input to set
-	 */
-	protected synchronized void setInput(InputMethod input) {
-		this.input = input;
-	}
+/**
+ * @param input the input to set
+ */
+protected synchronized void setInput(InputMethod input) {
+	this.input = input;
+}
 
-	/**
-	 * @return the leftMotor
-	 */
-	public synchronized SpeedController getLeftMotor() {
-		return leftMotor;
-	}
+/**
+ * @return the leftMotor
+ */
+public synchronized SpeedController getLeftMotor() {
+	return leftMotor;
+}
 
-	/**
-	 * @param leftMotor the leftMotor to set
-	 */
-	protected synchronized void setLeftMotor(SpeedController leftMotor) {
-		this.leftMotor = leftMotor;
-	}
+/**
+ * @param leftMotor the leftMotor to set
+ */
+protected synchronized void setLeftMotor(SpeedController leftMotor) {
+	this.leftMotor = leftMotor;
+}
 
-	/**
-	 * @return the rightMotor
-	 */
-	public synchronized SpeedController getRightMotor() {
-		return rightMotor;
-	}
+/**
+ * @return the rightMotor
+ */
+public synchronized SpeedController getRightMotor() {
+	return rightMotor;
+}
 
-	/**
-	 * @param rightMotor the rightMotor to set
-	 */
-	protected synchronized void setRightMotor(SpeedController rightMotor) {
-		this.rightMotor = rightMotor;
-	}
+/**
+ * @param rightMotor the rightMotor to set
+ */
+protected synchronized void setRightMotor(SpeedController rightMotor) {
+	this.rightMotor = rightMotor;
+}
 
-	/**
-	 * @return the liftPID
-	 */
-	public synchronized PIDSubsystem getLiftPID() {
-		return liftPID;
-	}
+/**
+ * @return the liftPID
+ */
+public synchronized PIDSubsystem getLiftPID() {
+	return liftPID;
+}
 
-	/**
-	 * @param liftPID the liftPID to set
-	 */
-	protected synchronized void setLiftPID(PIDSubsystem liftPID) {
-		this.liftPID = liftPID;
-	}
+/**
+ * @param liftPID the liftPID to set
+ */
+protected synchronized void setLiftPID(PIDSubsystem liftPID) {
+	this.liftPID = liftPID;
+}
 
-	/**
-	 * @return the setpoint
-	 */
-	public synchronized double getSetpoint() {
-		return setpoint;
-	}
+/**
+ * @return the setpoint
+ */
+public synchronized double getSetpoint() {
+	return setpoint;
+}
 
-	/**
-	 * @param setpoint the setpoint to set
-	 */
-	protected synchronized void setSetpoint(double setpoint) {
-		this.setpoint = setpoint;
-	}
-	
-	/**
-	 * @return the upPressed
-	 */
-	public synchronized boolean isUpPressed() {
-		return upPressed;
-	}
+/**
+ * @param setpoint the setpoint to set
+ */
+protected synchronized void setSetpoint(double setpoint) {
+	this.setpoint = setpoint;
+}
 
-	/**
-	 * @param upPressed the upPressed to set
-	 */
-	protected synchronized void setUpPressed(boolean upPressed) {
-		this.upPressed = upPressed;
-	}
+/**
+ * @return the upPressed
+ */
+public synchronized boolean isUpPressed() {
+	return upPressed;
+}
 
-	/**
-	 * @return the downPressed
-	 */
-	public synchronized boolean isDownPressed() {
-		return downPressed;
-	}
+/**
+ * @param upPressed the upPressed to set
+ */
+protected synchronized void setUpPressed(boolean upPressed) {
+	this.upPressed = upPressed;
+}
 
-	/**
-	 * @param downPressed the downPressed to set
-	 */
-	protected synchronized void setDownPressed(boolean downPressed) {
-		this.downPressed = downPressed;
-	}
+/**
+ * @return the downPressed
+ */
+public synchronized boolean isDownPressed() {
+	return downPressed;
+}
 
-	/**
-	 * @return the groundPressed
-	 */
-	public synchronized boolean isGroundPressed() {
-		return groundPressed;
-	}
+/**
+ * @param downPressed the downPressed to set
+ */
+protected synchronized void setDownPressed(boolean downPressed) {
+	this.downPressed = downPressed;
+}
 
-	/**
-	 * @param groundPressed the groundPressed to set
-	 */
-	protected synchronized void setGroundPressed(boolean groundPressed) {
-		this.groundPressed = groundPressed;
-	}
+/**
+ * @return the groundPressed
+ */
+public synchronized boolean isGroundPressed() {
+	return groundPressed;
+}
 
-	/**
-	 * @return the setpoint1Pressed
-	 */
-	public synchronized boolean isSetpoint1Pressed() {
-		return setpoint1Pressed;
-	}
+/**
+ * @param groundPressed the groundPressed to set
+ */
+protected synchronized void setGroundPressed(boolean groundPressed) {
+	this.groundPressed = groundPressed;
+}
 
-	/**
-	 * @param setpoint1Pressed the setpoint1Pressed to set
-	 */
-	protected synchronized void setSetpoint1Pressed(boolean setpoint1Pressed) {
-		this.setpoint1Pressed = setpoint1Pressed;
-	}
+/**
+ * @return the setpoint1Pressed
+ */
+public synchronized boolean isSetpoint1Pressed() {
+	return setpoint1Pressed;
+}
 
-	/**
-	 * @return the setpoint2Pressed
-	 */
-	public synchronized boolean isSetpoint2Pressed() {
-		return setpoint2Pressed;
-	}
+/**
+ * @param setpoint1Pressed the setpoint1Pressed to set
+ */
+protected synchronized void setSetpoint1Pressed(boolean setpoint1Pressed) {
+	this.setpoint1Pressed = setpoint1Pressed;
+}
 
-	/**
-	 * @param setpoint2Pressed the setpoint2Pressed to set
-	 */
-	protected synchronized void setSetpoint2Pressed(boolean setpoint2Pressed) {
-		this.setpoint2Pressed = setpoint2Pressed;
-	}
+/**
+ * @return the setpoint2Pressed
+ */
+public synchronized boolean isSetpoint2Pressed() {
+	return setpoint2Pressed;
+}
 
-	/**
-	 * @return the setpoint3Pressed
-	 */
-	public synchronized boolean isSetpoint3Pressed() {
-		return setpoint3Pressed;
-	}
+/**
+ * @param setpoint2Pressed the setpoint2Pressed to set
+ */
+protected synchronized void setSetpoint2Pressed(boolean setpoint2Pressed) {
+	this.setpoint2Pressed = setpoint2Pressed;
+}
 
-	/**
-	 * @param setpoint3Pressed the setpoint3Pressed to set
-	 */
-	protected synchronized void setSetpoint3Pressed(boolean setpoint3Pressed) {
-		this.setpoint3Pressed = setpoint3Pressed;
-	}
+/**
+ * @return the setpoint3Pressed
+ */
+public synchronized boolean isSetpoint3Pressed() {
+	return setpoint3Pressed;
+}
 
-	/**
-	 * @return the setpoint4Pressed
-	 */
-	public synchronized boolean isSetpoint4Pressed() {
-		return setpoint4Pressed;
-	}
+/**
+ * @param setpoint3Pressed the setpoint3Pressed to set
+ */
+protected synchronized void setSetpoint3Pressed(boolean setpoint3Pressed) {
+	this.setpoint3Pressed = setpoint3Pressed;
+}
 
-	/**
-	 * @param setpoint4Pressed the setpoint4Pressed to set
-	 */
-	protected synchronized void setSetpoint4Pressed(boolean setpoint4Pressed) {
-		this.setpoint4Pressed = setpoint4Pressed;
-	}
+/**
+ * @return the setpoint4Pressed
+ */
+public synchronized boolean isSetpoint4Pressed() {
+	return setpoint4Pressed;
+}
 
-	
-	/* (non-Javadoc)
-	 * @see org._2585robophiles.lib2585.Destroyable#destroy()
-	 */
-	@Override
-	public void destroy() {
-		// dynamic cast to destroy leftMotor
-		if(leftMotor instanceof SensorBase){
-			SensorBase motor = (SensorBase) leftMotor;
-			motor.free();
-		}
-		// dynamic cast to destroy rightMotor
-		if(rightMotor instanceof SensorBase){
-			SensorBase motor = (SensorBase) rightMotor;
-			motor.free();
-		}
-		rightEncoder.free();
-		leftEncoder.free();
+/**
+ * @param setpoint4Pressed the setpoint4Pressed to set
+ */
+protected synchronized void setSetpoint4Pressed(boolean setpoint4Pressed) {
+	this.setpoint4Pressed = setpoint4Pressed;
+}
+
+
+/* (non-Javadoc)
+ * @see org._2585robophiles.lib2585.Destroyable#destroy()
+ */
+@Override
+public void destroy() {
+	// dynamic cast to destroy leftMotor
+	if(leftMotor instanceof SensorBase){
+		SensorBase motor = (SensorBase) leftMotor;
+		motor.free();
 	}
+	// dynamic cast to destroy rightMotor
+	if(rightMotor instanceof SensorBase){
+		SensorBase motor = (SensorBase) rightMotor;
+		motor.free();
+	}
+	rightEncoder.free();
+	leftEncoder.free();
+}
 
 }
