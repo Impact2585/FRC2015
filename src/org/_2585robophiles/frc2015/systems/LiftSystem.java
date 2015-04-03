@@ -83,15 +83,24 @@ public class LiftSystem implements RobotSystem, Runnable {
 		
 		rightPID = new PIDSubsystem(1 / 9d, 0.03, 0) {
 			
+			/* (non-Javadoc)
+			 * @see edu.wpi.first.wpilibj.command.Subsystem#initDefaultCommand()
+			 */
 			@Override
 			protected void initDefaultCommand() {
 			}
 			
+			/* (non-Javadoc)
+			 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#usePIDOutput(double)
+			 */
 			@Override
 			protected void usePIDOutput(double output) {
 				rightMotor.set(output);
 			}
 			
+			/* (non-Javadoc)
+			 * @see edu.wpi.first.wpilibj.command.PIDSubsystem#returnPIDInput()
+			 */
 			@Override
 			protected double returnPIDInput() {
 				return rightEncoder.getDistance();
@@ -116,6 +125,17 @@ public class LiftSystem implements RobotSystem, Runnable {
 	protected synchronized void disablePID(){
 		liftPID.disable();
 		rightPID.disable();
+	}
+	
+	/**
+	 * Move the lift to a certain height with PID
+	 * @param height the height that the lift should get to
+	 * @return whether or not we have reached that height
+	 */
+	public boolean moveToHeight(double height){
+		setpoint = height;
+		enablePID();
+		return encoderDistance() == height;
 	}
 	
 	/**

@@ -132,7 +132,8 @@ public class WheelSystem implements RobotSystem, Runnable {
 
 	/**
 	 * Drive a certain distance in meters or feet
-	 * @param distance the distance to drive
+	 * @param forwardDistance the distance to drive forward
+	 * @param sidewaysDistance the distance to drive sideways
 	 * @param usingMeters true if using meters false if using feet
 	 * @return if driveDistance is done
 	 */
@@ -146,7 +147,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 
 	/**
 	 * Drive the robot
-	 * @param normalMovement forward back move value
+	 * @param forwardMovement forward back move value
 	 * @param sidewaysMovement left right move value
 	 * @param rotation turn value
 	 * @return if driveDistance is done
@@ -158,7 +159,9 @@ public class WheelSystem implements RobotSystem, Runnable {
 
 	/**
 	 * Drives a certain distance using the accelerometer and PID
-	 * @param meters distance to drive in meters
+	 * @param forwardDistance the distance to drive forward
+	 * @param sidewaysDistance the distance to drive sideways
+	 * @return if distance drive is done
 	 */
 	public boolean driveDistance(double forwardMeters , double sidewaysMeters) {
 		if(forwardMeters != 0){
