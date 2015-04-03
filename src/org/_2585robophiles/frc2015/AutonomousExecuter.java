@@ -35,7 +35,7 @@ public enum AutonomousExecuter implements Executer, Initializable {
 	public void init(Environment environment) {
 		this.environment = environment;
 		phase = 0;
-		start = System.currentTimeMillis() / 1000;
+		start = -1;
 	}
 
 	/* (non-Javadoc)
@@ -43,14 +43,15 @@ public enum AutonomousExecuter implements Executer, Initializable {
 	 */
 	@Override
 	public void execute() {
+		if(start == -1)
+			start = System.currentTimeMillis() / 1000;
 		if(!done){
 			switch(this){
 			case BASIC:
 				long time = (System.currentTimeMillis() / 1000) - start;
-				if(time < 2.5){
+				if(time < 1){
 					done = environment.getWheelSystem().driveDistance(5, 0 ,false);// just drive forward 8 feet 11 inches
 				}
-				done = true;
 				break;
 			case TOTE_STACK:
 				if(phase == 0){
