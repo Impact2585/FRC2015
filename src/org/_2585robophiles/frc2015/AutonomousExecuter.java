@@ -9,9 +9,14 @@ import org._2585robophiles.lib2585.Executer;
 public enum AutonomousExecuter implements Executer, Initializable {
 
 	/**
-	 * Basic auton that just pushes a tote into the auto zone
+	 * Basic auton that just moves forward / pushes a tote into the auto zone
 	 */
 	BASIC,
+	
+	/**
+	 * Slight variation of BASIC
+	 */
+	TURN_DOWN,
 
 	/**
 	 * Score a tote stack (stack the three yellow totes and drop them off in auto zone)
@@ -48,6 +53,13 @@ public enum AutonomousExecuter implements Executer, Initializable {
 		if(!done){
 			switch(this){
 			case BASIC:
+				// move forward a couple feet
+				if(System.currentTimeMillis() / 1000d - start < 1.5)
+					environment.getWheelSystem().drive(0.5, 0, 0.05);
+				else
+					done = true;
+				break;
+			case TURN_DOWN:
 				long time = (System.currentTimeMillis() / 1000) - start;
 				if(time < 1){
 					done = environment.getWheelSystem().driveDistance(5, 0 ,false);// just drive forward 8 feet 11 inches

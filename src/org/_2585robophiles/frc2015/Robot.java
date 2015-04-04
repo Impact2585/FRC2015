@@ -28,7 +28,7 @@ public class Robot extends ExecuterBasedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		AutonomousExecuter auton = AutonomousExecuter.BASIC;
+		AutonomousExecuter auton = RobotMap.CURRENT_AUTON;
 		auton.init(environment);
 		setExecuter(auton);
 	}
