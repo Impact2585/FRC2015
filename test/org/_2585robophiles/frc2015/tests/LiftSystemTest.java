@@ -224,6 +224,7 @@ public class LiftSystemTest {
 		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));// it should attempt to maintain its height
 
 		// test setpoint input
+		lift.setSetpoint(LiftSystem.GROUND_SETPOINT);
 		setpointUpInput = true;
 		lift.run();
 		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));
@@ -249,16 +250,52 @@ public class LiftSystemTest {
 		setpointDownInput = true;
 		lift.run();
 		previousSetpoint = lift.getSetpoint();
+		for(int i = 0; i < 3; i++)
+			lift.run();
+		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(previousSetpoint));
+		setpointDownInput = false;
+		setpointUpInput = true;
 		lift.run();
+		previousSetpoint = lift.getSetpoint();
+		for(int i = 0; i < 3; i++)
+			lift.run();
 		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(previousSetpoint));
 
 		// go through the setpoints
-		lift.setSetpoint(LiftSystem.GROUND_SETPOINT);
+		lift.setSetpoint(LiftSystem.TOTE_PICKUP_4);
 		setpointDownInput = true;
 		setpointUpInput = false;
+		lift.run();
 		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));
-		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(LiftSystem.GROUND_SETPOINT));// we are already at lowest point
+		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(LiftSystem.TOTE_PICKUP_3));// we are already at lowest point
 		setpointDownInput = false;
+		setpointUpInput = true;
+		lift.run();
+		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(LiftSystem.TOTE_PICKUP_4));
+		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));
+		setpointDownInput = true;
+		setpointUpInput = false;
+		lift.run();
+		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(LiftSystem.TOTE_PICKUP_3));
+		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));
+		setpointDownInput = false;// we have to release and then press the button again
+		lift.run();
+		setpointDownInput = true;
+		lift.run();
+		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(LiftSystem.TOTE_PICKUP_2));
+		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));
+		setpointDownInput = false;
+		lift.run();
+		setpointDownInput = true;
+		lift.run();
+		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(LiftSystem.TOTE_PICKUP_1));
+		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));
+		setpointDownInput = false;
+		lift.run();
+		setpointDownInput = true;
+		lift.run();
+		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(LiftSystem.GROUND_SETPOINT));
+		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));
 
 		// test going to each setpoint
 		ground = true;
