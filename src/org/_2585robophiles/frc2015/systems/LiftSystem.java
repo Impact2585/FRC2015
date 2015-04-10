@@ -18,9 +18,9 @@ public class LiftSystem implements RobotSystem, Runnable {
 
 	public static final double GROUND_SETPOINT = 0;
 	public static final double TOTE_PICKUP_1 = 3;
-	public static final double TOTE_PICKUP_2 = 3;
-	public static final double TOTE_PICKUP_3 = 3;
-	public static final double TOTE_PICKUP_4 = 3;
+	public static final double TOTE_PICKUP_2 = 4;
+	public static final double TOTE_PICKUP_3 = 5;
+	public static final double TOTE_PICKUP_4 = 6;
 
 	private InputMethod input;
 	private SpeedController leftMotor;
