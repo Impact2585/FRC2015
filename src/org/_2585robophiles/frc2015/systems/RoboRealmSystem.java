@@ -29,7 +29,7 @@ public class RoboRealmSystem implements RobotSystem, ITableListener {
 	public RoboRealmSystem() {
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see
@@ -43,7 +43,7 @@ public class RoboRealmSystem implements RobotSystem, ITableListener {
 		setNums();
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see org._2585robophiles.aerbot.systems.RobotSystem#destroy()
@@ -52,7 +52,7 @@ public class RoboRealmSystem implements RobotSystem, ITableListener {
 	public void destroy() {
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see edu.wpi.first.wpilibj.tables.ITableListener#valueChanged(edu.wpi.first.wpilibj.tables.ITable, java.lang.String, java.lang.Object, boolean)
