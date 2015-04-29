@@ -18,9 +18,9 @@ public class LiftSystem implements RobotSystem, Runnable {
 
 	public static final double GROUND_SETPOINT = 0;
 	public static final double TOTE_PICKUP_1 = 3;
-	public static final double TOTE_PICKUP_2 = 3;
-	public static final double TOTE_PICKUP_3 = 3;
-	public static final double TOTE_PICKUP_4 = 3;
+	public static final double TOTE_PICKUP_2 = 4;
+	public static final double TOTE_PICKUP_3 = 5;
+	public static final double TOTE_PICKUP_4 = 6;
 
 	private InputMethod input;
 	private SpeedController leftMotor;
@@ -224,192 +224,192 @@ public class LiftSystem implements RobotSystem, Runnable {
 		manual = input.analogLiftUp() > 0.15 || input.analogLiftDown() > 0.15 || input.digitalLiftUp() || input.digitalLiftDown() ;// user is controlling lift manually
 	}
 
-/**
- * @return the input
- */
-public synchronized InputMethod getInput() {
-	return input;
-}
-
-/**
- * @param input the input to set
- */
-protected synchronized void setInput(InputMethod input) {
-	this.input = input;
-}
-
-/**
- * @return the leftMotor
- */
-public synchronized SpeedController getLeftMotor() {
-	return leftMotor;
-}
-
-/**
- * @param leftMotor the leftMotor to set
- */
-protected synchronized void setLeftMotor(SpeedController leftMotor) {
-	this.leftMotor = leftMotor;
-}
-
-/**
- * @return the rightMotor
- */
-public synchronized SpeedController getRightMotor() {
-	return rightMotor;
-}
-
-/**
- * @param rightMotor the rightMotor to set
- */
-protected synchronized void setRightMotor(SpeedController rightMotor) {
-	this.rightMotor = rightMotor;
-}
-
-/**
- * @return the liftPID
- */
-public synchronized PIDSubsystem getLiftPID() {
-	return liftPID;
-}
-
-/**
- * @param liftPID the liftPID to set
- */
-protected synchronized void setLiftPID(PIDSubsystem liftPID) {
-	this.liftPID = liftPID;
-}
-
-/**
- * @return the setpoint
- */
-public synchronized double getSetpoint() {
-	return setpoint;
-}
-
-/**
- * @param setpoint the setpoint to set
- */
-protected synchronized void setSetpoint(double setpoint) {
-	this.setpoint = setpoint;
-}
-
-/**
- * @return the upPressed
- */
-public synchronized boolean isUpPressed() {
-	return upPressed;
-}
-
-/**
- * @param upPressed the upPressed to set
- */
-protected synchronized void setUpPressed(boolean upPressed) {
-	this.upPressed = upPressed;
-}
-
-/**
- * @return the downPressed
- */
-public synchronized boolean isDownPressed() {
-	return downPressed;
-}
-
-/**
- * @param downPressed the downPressed to set
- */
-protected synchronized void setDownPressed(boolean downPressed) {
-	this.downPressed = downPressed;
-}
-
-/**
- * @return the groundPressed
- */
-public synchronized boolean isGroundPressed() {
-	return groundPressed;
-}
-
-/**
- * @param groundPressed the groundPressed to set
- */
-protected synchronized void setGroundPressed(boolean groundPressed) {
-	this.groundPressed = groundPressed;
-}
-
-/**
- * @return the setpoint1Pressed
- */
-public synchronized boolean isSetpoint1Pressed() {
-	return setpoint1Pressed;
-}
-
-/**
- * @param setpoint1Pressed the setpoint1Pressed to set
- */
-protected synchronized void setSetpoint1Pressed(boolean setpoint1Pressed) {
-	this.setpoint1Pressed = setpoint1Pressed;
-}
-
-/**
- * @return the setpoint2Pressed
- */
-public synchronized boolean isSetpoint2Pressed() {
-	return setpoint2Pressed;
-}
-
-/**
- * @param setpoint2Pressed the setpoint2Pressed to set
- */
-protected synchronized void setSetpoint2Pressed(boolean setpoint2Pressed) {
-	this.setpoint2Pressed = setpoint2Pressed;
-}
-
-/**
- * @return the setpoint3Pressed
- */
-public synchronized boolean isSetpoint3Pressed() {
-	return setpoint3Pressed;
-}
-
-/**
- * @param setpoint3Pressed the setpoint3Pressed to set
- */
-protected synchronized void setSetpoint3Pressed(boolean setpoint3Pressed) {
-	this.setpoint3Pressed = setpoint3Pressed;
-}
-
-/**
- * @return the setpoint4Pressed
- */
-public synchronized boolean isSetpoint4Pressed() {
-	return setpoint4Pressed;
-}
-
-/**
- * @param setpoint4Pressed the setpoint4Pressed to set
- */
-protected synchronized void setSetpoint4Pressed(boolean setpoint4Pressed) {
-	this.setpoint4Pressed = setpoint4Pressed;
-}
-
-
-/* (non-Javadoc)
- * @see org._2585robophiles.lib2585.Destroyable#destroy()
- */
-@Override
-public void destroy() {
-	// dynamic cast to destroy leftMotor
-	if(leftMotor instanceof SensorBase){
-		SensorBase motor = (SensorBase) leftMotor;
-		motor.free();
+	/**
+	 * @return the input
+	 */
+	public synchronized InputMethod getInput() {
+		return input;
 	}
-	// dynamic cast to destroy rightMotor
-	if(rightMotor instanceof SensorBase){
-		SensorBase motor = (SensorBase) rightMotor;
-		motor.free();
+
+	/**
+	 * @param input the input to set
+	 */
+	protected synchronized void setInput(InputMethod input) {
+		this.input = input;
 	}
-	rightEncoder.free();
-	leftEncoder.free();
-}
+
+	/**
+	 * @return the leftMotor
+	 */
+	public synchronized SpeedController getLeftMotor() {
+		return leftMotor;
+	}
+
+	/**
+	 * @param leftMotor the leftMotor to set
+	 */
+	protected synchronized void setLeftMotor(SpeedController leftMotor) {
+		this.leftMotor = leftMotor;
+	}
+
+	/**
+	 * @return the rightMotor
+	 */
+	public synchronized SpeedController getRightMotor() {
+		return rightMotor;
+	}
+
+	/**
+	 * @param rightMotor the rightMotor to set
+	 */
+	protected synchronized void setRightMotor(SpeedController rightMotor) {
+		this.rightMotor = rightMotor;
+	}
+
+	/**
+	 * @return the liftPID
+	 */
+	public synchronized PIDSubsystem getLiftPID() {
+		return liftPID;
+	}
+
+	/**
+	 * @param liftPID the liftPID to set
+	 */
+	protected synchronized void setLiftPID(PIDSubsystem liftPID) {
+		this.liftPID = liftPID;
+	}
+
+	/**
+	 * @return the setpoint
+	 */
+	public synchronized double getSetpoint() {
+		return setpoint;
+	}
+
+	/**
+	 * @param setpoint the setpoint to set
+	 */
+	protected synchronized void setSetpoint(double setpoint) {
+		this.setpoint = setpoint;
+	}
+
+	/**
+	 * @return the upPressed
+	 */
+	public synchronized boolean isUpPressed() {
+		return upPressed;
+	}
+
+	/**
+	 * @param upPressed the upPressed to set
+	 */
+	protected synchronized void setUpPressed(boolean upPressed) {
+		this.upPressed = upPressed;
+	}
+
+	/**
+	 * @return the downPressed
+	 */
+	public synchronized boolean isDownPressed() {
+		return downPressed;
+	}
+
+	/**
+	 * @param downPressed the downPressed to set
+	 */
+	protected synchronized void setDownPressed(boolean downPressed) {
+		this.downPressed = downPressed;
+	}
+
+	/**
+	 * @return the groundPressed
+	 */
+	public synchronized boolean isGroundPressed() {
+		return groundPressed;
+	}
+
+	/**
+	 * @param groundPressed the groundPressed to set
+	 */
+	protected synchronized void setGroundPressed(boolean groundPressed) {
+		this.groundPressed = groundPressed;
+	}
+
+	/**
+	 * @return the setpoint1Pressed
+	 */
+	public synchronized boolean isSetpoint1Pressed() {
+		return setpoint1Pressed;
+	}
+
+	/**
+	 * @param setpoint1Pressed the setpoint1Pressed to set
+	 */
+	protected synchronized void setSetpoint1Pressed(boolean setpoint1Pressed) {
+		this.setpoint1Pressed = setpoint1Pressed;
+	}
+
+	/**
+	 * @return the setpoint2Pressed
+	 */
+	public synchronized boolean isSetpoint2Pressed() {
+		return setpoint2Pressed;
+	}
+
+	/**
+	 * @param setpoint2Pressed the setpoint2Pressed to set
+	 */
+	protected synchronized void setSetpoint2Pressed(boolean setpoint2Pressed) {
+		this.setpoint2Pressed = setpoint2Pressed;
+	}
+
+	/**
+	 * @return the setpoint3Pressed
+	 */
+	public synchronized boolean isSetpoint3Pressed() {
+		return setpoint3Pressed;
+	}
+
+	/**
+	 * @param setpoint3Pressed the setpoint3Pressed to set
+	 */
+	protected synchronized void setSetpoint3Pressed(boolean setpoint3Pressed) {
+		this.setpoint3Pressed = setpoint3Pressed;
+	}
+
+	/**
+	 * @return the setpoint4Pressed
+	 */
+	public synchronized boolean isSetpoint4Pressed() {
+		return setpoint4Pressed;
+	}
+
+	/**
+	 * @param setpoint4Pressed the setpoint4Pressed to set
+	 */
+	protected synchronized void setSetpoint4Pressed(boolean setpoint4Pressed) {
+		this.setpoint4Pressed = setpoint4Pressed;
+	}
+
+
+	/* (non-Javadoc)
+	 * @see org._2585robophiles.lib2585.Destroyable#destroy()
+	 */
+	@Override
+	public void destroy() {
+		// dynamic cast to destroy leftMotor
+		if(leftMotor instanceof SensorBase){
+			SensorBase motor = (SensorBase) leftMotor;
+			motor.free();
+		}
+		// dynamic cast to destroy rightMotor
+		if(rightMotor instanceof SensorBase){
+			SensorBase motor = (SensorBase) rightMotor;
+			motor.free();
+		}
+		rightEncoder.free();
+		leftEncoder.free();
+	}
 
 }
