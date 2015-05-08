@@ -12,7 +12,8 @@ public interface RobotMap {
 							SIDEWAYS_DRIVE = 4,
 							SIDEWAYS_DRIVE_2 = 5;
 	public static final int LEFT_LIFT = 6;
-	public static final int RIGHT_LIFT = 8;
+	public static final int RIGHT_LIFT_1 = 8;
+	public static final int RIGHT_LIFT_2 = 7;
 	
 	public static final int GYRO = 1;
 	
