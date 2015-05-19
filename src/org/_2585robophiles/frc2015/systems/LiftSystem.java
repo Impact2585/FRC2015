@@ -3,6 +3,7 @@ package org._2585robophiles.frc2015.systems;
 import org._2585robophiles.frc2015.Environment;
 import org._2585robophiles.frc2015.RobotMap;
 import org._2585robophiles.frc2015.input.InputMethod;
+import org._2585robophiles.lib2585.MultiMotor;
 
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
@@ -45,7 +46,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 	public void init(Environment environment) {
 		input = environment.getInput();
 		leftMotor = new Victor(RobotMap.LEFT_LIFT);
-		rightMotor = new Victor(RobotMap.RIGHT_LIFT);
+		rightMotor = new MultiMotor(new Victor[]{new Victor(RobotMap.RIGHT_LIFT_1), new Victor(RobotMap.RIGHT_LIFT_2)});
 		leftEncoder = new Encoder(RobotMap.LEFT_ENCODER_A_CHANNEL, RobotMap.LEFT_ENCODER_B_CHANNEL, false , CounterBase.EncodingType.k4X);
 		leftEncoder.setDistancePerPulse(0.01 / 12);
 		leftEncoder.reset();
