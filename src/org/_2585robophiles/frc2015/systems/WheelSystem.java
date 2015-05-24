@@ -279,7 +279,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 		currentRampSideways += (input.sidewaysMovement()-currentRampSideways) * RobotMap.SIDEWAYS_RAMPING;
 		if(currentRampForward < .15 && currentRampForward > -.15)
 			currentRampForward = 0.0;
-		if(currentRampSideways < .15 && currentRampSideways > -.15)
+		if(currentRampSideways < .175 && currentRampSideways > -.175)
 			currentRampSideways = 0.0;
 		rotationValue = input.rotation();
 		if(rotationValue < .15 && rotationValue > -.15)
