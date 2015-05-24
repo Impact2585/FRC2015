@@ -38,6 +38,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 	private boolean setpoint3Pressed;
 	private boolean setpoint4Pressed;
 	private boolean manual;
+	private boolean disabledPID;
 
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.Initializable#init(org._2585robophiles.frc2015.Environment)
@@ -53,6 +54,7 @@ public class LiftSystem implements RobotSystem, Runnable {
 		rightEncoder = new Encoder(RobotMap.RIGHT_ENCODER_A_CHANNEL, RobotMap.RIGHT_ENCODER_B_CHANNEL, true , CounterBase.EncodingType.k4X); // invert right encoder
 		rightEncoder.setDistancePerPulse(0.01 / 12);
 		rightEncoder.reset();
+		disabledPID = true;
 
 		// two independent PID subsystems for each side
 		liftPID = new PIDSubsystem(1 / 9d, 0.03, 0) {
@@ -114,10 +116,12 @@ public class LiftSystem implements RobotSystem, Runnable {
 	 * @param setpoint PID setpoint for the lift
 	 */
 	protected synchronized void enablePID(){
-		liftPID.setSetpoint(setpoint);
-		liftPID.enable();
-		rightPID.setSetpoint(setpoint);
-		rightPID.enable();
+		if(!disabledPID){
+			liftPID.setSetpoint(setpoint);
+			liftPID.enable();
+			rightPID.setSetpoint(setpoint);
+			rightPID.enable();
+		}
 	}
 
 	/**
@@ -393,6 +397,19 @@ public class LiftSystem implements RobotSystem, Runnable {
 		this.setpoint4Pressed = setpoint4Pressed;
 	}
 
+	/**
+	 * @return the disabledPID
+	 */
+	public synchronized boolean isDisabledPID() {
+		return disabledPID;
+	}
+	
+	/**
+	 * @param disabledPID the disabledPID to set
+	 */
+	protected synchronized void setDisabledPID(boolean disabledPID) {
+		this.disabledPID = disabledPID;
+	}
 
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.lib2585.Destroyable#destroy()
