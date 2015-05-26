@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 import edu.wpi.first.wpilibj.tables.ITableListener;
 
-/*
+/**
  * The robot vision is implemented in this class.
  */
 public class RoboRealmSystem implements RobotSystem, ITableListener {
@@ -29,7 +29,7 @@ public class RoboRealmSystem implements RobotSystem, ITableListener {
 	public RoboRealmSystem() {
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see
@@ -43,7 +43,7 @@ public class RoboRealmSystem implements RobotSystem, ITableListener {
 		setNums();
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * 
 	 * @see org._2585robophiles.aerbot.systems.RobotSystem#destroy()
@@ -52,12 +52,10 @@ public class RoboRealmSystem implements RobotSystem, ITableListener {
 	public void destroy() {
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * 
-	 * @see
-	 * edu.wpi.first.wpilibj.tables.ITableListener#valueChanged(edu.wpi.first
-	 * .wpilibj.tables.ITable, java.lang.String, java.lang.Object, boolean)
+	 * @see edu.wpi.first.wpilibj.tables.ITableListener#valueChanged(edu.wpi.first.wpilibj.tables.ITable, java.lang.String, java.lang.Object, boolean)
 	 */
 	@Override
 	public void valueChanged(ITable itable, String key, Object obj, boolean isNew) {
@@ -65,6 +63,11 @@ public class RoboRealmSystem implements RobotSystem, ITableListener {
 		setNums();
 	}
 
+	/**
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.wpi.first.wpilibj.tables.ITableListener#valueChanged(edu.wpi.first.wpilibj.tables.ITable, java.lang.String, java.lang.Object, boolean)
+	 */
 	public void setNums() {
 		yCoord = nt.getNumber("COG_Y");
 		xCoord = nt.getNumber("COG_X");
@@ -75,15 +78,30 @@ public class RoboRealmSystem implements RobotSystem, ITableListener {
 			area = -5555;
 		}
 	}
-
+	
+	/**
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.wpi.first.wpilibj.tables.ITableListener#valueChanged(edu.wpi.first.wpilibj.tables.ITable, java.lang.String, java.lang.Object, boolean)
+	 */
 	public double getDistance() {
 		return distance;
 	}
-
+	
+	/**
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.wpi.first.wpilibj.tables.ITableListener#valueChanged(edu.wpi.first.wpilibj.tables.ITable, java.lang.String, java.lang.Object, boolean)
+	 */
 	public double getX() {
 		return xCoord;
 	}
-
+	
+	/**
+	 * (non-Javadoc)
+	 * 
+	 * @see edu.wpi.first.wpilibj.tables.ITableListener#valueChanged(edu.wpi.first.wpilibj.tables.ITable, java.lang.String, java.lang.Object, boolean)
+	 */
 	public double getY() {
 		return yCoord;
 	}
