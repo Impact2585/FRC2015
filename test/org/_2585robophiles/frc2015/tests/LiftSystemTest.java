@@ -320,6 +320,19 @@ public class LiftSystemTest {
 		Assert.assertThat(enabledPID, CoreMatchers.equalTo(true));
 		Assert.assertThat(lift.getSetpoint(), CoreMatchers.equalTo(LiftSystem.TOTE_PICKUP_4));
 		liftSetpoint = 0;
+		
+		// test disable PID
+		lift.setDisabledPID(true);
+		analogDownInput = 1;
+		lift.run();
+		Assert.assertThat(enabledPID, CoreMatchers.equalTo(false));
+		Assert.assertThat(motorSpeed, CoreMatchers.equalTo(-1d));
+		analogDownInput = 0;
+		ground = true;
+		lift.run();
+		Assert.assertThat(enabledPID, CoreMatchers.equalTo(false));
+		Assert.assertThat(motorSpeed, CoreMatchers.equalTo(0d));
+		lift.setDisabledPID(false);
 	}
 
 	/**
@@ -397,6 +410,14 @@ public class LiftSystemTest {
 		@Override
 		public double encoderDistance() {
 			return 3;
+		}
+
+		/* (non-Javadoc)
+		 * @see org._2585robophiles.frc2015.systems.LiftSystem#setDisabledPID(boolean)
+		 */
+		@Override
+		protected synchronized void setDisabledPID(boolean disabledPID) {
+			super.setDisabledPID(disabledPID);
 		}
 
 	}
