@@ -54,8 +54,8 @@ public enum AutonomousExecuter implements Executer, Initializable {
 			switch(this){
 			case BASIC:
 				// move forward a couple feet
-				if(System.currentTimeMillis() / 1000d - start < 1.0)
-					environment.getWheelSystem().drive(0.5, 0, 0.05);
+				if(System.currentTimeMillis() / 1000.0 - start < 2.3)
+					environment.getWheelSystem().drive(1, 0, 0.5); //1  forward, 2 center, 3 rotation
 				else
 					done = true;
 				break;
