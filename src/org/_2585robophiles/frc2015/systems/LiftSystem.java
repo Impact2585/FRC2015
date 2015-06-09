@@ -116,12 +116,10 @@ public class LiftSystem implements RobotSystem, Runnable {
 	 * @param setpoint PID setpoint for the lift
 	 */
 	protected synchronized void enablePID(){
-		if(!disabledPID){
-			liftPID.setSetpoint(setpoint);
-			liftPID.enable();
-			rightPID.setSetpoint(setpoint);
-			rightPID.enable();
-		}
+		liftPID.setSetpoint(setpoint);
+		liftPID.enable();
+		rightPID.setSetpoint(setpoint);
+		rightPID.enable();
 	}
 
 	/**
@@ -177,47 +175,51 @@ public class LiftSystem implements RobotSystem, Runnable {
 		}else if(input.digitalLiftDown()){
 			disablePID();
 			setMotors(-1);
-		}else if(manual){
-			setMotors(0);
-			// driver just stopped controlling lift manually so let's maintain this height
-			setpoint = encoderDistance();
-			enablePID();
-		}else if(input.liftSetpointUp() && !upPressed){
-			// not so manual control of the lift
-			if(setpoint == GROUND_SETPOINT)
-				setpoint = TOTE_PICKUP_1;
-			else if(setpoint == TOTE_PICKUP_1)
-				setpoint = TOTE_PICKUP_2;
-			else if(setpoint == TOTE_PICKUP_2)
-				setpoint = TOTE_PICKUP_3;
-			else
-				setpoint = TOTE_PICKUP_4;
-			enablePID();
-		}else if(input.liftSetpointDown() && !downPressed){
-			if(setpoint == TOTE_PICKUP_4)
-				setpoint = TOTE_PICKUP_3;
-			else if(setpoint == TOTE_PICKUP_3)
-				setpoint = TOTE_PICKUP_2;
-			else if(setpoint == TOTE_PICKUP_2)
-				setpoint = TOTE_PICKUP_1;
-			else
+		}else{
+			if(disabledPID){
+				setMotors(0);
+			}else if(manual){
+				setMotors(0);
+				// driver just stopped controlling lift manually so let's maintain this height
+				setpoint = encoderDistance();
+				enablePID();
+			}else if(input.liftSetpointUp() && !upPressed){
+				// not so manual control of the lift
+				if(setpoint == GROUND_SETPOINT)
+					setpoint = TOTE_PICKUP_1;
+				else if(setpoint == TOTE_PICKUP_1)
+					setpoint = TOTE_PICKUP_2;
+				else if(setpoint == TOTE_PICKUP_2)
+					setpoint = TOTE_PICKUP_3;
+				else
+					setpoint = TOTE_PICKUP_4;
+				enablePID();
+			}else if(input.liftSetpointDown() && !downPressed){
+				if(setpoint == TOTE_PICKUP_4)
+					setpoint = TOTE_PICKUP_3;
+				else if(setpoint == TOTE_PICKUP_3)
+					setpoint = TOTE_PICKUP_2;
+				else if(setpoint == TOTE_PICKUP_2)
+					setpoint = TOTE_PICKUP_1;
+				else
+					setpoint = GROUND_SETPOINT;
+				enablePID();
+			}else if(input.groundLift() && !groundPressed){
 				setpoint = GROUND_SETPOINT;
-			enablePID();
-		}else if(input.groundLift() && !groundPressed){
-			setpoint = GROUND_SETPOINT;
-			enablePID();
-		}else if(input.liftSetpoint1() && !setpoint1Pressed){
-			setpoint = TOTE_PICKUP_1;
-			enablePID();
-		}else if(input.liftSetpoint2() && !setpoint2Pressed){
-			setpoint = TOTE_PICKUP_2;
-			enablePID();
-		}else if(input.liftSetpoint3() && !setpoint3Pressed){
-			setpoint = TOTE_PICKUP_3;
-			enablePID();
-		}else if(input.liftSetpoint4() && !setpoint4Pressed){
-			setpoint = TOTE_PICKUP_4;
-			enablePID();
+				enablePID();
+			}else if(input.liftSetpoint1() && !setpoint1Pressed){
+				setpoint = TOTE_PICKUP_1;
+				enablePID();
+			}else if(input.liftSetpoint2() && !setpoint2Pressed){
+				setpoint = TOTE_PICKUP_2;
+				enablePID();
+			}else if(input.liftSetpoint3() && !setpoint3Pressed){
+				setpoint = TOTE_PICKUP_3;
+				enablePID();
+			}else if(input.liftSetpoint4() && !setpoint4Pressed){
+				setpoint = TOTE_PICKUP_4;
+				enablePID();
+			}
 		}
 		upPressed = input.liftSetpointUp();
 		downPressed = input.liftSetpointDown();
