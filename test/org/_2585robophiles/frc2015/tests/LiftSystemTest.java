@@ -210,12 +210,12 @@ public class LiftSystemTest {
 		// test digital input
 		digitalUpInput = true;
 		lift.run();
-		Assert.assertThat(motorSpeed, CoreMatchers.equalTo(1d));
+		Assert.assertThat(motorSpeed, CoreMatchers.equalTo(LiftSystem.DIGITAL_LIFT_SPEED));
 		Assert.assertThat(enabledPID, CoreMatchers.equalTo(false));
 		digitalUpInput = false;
 		digitalDownInput = true;
 		lift.run();
-		Assert.assertThat(motorSpeed, CoreMatchers.equalTo(-1d));
+		Assert.assertThat(motorSpeed, CoreMatchers.equalTo(-LiftSystem.DIGITAL_LIFT_SPEED));
 		Assert.assertThat(enabledPID, CoreMatchers.equalTo(false));
 		digitalDownInput = false;
 		digitalUpInput = false;

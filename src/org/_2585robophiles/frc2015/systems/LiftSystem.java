@@ -22,6 +22,8 @@ public class LiftSystem implements RobotSystem, Runnable {
 	public static final double TOTE_PICKUP_2 = 4;
 	public static final double TOTE_PICKUP_3 = 5;
 	public static final double TOTE_PICKUP_4 = 6;
+	
+	public static final double DIGITAL_LIFT_SPEED = 0.5;
 
 	private InputMethod input;
 	private SpeedController leftMotor;
@@ -171,10 +173,10 @@ public class LiftSystem implements RobotSystem, Runnable {
 			setMotors(input.analogLiftUp());
 		}else if(input.digitalLiftUp()){
 			disablePID();
-			setMotors(1);
+			setMotors(DIGITAL_LIFT_SPEED);
 		}else if(input.digitalLiftDown()){
 			disablePID();
-			setMotors(-1);
+			setMotors(-DIGITAL_LIFT_SPEED);
 		}else{
 			if(disabledPID){
 				setMotors(0);
