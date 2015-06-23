@@ -5,9 +5,11 @@ import org._2585robophiles.frc2015.RobotMap;
 import org._2585robophiles.frc2015.input.InputMethod;
 import org._2585robophiles.lib2585.MultiMotor;
 
+import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.RobotDrive;
 import edu.wpi.first.wpilibj.SensorBase;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.Victor;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
@@ -39,7 +41,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 	 */
 	@Override
 	public void init(Environment environment) {
-		drivetrain = new RobotDrive(RobotMap.FRONT_LEFT_DRIVE, RobotMap.REAR_LEFT_DRIVE, RobotMap.FRONT_RIGHT_DRIVE, RobotMap.REAR_RIGHT_DRIVE);
+		drivetrain = new RobotDrive(new Talon(RobotMap.FRONT_LEFT_DRIVE), new Talon(RobotMap.REAR_LEFT_DRIVE), new Talon(RobotMap.FRONT_RIGHT_DRIVE),  new Jaguar(RobotMap.REAR_RIGHT_DRIVE));
 		drivetrain.setInvertedMotor(RobotDrive.MotorType.kFrontRight , true );
 		drivetrain.setInvertedMotor(RobotDrive.MotorType.kRearRight , true );
 		sidewaysMotor = new MultiMotor(new SpeedController[]{new Victor(RobotMap.SIDEWAYS_DRIVE), new Victor(RobotMap.SIDEWAYS_DRIVE_2)});
