@@ -79,7 +79,7 @@ public class XboxInput implements InputMethod {
 	 */
 	@Override
 	public boolean digitalLiftDown() {
-		return false;
+		return controller.getRawButton(XboxConstants.LEFT_BUMPER);
 	}
 
 	/* (non-Javadoc)
@@ -87,7 +87,7 @@ public class XboxInput implements InputMethod {
 	 */
 	@Override
 	public boolean digitalLiftUp() {
-		return false;
+		return controller.getRawButton(XboxConstants.RIGHT_BUMPER);
 	}
 	
 	/* (non-Javadoc)
@@ -95,7 +95,7 @@ public class XboxInput implements InputMethod {
 	 */
 	@Override
 	public boolean liftSetpointDown() {
-		return controller.getRawButton(XboxConstants.LEFT_BUMPER);
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -103,7 +103,7 @@ public class XboxInput implements InputMethod {
 	 */
 	@Override
 	public boolean liftSetpointUp() {
-		return controller.getRawButton(XboxConstants.RIGHT_BUMPER);
+		return false;
 	}
 
 	/* (non-Javadoc)
