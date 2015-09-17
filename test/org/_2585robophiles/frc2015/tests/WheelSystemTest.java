@@ -21,6 +21,14 @@ public class WheelSystemTest {
 	private double currentForwardMovement, currentSidewaysMovement,
 	currentRotation;
 	private boolean forwardDistancePIDEnabled, sidewaysDistancePIDEnabled, straightDrivePIDEnabled;
+	
+	// input variables
+	private double sidewaysMovement;
+	private double rotation;
+	private double forwardMovement;
+	private boolean straightDrive;
+	private boolean stopStraightDrive;
+	private boolean changeSensitivity;
 
 	/**
 	 * Set up the unit test
@@ -47,6 +55,148 @@ public class WheelSystemTest {
 			}
 
 		});
+		
+		// anonymous InputMethod class for input instance variables
+		wheelSystem.setInput(new InputMethod() {
+			
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
+			 */
+			@Override
+			public boolean straightDrive() {
+				return straightDrive;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
+			 */
+			@Override
+			public boolean stopStraightDrive() {
+				return stopStraightDrive;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
+			 */
+			@Override
+			public double sidewaysMovement() {
+				return sidewaysMovement;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
+			 */
+			@Override
+			public double rotation() {
+				return rotation;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
+			 */
+			@Override
+			public boolean liftSetpointUp() {
+				return false;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
+			 */
+			@Override
+			public boolean liftSetpointDown() {
+				return false;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
+			 */
+			@Override
+			public boolean liftSetpoint4() {
+				return false;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
+			 */
+			@Override
+			public boolean liftSetpoint3() {
+				return false;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
+			 */
+			@Override
+			public boolean liftSetpoint2() {
+				return false;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
+			 */
+			@Override
+			public boolean liftSetpoint1() {
+				return false;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
+			 */
+			@Override
+			public Joystick[] joysticks() {
+				return null;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#groundLift()
+			 */
+			@Override
+			public boolean groundLift() {
+				return false;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
+			 */
+			@Override
+			public double forwardMovement() {
+				return forwardMovement;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
+			 */
+			@Override
+			public boolean digitalLiftUp() {
+				return false;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
+			 */
+			@Override
+			public boolean digitalLiftDown() {
+				return false;
+			}
+			
+			/* (non-Javadoc)
+			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
+			 */
+			@Override
+			public boolean changeSensitivity() {
+				return changeSensitivity;
+			}
+			
+			@Override
+			public double analogLiftUp() {
+				return 0;
+			}
+			
+			@Override
+			public double analogLiftDown() {
+				return 0;
+			}
+		});
 	}
 
 	/**
@@ -61,297 +211,12 @@ public class WheelSystemTest {
 		Assert.assertEquals(0, currentRotation, 0);
 
 		// test forward ramping
-		wheelSystem.setInput(new InputMethod() {
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
-			 */
-			@Override
-			public double sidewaysMovement() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
-			 */
-			@Override
-			public double rotation() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
-			 */
-			@Override
-			public double forwardMovement() {
-				return 1;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
-			 */
-			@Override
-			public Joystick[] joysticks() {
-				return null;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
-			 */
-			@Override
-			public boolean straightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
-			 */
-			@Override
-			public double analogLiftUp() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
-			 */
-			@Override
-			public double analogLiftDown() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
-			 */
-			@Override
-			public boolean liftSetpointDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
-			 */
-			@Override
-			public boolean liftSetpointUp() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
-			 */
-			@Override
-			public boolean liftSetpoint1() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
-			 */
-			@Override
-			public boolean liftSetpoint2() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
-			 */
-			@Override
-			public boolean liftSetpoint3() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
-			 */
-			@Override
-			public boolean liftSetpoint4() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#groundLift()
-			 */
-			@Override
-			public boolean groundLift() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
-			 */
-			@Override
-			public boolean stopStraightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
-			 */
-			@Override
-			public boolean changeSensitivity() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
-			 */
-			@Override
-			public boolean digitalLiftDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
-			 */
-			@Override
-			public boolean digitalLiftUp() {
-				return false;
-			}
-		});
+		forwardMovement = 1;
 		wheelSystem.run();
 		Assert.assertEquals(0, currentRotation, 0);
 		Assert.assertEquals(0, currentSidewaysMovement, 0);
 		Assert.assertEquals(RobotMap.FORWARD_RAMPING, currentForwardMovement, 0);
-		wheelSystem.setInput(new InputMethod() {
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
-			 */
-			@Override
-			public double sidewaysMovement() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
-			 */
-			@Override
-			public double rotation() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
-			 */
-			@Override
-			public double forwardMovement() {
-				return -1;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
-			 */
-			@Override
-			public Joystick[] joysticks() {
-				return null;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
-			 */
-			@Override
-			public boolean straightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
-			 */
-			@Override
-			public boolean liftSetpoint1() {
-				return false;
-			}
-			
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
-			 */
-			@Override
-			public boolean liftSetpoint2() {
-				return false;
-			}
-			
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
-			 */
-			@Override
-			public boolean liftSetpoint3() {
-				return false;
-			}
-			
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
-			 */
-			@Override
-			public boolean liftSetpoint4() {
-				return false;
-			}
-			
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
-			 */
-			@Override
-			public double analogLiftUp() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
-			 */
-			@Override
-			public double analogLiftDown() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
-			 */
-			@Override
-			public boolean liftSetpointDown() {
-				return false;
-			}
-			
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
-			 */
-			@Override
-			public boolean liftSetpointUp() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#groundLift()
-			 */
-			@Override
-			public boolean groundLift() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
-			 */
-			@Override
-			public boolean stopStraightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
-			 */
-			@Override
-			public boolean changeSensitivity() {
-				return false;
-			}
-
-			@Override
-			public boolean digitalLiftDown() {
-				return false;
-			}
-
-			@Override
-			public boolean digitalLiftUp() {
-				return false;
-			}
-
-		});
+		forwardMovement = -1;
 		wheelSystem.run();
 		Assert.assertEquals(0, currentRotation, 0);
 		Assert.assertEquals(0, currentSidewaysMovement, 0);
@@ -360,301 +225,12 @@ public class WheelSystemTest {
 				currentForwardMovement, 0);
 
 		// test sideways ramping
-		wheelSystem.setInput(new InputMethod() {
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
-			 */
-			@Override
-			public double sidewaysMovement() {
-				return 1;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
-			 */
-			@Override
-			public double rotation() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
-			 */
-			@Override
-			public double forwardMovement() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
-			 */
-			@Override
-			public Joystick[] joysticks() {
-				return null;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
-			 */
-			@Override
-			public boolean straightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
-			 */
-			@Override
-			public double analogLiftUp() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
-			 */
-			@Override
-			public double analogLiftDown() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
-			 */
-			@Override
-			public boolean liftSetpointDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
-			 */
-			@Override
-			public boolean liftSetpointUp() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
-			 */
-			@Override
-			public boolean liftSetpoint1() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
-			 */
-			@Override
-			public boolean liftSetpoint2() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
-			 */
-			@Override
-			public boolean liftSetpoint3() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
-			 */
-			@Override
-			public boolean liftSetpoint4() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#groundLift()
-			 */
-			@Override
-			public boolean groundLift() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
-			 */
-			@Override
-			public boolean stopStraightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
-			 */
-			@Override
-			public boolean changeSensitivity() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
-			 */
-			@Override
-			public boolean digitalLiftDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
-			 */
-			@Override
-			public boolean digitalLiftUp() {
-				return false;
-			}
-		});
+		sidewaysMovement = 1;
+		forwardMovement = 0;
 		wheelSystem.run();
 		Assert.assertEquals(0, currentRotation, 0);
 		Assert.assertEquals(RobotMap.SIDEWAYS_RAMPING, currentSidewaysMovement, 0);
-		wheelSystem.setInput(new InputMethod() {
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
-			 */
-			@Override
-			public double sidewaysMovement() {
-				return -1;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
-			 */
-			@Override
-			public double rotation() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
-			 */
-			@Override
-			public double forwardMovement() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
-			 */
-			@Override
-			public Joystick[] joysticks() {
-				return null;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
-			 */
-			@Override
-			public boolean straightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
-			 */
-			@Override
-			public double analogLiftUp() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
-			 */
-			@Override
-			public double analogLiftDown() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
-			 */
-			@Override
-			public boolean liftSetpointDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
-			 */
-			@Override
-			public boolean liftSetpointUp() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
-			 */
-			@Override
-			public boolean liftSetpoint1() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
-			 */
-			@Override
-			public boolean liftSetpoint2() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
-			 */
-			@Override
-			public boolean liftSetpoint3() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
-			 */
-			@Override
-			public boolean liftSetpoint4() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#groundLift()
-			 */
-			@Override
-			public boolean groundLift() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
-			 */
-			@Override
-			public boolean stopStraightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
-			 */
-			@Override
-			public boolean changeSensitivity() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
-			 */
-			@Override
-			public boolean digitalLiftDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
-			 */
-			@Override
-			public boolean digitalLiftUp() {
-				return false;
-			}
-		});
+		sidewaysMovement = -1;
 		wheelSystem.run();
 		Assert.assertEquals(0, currentRotation, 0);
 		Assert.assertEquals(RobotMap.SIDEWAYS_RAMPING
@@ -662,1049 +238,37 @@ public class WheelSystemTest {
 				currentSidewaysMovement, 0);
 
 		// test squared rotation
-		wheelSystem.setInput(new InputMethod() {
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
-			 */
-			@Override
-			public double sidewaysMovement() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
-			 */
-			@Override
-			public double rotation() {
-				return -1;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
-			 */
-			@Override
-			public Joystick[] joysticks() {
-				return null;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
-			 */
-			@Override
-			public double forwardMovement() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
-			 */
-			@Override
-			public boolean straightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
-			 */
-			@Override
-			public double analogLiftUp() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
-			 */
-			@Override
-			public double analogLiftDown() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
-			 */
-			@Override
-			public boolean liftSetpointDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
-			 */
-			@Override
-			public boolean liftSetpointUp() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
-			 */
-			@Override
-			public boolean liftSetpoint1() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
-			 */
-			@Override
-			public boolean liftSetpoint2() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
-			 */
-			@Override
-			public boolean liftSetpoint3() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
-			 */
-			@Override
-			public boolean liftSetpoint4() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#groundLift()
-			 */
-			@Override
-			public boolean groundLift() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
-			 */
-			@Override
-			public boolean stopStraightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
-			 */
-			@Override
-			public boolean changeSensitivity() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
-			 */
-			@Override
-			public boolean digitalLiftDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
-			 */
-			@Override
-			public boolean digitalLiftUp() {
-				return false;
-			}
-		});
+		rotation = -1;
+		sidewaysMovement = 0;
 		wheelSystem.run();
 		Assert.assertEquals(-1, currentRotation, 0);
-		wheelSystem.setInput(new InputMethod() {
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
-			 */
-			@Override
-			public double sidewaysMovement() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
-			 */
-			@Override
-			public double rotation() {
-				return 0.5;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
-			 */
-			@Override
-			public Joystick[] joysticks() {
-				return null;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
-			 */
-			@Override
-			public double forwardMovement() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
-			 */
-			@Override
-			public boolean straightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
-			 */
-			@Override
-			public double analogLiftUp() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
-			 */
-			@Override
-			public double analogLiftDown() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
-			 */
-			@Override
-			public boolean liftSetpointDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
-			 */
-			@Override
-			public boolean liftSetpointUp() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
-			 */
-			@Override
-			public boolean liftSetpoint1() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
-			 */
-			@Override
-			public boolean liftSetpoint2() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
-			 */
-			@Override
-			public boolean liftSetpoint3() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
-			 */
-			@Override
-			public boolean liftSetpoint4() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#groundLift()
-			 */
-			@Override
-			public boolean groundLift() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
-			 */
-			@Override
-			public boolean stopStraightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
-			 */
-			@Override
-			public boolean changeSensitivity() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
-			 */
-			@Override
-			public boolean digitalLiftDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
-			 */
-			@Override
-			public boolean digitalLiftUp() {
-				return false;
-			}
-		});
+		rotation = 0.5;
 		wheelSystem.run();
 		Assert.assertEquals(Math.pow(0.5, RobotMap.ROTATION_EXPONENT), currentRotation, 0);
 
 		// test deadzone
-		wheelSystem.setInput(new InputMethod() {
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
-			 */
-			@Override
-			public double forwardMovement() {
-				return 0.05;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
-			 */
-			@Override
-			public double sidewaysMovement() {
-				return 0.3;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
-			 */
-			@Override
-			public double rotation() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
-			 */
-			@Override
-			public Joystick[] joysticks() {
-				return null;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
-			 */
-			@Override
-			public boolean straightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
-			 */
-			@Override
-			public double analogLiftUp() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
-			 */
-			@Override
-			public double analogLiftDown() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
-			 */
-			@Override
-			public boolean liftSetpointDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
-			 */
-			@Override
-			public boolean liftSetpointUp() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
-			 */
-			@Override
-			public boolean liftSetpoint1() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
-			 */
-			@Override
-			public boolean liftSetpoint2() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
-			 */
-			@Override
-			public boolean liftSetpoint3() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
-			 */
-			@Override
-			public boolean liftSetpoint4() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#groundLift()
-			 */
-			@Override
-			public boolean groundLift() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
-			 */
-			@Override
-			public boolean stopStraightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
-			 */
-			@Override
-			public boolean changeSensitivity() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
-			 */
-			@Override
-			public boolean digitalLiftDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
-			 */
-			@Override
-			public boolean digitalLiftUp() {
-				return false;
-			}
-		});
+		forwardMovement = 0.05;
+		sidewaysMovement = 0.3;
 		wheelSystem.run();
 		Assert.assertTrue(currentSidewaysMovement > 0);
 		Assert.assertEquals(0, currentForwardMovement, 0);
 
-		wheelSystem.setInput(new InputMethod() {
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
-			 */
-			@Override
-			public double sidewaysMovement() {
-				return 0.07;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
-			 */
-			@Override
-			public double rotation() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
-			 */
-			@Override
-			public Joystick[] joysticks() {
-				return null;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
-			 */
-			@Override
-			public double forwardMovement() {
-				return 0.3;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
-			 */
-			@Override
-			public boolean straightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
-			 */
-			@Override
-			public double analogLiftUp() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
-			 */
-			@Override
-			public double analogLiftDown() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
-			 */
-			@Override
-			public boolean liftSetpointDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
-			 */
-			@Override
-			public boolean liftSetpointUp() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
-			 */
-			@Override
-			public boolean liftSetpoint1() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
-			 */
-			@Override
-			public boolean liftSetpoint2() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
-			 */
-			@Override
-			public boolean liftSetpoint3() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
-			 */
-			@Override
-			public boolean liftSetpoint4() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#groundLift()
-			 */
-			@Override
-			public boolean groundLift() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
-			 */
-			@Override
-			public boolean stopStraightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
-			 */
-			@Override
-			public boolean changeSensitivity() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
-			 */
-			@Override
-			public boolean digitalLiftDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
-			 */
-			@Override
-			public boolean digitalLiftUp() {
-				return false;
-			}
-		});
+		sidewaysMovement = 0.07;
+		forwardMovement = 0.3;
 		wheelSystem.run();
 		Assert.assertTrue(currentForwardMovement > 0);
 		Assert.assertEquals(0, currentSidewaysMovement, 0);
 
-		wheelSystem.setInput(new InputMethod() {
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
-			 */
-			@Override
-			public double sidewaysMovement() {
-				return 0.09;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
-			 */
-			@Override
-			public double rotation() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
-			 */
-			@Override
-			public Joystick[] joysticks() {
-				return null;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
-			 */
-			@Override
-			public double forwardMovement() {
-				return 0.09;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
-			 */
-			@Override
-			public boolean straightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
-			 */
-			@Override
-			public double analogLiftUp() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
-			 */
-			@Override
-			public double analogLiftDown() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
-			 */
-			@Override
-			public boolean liftSetpointDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
-			 */
-			@Override
-			public boolean liftSetpointUp() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
-			 */
-			@Override
-			public boolean liftSetpoint1() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
-			 */
-			@Override
-			public boolean liftSetpoint2() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
-			 */
-			@Override
-			public boolean liftSetpoint3() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
-			 */
-			@Override
-			public boolean liftSetpoint4() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#groundLift()
-			 */
-			@Override
-			public boolean groundLift() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
-			 */
-			@Override
-			public boolean stopStraightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
-			 */
-			@Override
-			public boolean changeSensitivity() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
-			 */
-			@Override
-			public boolean digitalLiftDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
-			 */
-			@Override
-			public boolean digitalLiftUp() {
-				return false;
-			}
-		});
+		forwardMovement = sidewaysMovement = 0.09;
 		wheelSystem.run();
 		Assert.assertEquals(0, currentSidewaysMovement, 0);
 		Assert.assertEquals(0, currentForwardMovement, 0);
 
-		wheelSystem.setInput(new InputMethod() {
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
-			 */
-			@Override
-			public double sidewaysMovement() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
-			 */
-			@Override
-			public double rotation() {
-				return 0.14;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
-			 */
-			@Override
-			public Joystick[] joysticks() {
-				return null;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
-			 */
-			@Override
-			public double forwardMovement() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
-			 */
-			@Override
-			public boolean straightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
-			 */
-			@Override
-			public double analogLiftUp() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
-			 */
-			@Override
-			public double analogLiftDown() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
-			 */
-			@Override
-			public boolean liftSetpointDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
-			 */
-			@Override
-			public boolean liftSetpointUp() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
-			 */
-			@Override
-			public boolean liftSetpoint1() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
-			 */
-			@Override
-			public boolean liftSetpoint2() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
-			 */
-			@Override
-			public boolean liftSetpoint3() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
-			 */
-			@Override
-			public boolean liftSetpoint4() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#groundLift()
-			 */
-			@Override
-			public boolean groundLift() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
-			 */
-			@Override
-			public boolean stopStraightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
-			 */
-			@Override
-			public boolean changeSensitivity() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
-			 */
-			@Override
-			public boolean digitalLiftDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
-			 */
-			@Override
-			public boolean digitalLiftUp() {
-				return false;
-			}
-		});
+		rotation = 0.14;
 		wheelSystem.run();
 		Assert.assertEquals(0, currentRotation, 0);
 
-		wheelSystem.setInput(new InputMethod() {
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#sidewaysMovement()
-			 */
-			@Override
-			public double sidewaysMovement() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#rotation()
-			 */
-			@Override
-			public double rotation() {
-				return -0.04;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
-			 */
-			@Override
-			public Joystick[] joysticks() {
-				return null;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
-			 */
-			@Override
-			public double forwardMovement() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#straightDrive()
-			 */
-			@Override
-			public boolean straightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftUp()
-			 */
-			@Override
-			public double analogLiftUp() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#analogLiftDown()
-			 */
-			@Override
-			public double analogLiftDown() {
-				return 0;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
-			 */
-			@Override
-			public boolean liftSetpointDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointUp()
-			 */
-			@Override
-			public boolean liftSetpointUp() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
-			 */
-			@Override
-			public boolean liftSetpoint1() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint2()
-			 */
-			@Override
-			public boolean liftSetpoint2() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint3()
-			 */
-			@Override
-			public boolean liftSetpoint3() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint4()
-			 */
-			@Override
-			public boolean liftSetpoint4() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#groundLift()
-			 */
-			@Override
-			public boolean groundLift() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#stopStraightDrive()
-			 */
-			@Override
-			public boolean stopStraightDrive() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#changeSensitivity()
-			 */
-			@Override
-			public boolean changeSensitivity() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftDown()
-			 */
-			@Override
-			public boolean digitalLiftDown() {
-				return false;
-			}
-
-			/* (non-Javadoc)
-			 * @see org._2585robophiles.frc2015.input.InputMethod#digitalLiftUp()
-			 */
-			@Override
-			public boolean digitalLiftUp() {
-				return false;
-			}
-		});
+		rotation = -0.04;
 		wheelSystem.run();
 		Assert.assertEquals(0, currentRotation, 0);
 	}
