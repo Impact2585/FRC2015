@@ -28,7 +28,6 @@ public class TeleopExecuter extends RunnableExecuter implements Initializable {
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.Initializable#init(org._2585robophiles.frc2015.Environment)
 	 */
-	@SuppressWarnings("unchecked")// not using generics so Lib2585 can remain compatible with Java ME
 	@Override
 	public void init(Environment environment) {
 		getRunnables().add(environment.getWheelSystem());
