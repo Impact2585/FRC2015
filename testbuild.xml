@@ -47,7 +47,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" haltonfailure="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="org._2585robophiles.frc2015.tests.WheelSystemTest" todir="${junit.output.dir}"/>
+            <test name="org.impact2585.frc2015.tests.WheelSystemTest" todir="${junit.output.dir}"/>
             <classpath refid="FRC2015.classpath"/>
         </junit>
     </target>
@@ -55,7 +55,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" haltonerror="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="org._2585robophiles.frc2015.tests.AccelerometerTest" todir="${junit.output.dir}"/>
+            <test name="org.impact2585.frc2015.tests.AccelerometerTest" todir="${junit.output.dir}"/>
             <classpath refid="FRC2015.classpath"/>
         </junit>
     </target>
@@ -63,7 +63,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" haltonfailure="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="org._2585robophiles.frc2015.tests.GyroSystemTest" todir="${junit.output.dir}"/>
+            <test name="org.impact2585.frc2015.tests.GyroSystemTest" todir="${junit.output.dir}"/>
             <classpath refid="FRC2015.classpath"/>
         </junit>
     </target>
@@ -71,7 +71,7 @@
         <mkdir dir="${junit.output.dir}"/>
         <junit fork="yes" haltonfailure="yes" printsummary="withOutAndErr">
             <formatter type="xml"/>
-            <test name="org._2585robophiles.frc2015.tests.LiftSystemTest" todir="${junit.output.dir}"/>
+            <test name="org.impact2585.frc2015.tests.LiftSystemTest" todir="${junit.output.dir}"/>
             <classpath refid="FRC2015.classpath"/>
         </junit>
     </target>

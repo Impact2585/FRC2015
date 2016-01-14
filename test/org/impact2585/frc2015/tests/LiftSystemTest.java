@@ -1,8 +1,8 @@
-package org._2585robophiles.frc2015.tests;
+package org.impact2585.frc2015.tests;
 
-import org._2585robophiles.frc2015.input.InputMethod;
-import org._2585robophiles.frc2015.systems.LiftSystem;
 import org.hamcrest.CoreMatchers;
+import org.impact2585.frc2015.input.InputMethod;
+import org.impact2585.frc2015.systems.LiftSystem;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

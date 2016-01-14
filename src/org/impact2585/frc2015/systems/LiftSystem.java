@@ -1,9 +1,9 @@
-package org._2585robophiles.frc2015.systems;
+package org.impact2585.frc2015.systems;
 
-import org._2585robophiles.frc2015.Environment;
-import org._2585robophiles.frc2015.RobotMap;
-import org._2585robophiles.frc2015.input.InputMethod;
 import org._2585robophiles.lib2585.MultiMotor;
+import org.impact2585.frc2015.Environment;
+import org.impact2585.frc2015.RobotMap;
+import org.impact2585.frc2015.input.InputMethod;
 
 import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.Encoder;
