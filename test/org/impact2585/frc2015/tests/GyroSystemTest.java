@@ -1,9 +1,9 @@
 /**
  * 
  */
-package org._2585robophiles.frc2015.tests;
+package org.impact2585.frc2015.tests;
 
-import org._2585robophiles.frc2015.systems.GyroSystem;
+import org.impact2585.frc2015.systems.GyroSystem;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

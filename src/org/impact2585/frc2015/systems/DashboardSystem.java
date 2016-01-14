@@ -1,6 +1,6 @@
-package org._2585robophiles.frc2015.systems;
+package org.impact2585.frc2015.systems;
 
-import org._2585robophiles.frc2015.Environment;
+import org.impact2585.frc2015.Environment;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 

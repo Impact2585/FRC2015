@@ -1,7 +1,7 @@
-package org._2585robophiles.frc2015;
+package org.impact2585.frc2015;
 
-import org._2585robophiles.frc2015.systems.LiftSystem;
 import org._2585robophiles.lib2585.Executer;
+import org.impact2585.frc2015.systems.LiftSystem;
 
 /**
  * Executer for autonomous mode

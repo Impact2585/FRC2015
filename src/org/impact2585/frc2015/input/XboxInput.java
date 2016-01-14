@@ -1,28 +1,37 @@
-package org._2585robophiles.frc2015.input;
+package org.impact2585.frc2015.input;
+
+import org._2585robophiles.lib2585.XboxConstants;
 
 import edu.wpi.first.wpilibj.Joystick;
 
 /**
- * Input from the joysticks
+ * Input from an xbox360 controller
  */
-public class JoystickInput implements InputMethod {
+public class XboxInput implements InputMethod {
 	
-	private Joystick left , right;
+	private Joystick controller;
 	
 	/**
 	 * Initialize a joystick
 	 */
-	public JoystickInput() {
-		 left = new Joystick(0);
-	     right = new Joystick(1);
+	public XboxInput() {
+		controller = new Joystick(0);
 	}
 	
+	/**
+	 * Use the given joystick
+	 * @param joystick the xbox360 contoller
+	 */
+	public XboxInput(Joystick joystick){
+		controller = joystick;
+	}
+
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.input.InputMethod#forwardMovement()
 	 */
 	@Override
 	public double forwardMovement() {
-		return left.getY();
+		return (-controller.getRawAxis(1));// left stick y-axis
 	}
 
 	/* (non-Javadoc)
@@ -30,7 +39,7 @@ public class JoystickInput implements InputMethod {
 	 */
 	@Override
 	public double sidewaysMovement() {
-		return left.getX();
+		return (controller.getRawAxis(0));// left stick x-axis
 	}
 
 	/* (non-Javadoc)
@@ -38,7 +47,7 @@ public class JoystickInput implements InputMethod {
 	 */
 	@Override
 	public double rotation() {
-		return right.getX();
+		return controller.getRawAxis(XboxConstants.RIGHT_X_AXIS);
 	}
 
 	/* (non-Javadoc)
@@ -46,7 +55,7 @@ public class JoystickInput implements InputMethod {
 	 */
 	@Override
 	public boolean straightDrive() {
-		return false;
+		return controller.getRawButton(XboxConstants.BACK_BUTTON);
 	}
 	
 	/* (non-Javadoc)
@@ -54,7 +63,7 @@ public class JoystickInput implements InputMethod {
 	 */
 	@Override
 	public double analogLiftUp() {
-		return 0;
+		return controller.getRawAxis(3);// right trigger
 	}
 
 	/* (non-Javadoc)
@@ -62,7 +71,7 @@ public class JoystickInput implements InputMethod {
 	 */
 	@Override
 	public double analogLiftDown() {
-		return 0;
+		return controller.getRawAxis(2);// left trigger
 	}
 	
 	/* (non-Javadoc)
@@ -70,7 +79,7 @@ public class JoystickInput implements InputMethod {
 	 */
 	@Override
 	public boolean digitalLiftDown() {
-		return false;
+		return controller.getRawButton(XboxConstants.LEFT_BUMPER);
 	}
 
 	/* (non-Javadoc)
@@ -78,9 +87,8 @@ public class JoystickInput implements InputMethod {
 	 */
 	@Override
 	public boolean digitalLiftUp() {
-		return false;
+		return controller.getRawButton(XboxConstants.RIGHT_BUMPER);
 	}
-
 	
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpointDown()
@@ -97,13 +105,13 @@ public class JoystickInput implements InputMethod {
 	public boolean liftSetpointUp() {
 		return false;
 	}
-	
+
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.input.InputMethod#liftSetpoint1()
 	 */
 	@Override
 	public boolean liftSetpoint1() {
-		return false;
+		return controller.getRawButton(XboxConstants.A_BUTTON);
 	}
 	
 	/* (non-Javadoc)
@@ -111,7 +119,7 @@ public class JoystickInput implements InputMethod {
 	 */
 	@Override
 	public boolean liftSetpoint2() {
-		return false;
+		return controller.getRawButton(XboxConstants.X_BUTTON);
 	}
 	
 	/* (non-Javadoc)
@@ -119,7 +127,7 @@ public class JoystickInput implements InputMethod {
 	 */
 	@Override
 	public boolean liftSetpoint3() {
-		return false;
+		return controller.getRawButton(XboxConstants.B_BUTTON);
 	}
 	
 	/* (non-Javadoc)
@@ -127,7 +135,7 @@ public class JoystickInput implements InputMethod {
 	 */
 	@Override
 	public boolean liftSetpoint4() {
-		return false;
+		return controller.getRawButton(XboxConstants.Y_BUTTON);
 	}
 	
 	/* (non-Javadoc)
@@ -135,7 +143,7 @@ public class JoystickInput implements InputMethod {
 	 */
 	@Override
 	public boolean groundLift() {
-		return false;
+		return controller.getRawButton(XboxConstants.START_BUTTON);
 	}
 	
 	/* (non-Javadoc)
@@ -143,7 +151,7 @@ public class JoystickInput implements InputMethod {
 	 */
 	@Override
 	public boolean stopStraightDrive() {
-		return false;
+		return controller.getRawButton(XboxConstants.LEFT_JOYSTICK_BUTTON);
 	}
 	
 	/* (non-Javadoc)
@@ -151,15 +159,14 @@ public class JoystickInput implements InputMethod {
 	 */
 	@Override
 	public boolean changeSensitivity() {
-		return false;
+		return controller.getRawButton(XboxConstants.RIGHT_JOYSTICK_BUTTON);
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.input.InputMethod#joysticks()
 	 */
 	@Override
 	public Joystick[] joysticks() {
-		return new Joystick[] {left , right};
+		return new Joystick[]{controller};
 	}
-
 }

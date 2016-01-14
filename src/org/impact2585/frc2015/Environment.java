@@ -1,13 +1,13 @@
-package org._2585robophiles.frc2015;
+package org.impact2585.frc2015;
 
-import org._2585robophiles.frc2015.input.InputMethod;
-import org._2585robophiles.frc2015.input.XboxInput;
-import org._2585robophiles.frc2015.systems.AccelerometerSystem;
-import org._2585robophiles.frc2015.systems.DashboardSystem;
-import org._2585robophiles.frc2015.systems.GyroSystem;
-import org._2585robophiles.frc2015.systems.LiftSystem;
-import org._2585robophiles.frc2015.systems.WheelSystem;
 import org._2585robophiles.lib2585.RobotEnvironment;
+import org.impact2585.frc2015.input.InputMethod;
+import org.impact2585.frc2015.input.XboxInput;
+import org.impact2585.frc2015.systems.AccelerometerSystem;
+import org.impact2585.frc2015.systems.DashboardSystem;
+import org.impact2585.frc2015.systems.GyroSystem;
+import org.impact2585.frc2015.systems.LiftSystem;
+import org.impact2585.frc2015.systems.WheelSystem;
 
 /**
  * This class contains the robot's systems and input

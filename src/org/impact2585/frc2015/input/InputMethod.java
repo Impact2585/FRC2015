@@ -1,4 +1,4 @@
-package org._2585robophiles.frc2015.input;
+package org.impact2585.frc2015.input;
 
 import edu.wpi.first.wpilibj.Joystick;
 

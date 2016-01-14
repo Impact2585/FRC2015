@@ -1,4 +1,4 @@
-package org._2585robophiles.frc2015;
+package org.impact2585.frc2015;
 
 import org._2585robophiles.lib2585.ExecuterBasedRobot;
 
