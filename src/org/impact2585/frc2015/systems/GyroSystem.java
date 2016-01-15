@@ -3,18 +3,18 @@ package org.impact2585.frc2015.systems;
 import org.impact2585.frc2015.Environment;
 import org.impact2585.frc2015.RobotMap;
 
-import edu.wpi.first.wpilibj.Gyro;
+import edu.wpi.first.wpilibj.AnalogGyro;
 
 public class GyroSystem implements RobotSystem {
 	
-	private Gyro gyro;
+	private AnalogGyro gyro;
 
 	/* (non-Javadoc)
 	 * @see org._2585robophiles.frc2015.Initializable#init(org._2585robophiles.frc2015.Environment)
 	 */
 	@Override
 	public void init(Environment environment) {
-		gyro = new Gyro(RobotMap.GYRO);
+		gyro = new AnalogGyro(RobotMap.GYRO);
 		gyro.initGyro();
 	}
 	

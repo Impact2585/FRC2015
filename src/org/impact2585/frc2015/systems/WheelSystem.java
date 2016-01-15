@@ -269,7 +269,7 @@ public class WheelSystem implements RobotSystem, Runnable {
 	 * @return whether or not the robot is straight driving
 	 */
 	public synchronized boolean straightDriving(){
-		return straightDrivePID.getPIDController().isEnable();
+		return straightDrivePID.getPIDController().isEnabled();
 	}
 
 	/* (non-Javadoc)
