@@ -68,9 +68,9 @@ public class RoboRealmSystem implements RobotSystem, ITableListener {
 	 * @see edu.wpi.first.wpilibj.tables.ITableListener#valueChanged(edu.wpi.first.wpilibj.tables.ITable, java.lang.String, java.lang.Object, boolean)
 	 */
 	public void setNums() {
-		yCoord = nt.getNumber("COG_Y");
-		xCoord = nt.getNumber("COG_X");
-		area = nt.getNumber("COG_AREA");
+		yCoord = nt.getNumber("COG_Y", 0);
+		xCoord = nt.getNumber("COG_X", 0);
+		area = nt.getNumber("COG_AREA", 0);
 		if (MIN_AREA < area && area < MAX_AREA) {
 			distance = area / DISTANCE_CONSTANT;
 		} else {
