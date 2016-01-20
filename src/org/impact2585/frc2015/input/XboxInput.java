@@ -1,6 +1,6 @@
 package org.impact2585.frc2015.input;
 
-import org._2585robophiles.lib2585.XboxConstants;
+import org.impact2585.lib2585.XboxConstants;
 
 import edu.wpi.first.wpilibj.Joystick;
 
