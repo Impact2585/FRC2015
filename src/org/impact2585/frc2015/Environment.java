@@ -1,6 +1,6 @@
 package org.impact2585.frc2015;
 
-import org._2585robophiles.lib2585.RobotEnvironment;
+import org.impact2585.lib2585.RobotEnvironment;
 import org.impact2585.frc2015.input.InputMethod;
 import org.impact2585.frc2015.input.XboxInput;
 import org.impact2585.frc2015.systems.AccelerometerSystem;

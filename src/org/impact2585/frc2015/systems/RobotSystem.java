@@ -1,6 +1,6 @@
 package org.impact2585.frc2015.systems;
 
-import org._2585robophiles.lib2585.Destroyable;
+import org.impact2585.lib2585.Destroyable;
 import org.impact2585.frc2015.Initializable;
 
 /**
