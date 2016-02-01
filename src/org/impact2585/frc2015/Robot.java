@@ -49,6 +49,15 @@ public class Robot extends ExecuterBasedRobot {
 		setExecuter(new TestExecuter(environment));
 	}
 
+	/* (non-Javadoc)
+	 * @see edu.wpi.first.wpilibj.RobotBase#free()
+	 */
+	@Override
+	public void free() {
+		super.free();
+		environment.destroy();
+	}
+
 	/**
 	 * @return the environment
 	 */
